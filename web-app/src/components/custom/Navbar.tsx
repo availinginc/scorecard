@@ -2,18 +2,22 @@
 
 import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
-
 import Logo from "@/components/custom/Logo";
 
-const login = (e) => {
-  e.preventDefault();
-  window.location.href = "/login";
-};
+import { Button } from "@/components/ui/button";
 
-const logout = (e) => {
+import { Login } from "@/lib/actions";
+
+const logOut = (e) => {
   e.preventDefault();
   window.location.href = "/";
+};
+
+const logIn = async (e) => {
+  e.preventDefault();
+  // window.location.href = "/";
+  const loggedIn = await Login();
+  console.log("----loggedin", loggedIn);
 };
 
 export default function Navbar() {
@@ -50,7 +54,7 @@ export default function Navbar() {
             <Button
               className="button-alt py-3 px-3 md:px-9"
               variant="outline"
-              onClick={(e) => logout(e)}
+              onClick={(e) => logOut(e)}
             >
               Log out
             </Button>
@@ -60,7 +64,8 @@ export default function Navbar() {
             <Button
               className="button-alt py-3 px-3 md:px-9"
               variant="outline"
-              onClick={(e) => login(e)}
+              type="submit"
+              onClick={(e) => logIn(e)}
             >
               Login
             </Button>
