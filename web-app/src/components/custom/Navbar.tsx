@@ -6,13 +6,17 @@ import { Button } from "@/components/ui/button";
 
 import Logo from "@/components/custom/Logo";
 
-const navigate = (page) => {
-  if (page) {
-    window.location.href = page;
-  }
+const login = (e) => {
+  e.preventDefault();
+  window.location.href = "/login";
 };
 
-export default function Navar() {
+const logout = (e) => {
+  e.preventDefault();
+  window.location.href = "/";
+};
+
+export default function Navbar() {
   return (
     <nav className="mb-16">
       <ul className="flex flex-row space-x-6 md:space-x-9 space-y-0 mx-auto mt-3 font-sm">
@@ -41,15 +45,27 @@ export default function Navar() {
             Get Started
           </Button>
         </li>
-        <li className="flex items-center self-center justify-self-end transition-all">
-          <Button
-            className="button-alt py-3 px-3 md:px-9"
-            variant="outline"
-            onClick={() => navigate("/login")}
-          >
-            Login
-          </Button>
-        </li>
+        {false ? (
+          <li className="flex items-center self-center justify-self-end transition-all">
+            <Button
+              className="button-alt py-3 px-3 md:px-9"
+              variant="outline"
+              onClick={(e) => logout(e)}
+            >
+              Log out
+            </Button>
+          </li>
+        ) : (
+          <li className="flex items-center self-center justify-self-end transition-all">
+            <Button
+              className="button-alt py-3 px-3 md:px-9"
+              variant="outline"
+              onClick={(e) => login(e)}
+            >
+              Login
+            </Button>
+          </li>
+        )}
       </ul>
     </nav>
   );

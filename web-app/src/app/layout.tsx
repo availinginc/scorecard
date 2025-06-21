@@ -68,11 +68,11 @@ export default function RootLayout({
         />
       </head>
       <body className="max-w-6xl mt-[9vh] mx-9 xl:mx-auto">
+        <Navbar />
         <main className="flex flex-col flex-auto min-w-0 mt-3 px-3 md:px-0">
-          <Navbar />
           {children}
-          <Footer />
         </main>
+        <Footer />
       </body>
     </html>
   );
