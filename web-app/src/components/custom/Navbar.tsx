@@ -1,8 +1,16 @@
+"use client";
+
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 
 import Logo from "@/components/custom/Logo";
+
+const navigate = (page) => {
+  if (page) {
+    window.location.href = page;
+  }
+};
 
 export default function Navar() {
   return (
@@ -30,7 +38,16 @@ export default function Navar() {
         </li>
         <li className="flex items-center self-center justify-self-end ml-auto transition-all">
           <Button className="button py-3 px-3 md:px-9" variant="outline">
-            Download
+            Get Started
+          </Button>
+        </li>
+        <li className="flex items-center self-center justify-self-end transition-all">
+          <Button
+            className="button-alt py-3 px-3 md:px-9"
+            variant="outline"
+            onClick={() => navigate("/login")}
+          >
+            Login
           </Button>
         </li>
       </ul>
