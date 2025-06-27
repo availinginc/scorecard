@@ -14,10 +14,14 @@ const logOut = (e) => {
 };
 
 const logIn = async (e) => {
-  e.preventDefault();
-  // window.location.href = "/";
-  const loggedIn = await Login();
-  console.log("----loggedin", loggedIn);
+  try {
+    e.preventDefault();
+    // window.location.href = "/";
+    const loggedIn = await Login();
+    console.log("----loggedin", await loggedIn);
+  } catch (error) {
+    console.log("----error", await error);
+  }
 };
 
 export default function Navbar() {
