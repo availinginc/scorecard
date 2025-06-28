@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { ErrorResponseType } from "../../client/ResponseTypes";
 
 export const SignUp: React.FC = () => {
+  const [username, setUsername] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [surname, setSurname] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -53,6 +54,15 @@ export const SignUp: React.FC = () => {
     <div className="sign-up-form">
       <form onSubmit={handleSubmit}>
         <h2>Sign Up</h2>
+        <div className="form-group">
+          <label>Username:</label>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </div>
         <div className="form-group">
           <label>Name:</label>
           <input

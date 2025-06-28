@@ -1,5 +1,5 @@
-const tenantSubdomain = "Enter_the_Tenant_Subdomain_Here";
-const tenantId = "Enter_the_Tenant_Id_Here";
+const tenantSubdomain = "pinpointscoregolf";
+const tenantId = "";
 
 const config = {
   localApiPath: "/api",

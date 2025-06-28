@@ -7,6 +7,8 @@ import {
 } from "../../client/SignInService";
 import { ErrorResponseType } from "../../client/ResponseTypes";
 
+import { FormLayout, TextField } from "@shopify/polaris";
+
 export const SignIn: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -50,33 +52,50 @@ export const SignIn: React.FC = () => {
   };
 
   return (
-    <div className="login-form">
-      <form onSubmit={handleSubmit}>
-        <h2>Login</h2>
-        <div className="form-group">
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        {error && <div className="error">{error}</div>}
-        {isLoading && <div className="warning">Sending request...</div>}
-        <button type="submit" disabled={isLoading}>
-          Login
-        </button>
-      </form>
-    </div>
+    <>
+      <div className="login-form">
+        <form onSubmit={handleSubmit}>
+          <h2>Login</h2>
+          <div className="form-group">
+            <label>Email:</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Password:</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          {error && <div className="error">{error}</div>}
+          {isLoading && <div className="warning">Sending request...</div>}
+          <button type="submit" disabled={isLoading}>
+            Login
+          </button>
+        </form>
+      </div>
+      {/* <FormLayout className="Polaris-FormLayout">
+        <TextField
+          className="Polaris-TextField"
+          label="Store name"
+          onChange={() => {}}
+          autoComplete="off"
+        />
+        <TextField
+          className="Polaris-TextField"
+          type="email"
+          label="Account email"
+          onChange={() => {}}
+          autoComplete="email"
+        />
+      </FormLayout> */}
+    </>
   );
 };

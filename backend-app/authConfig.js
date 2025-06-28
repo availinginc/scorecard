@@ -1,13 +1,14 @@
 require("dotenv").config();
 
 const TENANT_SUBDOMAIN =
-  process.env.TENANT_SUBDOMAIN || "Enter_the_Tenant_Subdomain_Here";
+  process.env.REACT_APP_TENANT_SUBDOMAIN || "Enter_the_Tenant_Subdomain_Here";
 const REDIRECT_URI =
-  process.env.REDIRECT_URI || "http://localhost:3000/auth/redirect";
+  process.env.REACT_APP_REDIRECT_URI || "http://localhost:3000/auth/redirect";
 const POST_LOGOUT_REDIRECT_URI =
-  process.env.POST_LOGOUT_REDIRECT_URI || "http://localhost:3000";
+  process.env.REACT_APP_POST_LOGOUT_REDIRECT_URI || "http://localhost:3000";
 const GRAPH_ME_ENDPOINT =
-  process.env.GRAPH_API_ENDPOINT + "v1.0/me" || "Enter_the_Graph_Endpoint_Here";
+  process.env.REACT_APP_GRAPH_API_ENDPOINT + "v1.0/me" ||
+  "Enter_the_Graph_Endpoint_Here";
 
 /**
  * Configuration object to be passed to MSAL instance on creation.

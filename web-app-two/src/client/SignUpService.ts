@@ -18,7 +18,7 @@ export const signupStart = async (payload: SignUpFormPassword) => {
     username: payload.username,
     password: payload.password,
     client_id: CLIENT_ID,
-    challenge_type: "password oob redirect",
+    challenge_type: "oob password redirect",
   };
 
   return await postRequest(ENV.urlSignupStart, payloadExt);
@@ -30,7 +30,7 @@ export const signupChallenge = async (
 ): Promise<ChallengeResponse> => {
   const payloadExt: SignUpChallengeRequest = {
     client_id: CLIENT_ID,
-    challenge_type: "password oob redirect",
+    challenge_type: "oob password redirect",
     continuation_token: payload.continuation_token,
   };
 
