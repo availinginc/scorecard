@@ -3,6 +3,8 @@ import { signupChallenge, signupStart } from "../../client/SignUpService";
 import { useNavigate } from "react-router-dom";
 import { ErrorResponseType } from "../../client/ResponseTypes";
 
+import { Button } from "@shopify/polaris";
+
 export const SignUp: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [name, setName] = useState<string>("");
@@ -103,7 +105,7 @@ export const SignUp: React.FC = () => {
         </div>
         {error && <div className="error">{error}</div>}
         {isLoading && <div className="warning">Sending request...</div>}
-        <button type="submit">Sign Up</button>
+        <Button submit>Sign Up</Button>
       </form>
     </div>
   );

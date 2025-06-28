@@ -11,11 +11,9 @@ export const ENV: any = {
   urlOauthInit: `${BASE_API_URL}/oauth2/v2.0/initiate`,
   urlOauthChallenge: `${BASE_API_URL}/oauth2/v2.0/challenge`,
   urlOauthToken: `${BASE_API_URL}/oauth2/v2.0/token`,
-
   urlSignupStart: `${BASE_API_URL}/signup/v1.0/start`,
   urlSignupChallenge: `${BASE_API_URL}/signup/v1.0/challenge`,
   urlSignupContinue: `${BASE_API_URL}/signup/v1.0/continue`,
-
   urlResetPwdStart: `${BASE_API_URL}/resetpassword/v1.0/start`,
   urlResetPwdChallenge: `${BASE_API_URL}/resetpassword/v1.0/challenge`,
   urlResetPwdContinue: `${BASE_API_URL}/resetpassword/v1.0/continue`,
