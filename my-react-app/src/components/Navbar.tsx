@@ -12,6 +12,8 @@ export default function Navbar() {
               src={PinPointScore}
               className="logo"
               alt="Pin Point Score logo"
+              height={30}
+              width={30}
             />
           </Link>
         </li>
@@ -25,20 +27,35 @@ export default function Navbar() {
             About
           </Link>
         </li>
-        <li className="flex items-center self-center justify-self-end ml-auto transition-all button py-3 px-3 md:px-9">
-          <Link rel="noopener noreferrer" target="_self" to="/signup">
+        <li className="flex items-center self-center justify-self-end ml-auto transition-all">
+          <Link
+            rel="noopener noreferrer"
+            target="_self"
+            to="/signup"
+            className="button py-3 px-3 md:px-9"
+          >
             Sign Up
           </Link>
         </li>
         {false ? (
-          <li className="flex items-center self-center justify-self-end transition-all button-alt py-3 px-3 md:px-9">
-            <Link rel="noopener noreferrer" target="_self" to="/">
+          <li className="flex items-center self-center justify-self-end transition-all">
+            <Link
+              rel="noopener noreferrer"
+              target="_self"
+              to="/"
+              className="button-alt py-3 px-3 md:px-9"
+            >
               Sign Out
             </Link>
           </li>
         ) : (
-          <li className="flex items-center self-center justify-self-end transition-all button-alt py-3 px-3 md:px-9">
-            <Link rel="noopener noreferrer" target="_self" to="/signin">
+          <li className="flex items-center self-center justify-self-end transition-all">
+            <Link
+              rel="noopener noreferrer"
+              target="_self"
+              to="/signin"
+              className="button-alt py-3 px-3 md:px-9"
+            >
               Sign In
             </Link>
           </li>
