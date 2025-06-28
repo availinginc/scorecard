@@ -1,5 +1,7 @@
-// ResetPassword.tsx
 import React, { useState } from "react";
+
+import { Link } from "react-router-dom";
+
 import {
   resetChallenge,
   resetStart,
@@ -11,6 +13,9 @@ import type {
   ChallengeResponse,
   ErrorResponseType,
 } from "../../client/ResponseTypes";
+
+import { Field, Fieldset, Input, Label, Button } from "@headlessui/react";
+import clsx from "clsx";
 
 export const ResetPassword: React.FC = () => {
   const [username, setUsername] = useState<string>("");
@@ -110,75 +115,149 @@ export const ResetPassword: React.FC = () => {
   };
 
   return (
-    <div className="reset-password-form">
-      //collect username to initiate password reset flow
-      {step === 1 && (
-        <form onSubmit={handleResetPassword}>
-          <h2>Reset Password</h2>
-          <div className="form-group">
-            <label>Username:</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
-          {error && <div className="error">{error}</div>}
-          {isLoading && <div className="warning">Sending request...</div>}
-          <button type="submit">Reset Password</button>
-        </form>
-      )}
-      //collect OTP
-      {step === 2 && (
-        <form onSubmit={handleSubmitCode}>
-          <h2>
-            Submit one time code received via email at{" "}
-            {tokenRes.challenge_target_label}
-          </h2>
-          <div className="form-group">
-            <label>One time code:</label>
-            <input
-              type="text"
-              maxLength={tokenRes.code_length}
-              value={otp}
-              onChange={(e) => setOTP(e.target.value)}
-              required
-            />
-          </div>
-          {error && <div className="error">{error}</div>}
-          {isLoading && <div className="warning">Sending request...</div>}
-          <button type="submit">Submit code</button>
-        </form>
-      )}
-      //Collect new password
-      {step === 3 && (
-        <form onSubmit={handleSubmitNewPassword}>
-          <h2>Submit New Password</h2>
-          <div className="form-group">
-            <label>New Password:</label>
-            <input
-              type="password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              required
-            />
-          </div>
-          {error && <div className="error">{error}</div>}
-          {isLoading && <div className="warning">Sending request...</div>}
-          <button type="submit">Submit New Password</button>
-        </form>
-      )}
-      //report success after password reset is successful
-      {step === 4 && (
-        <div className="reset-password-success">
-          <h2>Password Reset Successful</h2>
-          <p>
-            Your password has been reset successfully. You can now log in with
-            your new password.
-          </p>
-        </div>
-      )}
-    </div>
+    <>
+      <div className="reset-password-form">
+        {/* Collect username to initiate password reset flow */}
+        {step === 1 && (
+          <section className="reset-password-form">
+            <h1 className="mx-auto text-3xl md:text-6xl font-light subpixel-antialiased">
+              Reset Password
+            </h1>
+            <h3 className="my-3 md:my-9 mx-auto text-xl md:text-3xl font-light subpixel-antialiased">
+              Enter your username to regain access to your account.
+            </h3>
+            <form onSubmit={handleResetPassword}>
+              <div className="my-3 md:my-9 mx-auto">
+                <Fieldset className="space-y-6">
+                  <Field>
+                    <Label className="text-sm/6 font-medium text-white">
+                      Username:
+                    </Label>
+                    <Input
+                      className={clsx(
+                        "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-sm/6 text-white",
+                        "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
+                      )}
+                      type="text"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      required
+                    />
+                  </Field>
+                  {error && <div className="error">{error}</div>}
+                  {isLoading && (
+                    <div className="warning">Sending request...</div>
+                  )}
+                  <Button className="button py-3 px-3 md:px-9" type="submit">
+                    Reset Password
+                  </Button>
+                </Fieldset>
+              </div>
+            </form>
+          </section>
+        )}
+        {/* Collect OTP */}
+        {step === 2 && (
+          <section className="reset-password-form">
+            <h1 className="mx-auto text-3xl md:text-6xl font-light subpixel-antialiased">
+              Reset Password
+            </h1>
+            <h3 className="my-3 md:my-9 mx-auto text-xl md:text-3xl font-light subpixel-antialiased">
+              Submit your one time code received via email at{" "}
+              {tokenRes.challenge_target_label} .
+            </h3>
+            <form onSubmit={handleSubmitCode}>
+              <div className="my-3 md:my-9 mx-auto">
+                <Fieldset className="space-y-6">
+                  <Field>
+                    <Label className="text-sm/6 font-medium text-white">
+                      One Time Code:
+                    </Label>
+                    <Input
+                      className={clsx(
+                        "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-sm/6 text-white",
+                        "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
+                      )}
+                      type="text"
+                      maxLength={tokenRes.code_length}
+                      value={otp}
+                      onChange={(e) => setOTP(e.target.value)}
+                      required
+                    />
+                  </Field>
+                  {error && <div className="error">{error}</div>}
+                  {isLoading && (
+                    <div className="warning">Sending request...</div>
+                  )}
+                  <Button className="button py-3 px-3 md:px-9" type="submit">
+                    Submit Code
+                  </Button>
+                </Fieldset>
+              </div>
+            </form>
+          </section>
+        )}
+        {/* Collect new password */}
+        {step === 3 && (
+          <section className="reset-password-form">
+            <h1 className="mx-auto text-3xl md:text-6xl font-light subpixel-antialiased">
+              Reset Password
+            </h1>
+            <h3 className="my-3 md:my-9 mx-auto text-xl md:text-3xl font-light subpixel-antialiased">
+              Create a new password for your account.
+            </h3>
+            <form onSubmit={handleSubmitNewPassword}>
+              <div className="my-3 md:my-9 mx-auto">
+                <Fieldset className="space-y-6">
+                  <Field>
+                    <Label className="text-sm/6 font-medium text-white">
+                      New Password:
+                    </Label>
+                    <Input
+                      className={clsx(
+                        "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-sm/6 text-white",
+                        "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
+                      )}
+                      type="password"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      required
+                    />
+                  </Field>
+                  {error && <div className="error">{error}</div>}
+                  {isLoading && (
+                    <div className="warning">Sending request...</div>
+                  )}
+                  <Button className="button py-3 px-3 md:px-9" type="submit">
+                    Create New Password
+                  </Button>
+                </Fieldset>
+              </div>
+            </form>
+          </section>
+        )}
+        {/* Report success after password reset is successful */}
+        {step === 4 && (
+          <section className="sign-up-form">
+            <h1 className="mx-auto text-3xl md:text-6xl font-light subpixel-antialiased">
+              Reset Password
+            </h1>
+            <h3 className="my-3 md:my-9 mx-auto text-xl md:text-3xl font-light subpixel-antialiased">
+              Your password has been successfully reset!
+            </h3>
+            <div className="my-3 md:my-9 mx-auto">
+              <Link
+                rel="noopener noreferrer"
+                target="_self"
+                to="/signin"
+                className="button-alt py-3 px-3 md:px-9"
+              >
+                Sign In
+              </Link>
+            </div>
+          </section>
+        )}
+      </div>
+    </>
   );
 };

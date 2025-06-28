@@ -46,7 +46,7 @@ export const SignUpChallenge: React.FC = () => {
           Sign Up Challenge
         </h1>
         <h3 className="my-3 md:my-9 mx-auto text-xl md:text-3xl font-light subpixel-antialiased">
-          Insert your one time code received at {challenge_target_label}
+          Insert your one time code received at {challenge_target_label} .
         </h3>
         <form onSubmit={handleSubmit}>
           <div className="my-3 md:my-9 mx-auto">

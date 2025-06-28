@@ -64,7 +64,7 @@ export const SignUp: React.FC = () => {
           Sign Up
         </h1>
         <h3 className="my-3 md:my-9 mx-auto text-xl md:text-3xl font-light subpixel-antialiased">
-          Get started with your account
+          Get started with your account!
         </h3>
         <form onSubmit={handleSubmit}>
           <div className="my-3 md:my-9 mx-auto">
