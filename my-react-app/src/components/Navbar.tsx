@@ -1,12 +1,18 @@
 import { Link } from "react-router-dom";
 
+import PinPointScore from "/pinpointscore.svg";
+
 export default function Navbar() {
   return (
     <nav className="mb-16">
       <ul className="flex flex-row space-x-6 md:space-x-9 space-y-0 mx-auto mt-3 font-sm">
         <li className="flex items-center self-center transition-all">
           <Link rel="noopener noreferrer" target="_self" to="/">
-            <img alt="Pin Point Score" src="/pinpointscore.svg" />
+            <img
+              src={PinPointScore}
+              className="logo"
+              alt="Pin Point Score logo"
+            />
           </Link>
         </li>
         <li className="flex items-center self-center transition-all">
