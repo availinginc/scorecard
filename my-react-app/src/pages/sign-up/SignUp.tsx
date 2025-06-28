@@ -1,7 +1,12 @@
 import React, { useState } from "react";
-import { signupChallenge, signupStart } from "../../client/SignUpService";
+
 import { useNavigate } from "react-router-dom";
+
+import { signupChallenge, signupStart } from "../../client/SignUpService";
 import type { ErrorResponseType } from "../../client/ResponseTypes";
+
+import { Field, Fieldset, Input, Label, Button } from "@headlessui/react";
+import clsx from "clsx";
 
 export const SignUp: React.FC = () => {
   const [username, setUsername] = useState<string>("");
@@ -53,58 +58,97 @@ export const SignUp: React.FC = () => {
   };
 
   return (
-    <div className="sign-up-form">
-      <form onSubmit={handleSubmit}>
-        <h2>Sign Up</h2>
-        <div className="form-group">
-          <label>Username:</label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Name:</label>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Last Name:</label>
-          <input
-            type="text"
-            value={surname}
-            onChange={(e) => setSurname(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        {error && <div className="error">{error}</div>}
-        {isLoading && <div className="warning">Sending request...</div>}
-        <button type="submit">Sign Up</button>
-      </form>
-    </div>
+    <>
+      <section className="sign-up-form">
+        <h1 className="mx-auto text-3xl md:text-6xl font-light subpixel-antialiased">
+          Sign Up
+        </h1>
+        <h3 className="my-3 md:my-9 mx-auto text-xl md:text-3xl font-light subpixel-antialiased">
+          Get started with your account
+        </h3>
+        <form onSubmit={handleSubmit}>
+          <div className="my-3 md:my-9 mx-auto">
+            <Fieldset className="space-y-6">
+              <Field>
+                <Label className="text-sm/6 font-medium text-white">
+                  Username:
+                </Label>
+                <Input
+                  className={clsx(
+                    "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-sm/6 text-white",
+                    "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
+                  )}
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+              </Field>
+              <Field>
+                <Label className="text-sm/6 font-medium text-white">
+                  Email:
+                </Label>
+                <Input
+                  className={clsx(
+                    "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-sm/6 text-white",
+                    "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
+                  )}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </Field>
+              <Field>
+                <Label className="text-sm/6 font-medium text-white">
+                  First Name:
+                </Label>
+                <Input
+                  className={clsx(
+                    "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-sm/6 text-white",
+                    "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
+                  )}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+              </Field>
+              <Field>
+                <Label className="text-sm/6 font-medium text-white">
+                  Last Name:
+                </Label>
+                <Input
+                  className={clsx(
+                    "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-sm/6 text-white",
+                    "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
+                  )}
+                  value={surname}
+                  onChange={(e) => setSurname(e.target.value)}
+                  required
+                />
+              </Field>
+              <Field>
+                <Label className="text-sm/6 font-medium text-white">
+                  Password:
+                </Label>
+                <Input
+                  className={clsx(
+                    "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-sm/6 text-white",
+                    "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
+                  )}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  type="password"
+                />
+              </Field>
+              {error && <div className="error">{error}</div>}
+              {isLoading && <div className="warning">Sending request...</div>}
+              <Button className="button py-3 px-3 md:px-9" type="submit">
+                Create Account
+              </Button>
+            </Fieldset>
+          </div>
+        </form>
+      </section>
+    </>
   );
 };
