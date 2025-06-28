@@ -27,6 +27,7 @@ export const SignUp: React.FC = () => {
       setError("Invalid email format");
       return;
     }
+
     setError("");
     try {
       setIsloading(true);
@@ -41,6 +42,7 @@ export const SignUp: React.FC = () => {
       });
       navigate("/signup/challenge", { state: { ...res2 } });
     } catch (err) {
+      console.log("Submitting sign up form", err);
       setError(
         "An error occurred during sign up " +
           (err as ErrorResponseType).error_description
