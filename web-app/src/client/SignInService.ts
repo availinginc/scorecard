@@ -15,6 +15,10 @@ export const signInStart = async ({ username }: { username: string }) => {
     challenge_type: "password oob redirect",
   };
 
+  console.log("CLIENT_ID", CLIENT_ID);
+  console.log("ENV.urlOauthInit:", ENV.urlOauthInit);
+  console.log("signInStart payload:", payloadExt);
+
   return await postRequest(ENV.urlOauthInit, payloadExt);
 };
 

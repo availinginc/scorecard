@@ -1,12 +1,7 @@
-// App Id obatained from the Microsoft Entra portal
-export const CLIENT_ID = "39546031-535e-4b98-b59b-bc7638ca2590";
-
-// URL of the CORS proxy server
-const BASE_API_URL = `http://localhost:3001/api`;
-const REDIRECT_URI = "https://localhost:3000";
-
-// Endpoints URLs for Native Auth APIs
-export const ENV: any = {
+export const CLIENT_ID = import.meta.env.VITE_CLIENT_ID ?? "";
+export const BASE_API_URL = import.meta.env.VITE_BASE_API_URL ?? "";
+export const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI ?? "";
+export const ENV = {
   REDIRECT_URI,
   urlOauthInit: `${BASE_API_URL}/oauth2/v2.0/initiate`,
   urlOauthChallenge: `${BASE_API_URL}/oauth2/v2.0/challenge`,

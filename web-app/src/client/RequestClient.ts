@@ -1,7 +1,7 @@
 import type { ErrorResponseType } from "./ResponseTypes";
 
-export const postRequest = async (url: string, payloadExt: any) => {
-  const body = new URLSearchParams(payloadExt as any);
+export const postRequest = async (url: string, payloadExt: unknown) => {
+  const body = new URLSearchParams(payloadExt as unknown);
 
   const response = await fetch(url, {
     method: "POST",
@@ -16,6 +16,7 @@ export const postRequest = async (url: string, payloadExt: any) => {
       const errorData: ErrorResponseType = await response.json();
       throw errorData;
     } catch (jsonError) {
+      console.error("Failed to parse error response:", jsonError);
       const errorData = {
         error: response.status,
         description: response.statusText,

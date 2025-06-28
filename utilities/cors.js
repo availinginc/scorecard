@@ -1,7 +1,7 @@
 const http = require("http");
 const https = require("https");
 const url = require("url");
-const proxyConfig = require("../my-react-app/src/proxy.config.js/index.js");
+const proxyConfig = require("./proxy.config");
 
 http
   .createServer((req, res) => {
@@ -51,7 +51,7 @@ http
     }
   })
   .listen(proxyConfig.port, () => {
-    console.log("CORS proxy running on http://localhost:3001");
+    console.log(`CORS proxy running on http://localhost:${proxyConfig.port}`);
     console.log(
       "Proxying from " + proxyConfig.localApiPath + " ===> " + proxyConfig.proxy
     );
