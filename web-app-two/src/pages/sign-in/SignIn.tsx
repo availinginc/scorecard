@@ -43,6 +43,7 @@ export const SignIn: React.FC = () => {
       });
       navigate("/user", { state: res3 });
     } catch (err) {
+      console.log("Submitting sign in form", err);
       setError(
         "An error has occured " + (err as ErrorResponseType).error_description
       );
