@@ -2,8 +2,8 @@ package golf.pinpointscore.clubhouse.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 
-import golf.pinpointscore.clubhouse.models.ScorecardModel;
+import golf.pinpointscore.clubhouse.entities.ScorecardEntity;
 
-public interface ScorecardRepository extends CrudRepository<ScorecardModel, Long> {
+public interface ScorecardRepository extends CrudRepository<ScorecardEntity, Long> {
 
 }

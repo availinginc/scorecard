@@ -1,9 +1,8 @@
 package golf.pinpointscore.clubhouse.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import java.util.ArrayList;
+
+import golf.pinpointscore.clubhouse.entities.ScorecardEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -11,13 +10,6 @@ import lombok.Data;
 @Data
 public class ScoreboardModel {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false)  
-    private int userId;
-    private String golfCourse;
-    private int totalScore;
+    private ArrayList<ScorecardEntity> scorecards;
     
 }

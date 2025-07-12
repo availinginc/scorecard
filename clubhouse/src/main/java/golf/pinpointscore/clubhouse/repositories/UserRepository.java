@@ -2,8 +2,8 @@ package golf.pinpointscore.clubhouse.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 
-import golf.pinpointscore.clubhouse.models.UserModel;
+import golf.pinpointscore.clubhouse.entities.UserEntity;
 
-public interface UserRepository extends CrudRepository<UserModel, Long> {
+public interface UserRepository extends CrudRepository<UserEntity, Long> {
 
 }

@@ -1,6 +1,7 @@
-package golf.pinpointscore.clubhouse.models;
+package golf.pinpointscore.clubhouse.entities;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -9,7 +10,8 @@ import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class UserModel {
+@Entity
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
