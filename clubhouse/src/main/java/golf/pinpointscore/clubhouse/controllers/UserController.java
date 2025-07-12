@@ -11,17 +11,17 @@ import golf.pinpointscore.clubhouse.repositories.UserRepository;
 
 public class UserController {
 
-    private final UserRepository repository;
+    private final UserRepository userRepository;
 
-    UserController(UserRepository repository) {
-        this.repository = repository;
+    UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     // Get a user by id
     @GetMapping("/users/{id}")
     UserEntity getUserById(@PathVariable Long id) {
 
-        return repository.findById(id).orElse(null);
+        return userRepository.findById(id).orElse(null);
 
     }
 
@@ -29,7 +29,7 @@ public class UserController {
     @PostMapping("/users")
     UserEntity newUser(@RequestBody UserEntity newUser) {
 
-        return repository.save(newUser);
+        return userRepository.save(newUser);
 
     }
 
@@ -37,15 +37,15 @@ public class UserController {
     @PatchMapping("/users/{id}")
     UserEntity updateUser(@RequestBody UserEntity newUser, @PathVariable Long id) {
 
-        return repository.findById(id)
+        return userRepository.findById(id)
         .map(user -> {
 
             updateUserFields(user, newUser);
 
-            return repository.save(user);
+            return userRepository.save(user);
 
         })
-        .orElseGet(() -> repository.save(newUser));
+        .orElseGet(() -> userRepository.save(newUser));
 
     }
 

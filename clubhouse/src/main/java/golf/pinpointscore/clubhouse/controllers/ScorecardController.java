@@ -11,17 +11,17 @@ import golf.pinpointscore.clubhouse.repositories.ScorecardRepository;
 
 public class ScorecardController {
 
-    private final ScorecardRepository repository;
+    private final ScorecardRepository scorecardRepository;
 
-    ScorecardController(ScorecardRepository repository) {
-        this.repository = repository;
+    ScorecardController(ScorecardRepository scorecardRepository) {
+        this.scorecardRepository = scorecardRepository;
     }
 
     // Get a scorecard by id
     @GetMapping("/scorecards/{id}")
     ScorecardEntity getScorecardById(@PathVariable Long id) {
 
-        return repository.findById(id).orElse(null);
+        return scorecardRepository.findById(id).orElse(null);
 
     }
 
@@ -29,7 +29,7 @@ public class ScorecardController {
     @PostMapping("/scorecards")
     ScorecardEntity newScorecard(@RequestBody ScorecardEntity newScorecard) {
 
-        return repository.save(newScorecard);
+        return scorecardRepository.save(newScorecard);
 
     }
 
@@ -37,15 +37,15 @@ public class ScorecardController {
     @PatchMapping("/scorecards/{id}")
     ScorecardEntity updateScorecard(@RequestBody ScorecardEntity newScorecard, @PathVariable Long id) {
 
-        return repository.findById(id)
+        return scorecardRepository.findById(id)
         .map(scorecard -> {
 
             updateScorecardFields(scorecard, newScorecard);
 
-            return repository.save(scorecard);
+            return scorecardRepository.save(scorecard);
 
         })
-        .orElseGet(() -> repository.save(newScorecard));
+        .orElseGet(() -> scorecardRepository.save(newScorecard));
 
     }
 

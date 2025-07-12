@@ -26,6 +26,6 @@ public class UserEntity {
     private String userCountry;
     private String userCity;
     private String userCourse;
-    private String userHandicap;
+    private int userHandicap;
     
 }

@@ -1,8 +1,5 @@
 package golf.pinpointscore.clubhouse.models;
 
-import java.util.ArrayList;
-
-import golf.pinpointscore.clubhouse.entities.ScorecardEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -10,6 +7,12 @@ import lombok.Data;
 @Data
 public class ScoreboardModel {
 
-    private ArrayList<ScorecardEntity> scorecards;
-    
+    private int userId;
+    private String userName;
+    private int userHandicap;
+    private String golfCourse;
+    private int holesPlayed;
+    private int totalScore;
+    private int scoreboardScore;
+
 }
