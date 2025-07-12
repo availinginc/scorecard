@@ -34,7 +34,7 @@ public class ScoreboardService {
 
             // For each scorecard, create a ScoreboardModel entry
             int userId = scorecard.getUserId();
-            java.sql.Timestamp timestamp = scorecard.getTimestamp();
+            java.sql.Timestamp submissionTimestamp = scorecard.getSubmissionTimestamp();
             String userName = user.getUserName();
             int userHandicap = user.getUserHandicap();
             String golfCourse = scorecard.getGolfCourse();
@@ -49,7 +49,7 @@ public class ScoreboardService {
             // Create a new ScoreboardModel instance with the calculated values
             ScoreboardModel scoreboardEntry = new ScoreboardModel(
                 userId,
-                timestamp,
+                submissionTimestamp,
                 userName,
                 userHandicap,
                 golfCourse,

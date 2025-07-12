@@ -1,5 +1,6 @@
 package golf.pinpointscore.clubhouse.controllers;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,11 +18,11 @@ public class ScorecardController {
         this.scorecardRepository = scorecardRepository;
     }
 
-    // Get a scorecard by id
-    @GetMapping("/scorecards/{id}")
-    ScorecardEntity getScorecardById(@PathVariable Long id) {
+    // Get a scorecard by userId
+    @GetMapping("/scorecards/user/{userId}")
+    ScorecardEntity getScorecardByUserId(@PathVariable Long userId) {
 
-        return scorecardRepository.findById(id).orElse(null);
+        return scorecardRepository.findById(userId).orElse(null);
 
     }
 
@@ -33,19 +34,26 @@ public class ScorecardController {
 
     }
 
-    // Update an existing scorecard
-    @PatchMapping("/scorecards/{id}")
-    ScorecardEntity updateScorecard(@RequestBody ScorecardEntity newScorecard, @PathVariable Long id) {
+    // Update an existing scorecard by userId
+    @PatchMapping("/scorecards/{userId}")
+    ScorecardEntity updateScorecard(@RequestBody ScorecardEntity newScorecard, @PathVariable Long userId) {
 
-        return scorecardRepository.findById(id)
-        .map(scorecard -> {
+        return scorecardRepository.findById(userId).map(scorecard -> {
 
             updateScorecardFields(scorecard, newScorecard);
-
             return scorecardRepository.save(scorecard);
 
         })
         .orElseGet(() -> scorecardRepository.save(newScorecard));
+
+    }
+
+    // Delete a scorecard by userId
+    @DeleteMapping("/scorecards/user/{userId}")
+    ScorecardEntity deleteScorecard(@PathVariable Long userId) {
+
+        scorecardRepository.deleteById(userId);
+        return null;
 
     }
 

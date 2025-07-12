@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -19,9 +21,16 @@ public class ScorecardEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(updatable = false)
+    private Timestamp submitted;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(updatable = true)
+    private Timestamp updated;
+
     @Column(nullable = false)
     private int userId;
-    private Timestamp timestamp = new Timestamp(System.currentTimeMillis());
     private String golfCourse;
     private int golfCoursePar;
     private int holesPlayed;

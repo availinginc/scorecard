@@ -60,29 +60,41 @@ docker push pinpointscore.azurecr.io/pinpointscore/clubhouse:latest
 ```
 
 Add user to the database:
-```bash
-INSERT INTO dbo.user_entity (user_id, user_name, user_first_name, user_last_name, user_email, user_country, user_city, user_course, user_handicap) 
-VALUES (1, 'pinpointscore', 'Pinpoint', 'Score', 'pinpointscore@example.com', 'USA', 'Buffalo', 'Country Club of Internet', 0);
+```sql
+INSERT INTO dbo.user_entity (submitted, updated, user_id, user_name, user_first_name, user_last_name, user_email, user_country, user_city, user_course, user_handicap) 
+VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'pinpointscore', 'Pinpoint', 'Score', 'pinpointscore@example.com', 'USA', 'Buffalo', 'Country Club of Internet', 0);
 ```
 
 Search users in the database:
-```bash
+```sql
 SELECT TOP 10 * 
 FROM dbo.user_entity
 ORDER BY user_id DESC;
 ```
 
+Delete user from the database:
+```sql
+DELETE FROM dbo.user_entity
+WHERE user_id = 1;
+```
+
 Add scorecards to the database:
-```bash
-INSERT INTO dbo.scorecard_entity (user_id, golf_course, golf_course_par, holes_played, total_score, hole_one_score, hole_two_score, hole_three_score, hole_four_score, hole_five_score, hole_six_score, hole_seven_score, hole_eight_score, hole_nine_score, hole_ten_score, hole_eleven_score, hole_twelve_score, hole_thirteen_score, hole_fourteen_score, hole_fifteen_score, hole_sixteen_score, hole_seventeen_score, hole_eighteen_score) 
-VALUES (1, 'Country Club of Internet', 72, 18, 72, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4);
+```sql
+INSERT INTO dbo.scorecard_entity (submitted, updated, user_id, golf_course, golf_course_par, holes_played, total_score, hole_one_score, hole_two_score, hole_three_score, hole_four_score, hole_five_score, hole_six_score, hole_seven_score, hole_eight_score, hole_nine_score, hole_ten_score, hole_eleven_score, hole_twelve_score, hole_thirteen_score, hole_fourteen_score, hole_fifteen_score, hole_sixteen_score, hole_seventeen_score, hole_eighteen_score) 
+VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 'Country Club of Internet', 72, 18, 72, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4);
 ```
 
 Search scorecards in the database:
-```bash
+```sql
 SELECT TOP 10 * 
 FROM dbo.scorecard_entity
 ORDER BY user_id DESC;
+```
+
+Delete score card from the database:
+```sql
+DELETE FROM dbo.scorecard_entity
+WHERE user_id = 1 AND submitted = '2023-10-01 12:00:00';
 ```
 
 ---

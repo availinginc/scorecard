@@ -10,7 +10,7 @@ import lombok.Data;
 public class ScoreboardModel {
 
     private int userId;
-    private Timestamp timestamp;
+    private Timestamp submitted;
     private String userName;
     private int userHandicap;
     private String golfCourse;
