@@ -1,5 +1,7 @@
 package golf.pinpointscore.clubhouse.entities;
 
+import java.sql.Timestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,8 +19,9 @@ public class ScorecardEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)  
+    @Column(nullable = false)
     private int userId;
+    private Timestamp timestamp = new Timestamp(System.currentTimeMillis());
     private String golfCourse;
     private int golfCoursePar;
     private int holesPlayed;

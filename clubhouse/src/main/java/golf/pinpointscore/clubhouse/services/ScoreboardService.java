@@ -34,6 +34,7 @@ public class ScoreboardService {
 
             // For each scorecard, create a ScoreboardModel entry
             int userId = scorecard.getUserId();
+            java.sql.Timestamp timestamp = scorecard.getTimestamp();
             String userName = user.getUserName();
             int userHandicap = user.getUserHandicap();
             String golfCourse = scorecard.getGolfCourse();
@@ -48,6 +49,7 @@ public class ScoreboardService {
             // Create a new ScoreboardModel instance with the calculated values
             ScoreboardModel scoreboardEntry = new ScoreboardModel(
                 userId,
+                timestamp,
                 userName,
                 userHandicap,
                 golfCourse,
@@ -67,8 +69,22 @@ public class ScoreboardService {
 
 	public List<ScoreboardModel> getScoreboardLimited(int amount) {
 
-        return null;
+        // Initialize the scorecard and user repositories
+        ScoreboardService scoreboardService = new ScoreboardService(scorecardRepository, userRepository);
         
+        // Get the full scoreboard
+        List<ScoreboardModel> scoreboard = scoreboardService.getScoreboard();
+
+        // Sort the scoreboard by scoreboard score in ascending order
+        scoreboard.sort((a, b) -> Integer.compare(a.getScoreboardScore(), b.getScoreboardScore()));
+
+        // If the scoreboard has more entries than the specified amount, limit it to that amount
+        if (scoreboard.size() > amount) {
+            return scoreboard.subList(0, amount);
+        }
+
+        return scoreboard;
+
 	}
 
 }

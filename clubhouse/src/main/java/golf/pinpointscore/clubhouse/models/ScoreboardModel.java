@@ -1,5 +1,7 @@
 package golf.pinpointscore.clubhouse.models;
 
+import java.sql.Timestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -8,6 +10,7 @@ import lombok.Data;
 public class ScoreboardModel {
 
     private int userId;
+    private Timestamp timestamp;
     private String userName;
     private int userHandicap;
     private String golfCourse;
