@@ -3,12 +3,12 @@ package golf.pinpointscore.clubhouse.controllers;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-public class ScoreboardController {
+public class UserController {
 
     @GetMapping(path="/scoreboard")
-    public @ResponseBody String Scoreboard() {
+    public @ResponseBody String Scorecard() {
 
-        return "Pinpointscore - Scoreboard";
+        return "Pinpointscore - User";
 
     }
     
