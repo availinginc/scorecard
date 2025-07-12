@@ -62,7 +62,7 @@ docker push pinpointscore.azurecr.io/pinpointscore/clubhouse:latest
 Add user to the database:
 ```sql
 INSERT INTO dbo.user_entity (submitted, updated, user_id, user_name, user_first_name, user_last_name, user_email, user_country, user_city, user_course, user_handicap) 
-VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'pinpointscore', 'Pinpoint', 'Score', 'pinpointscore@example.com', 'USA', 'Buffalo', 'Country Club of Internet', 0);
+VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 'pinpointscore', 'Pinpoint', 'Score', 'pinpointscore@example.com', 'USA', 'Buffalo', 'Country Club of Internet', 0);
 ```
 
 Search users in the database:
@@ -72,7 +72,7 @@ FROM dbo.user_entity
 ORDER BY user_id DESC;
 ```
 
-Delete user from the database:
+Delete a user from the database:
 ```sql
 DELETE FROM dbo.user_entity
 WHERE user_id = 1;
@@ -94,7 +94,13 @@ ORDER BY user_id DESC;
 Delete score card from the database:
 ```sql
 DELETE FROM dbo.scorecard_entity
-WHERE user_id = 1 AND submitted = '2023-10-01 12:00:00';
+WHERE user_id = 1 AND submitted = '1901-01-01 00:00:00.000000';
+```
+
+Delete all score cards from the database:
+```sql
+DELETE FROM dbo.scorecard_entity
+WHERE user_id = 1;
 ```
 
 ---
