@@ -3,19 +3,19 @@ import * as React from "react";
 import { NavLink } from "react-router";
 
 interface LeaderboardItemComponentProps {
-  rank: number;
-  username: string;
-  course: string;
-  total: number;
-  scores: number[];
+  userRank: number;
+  userName: string;
+  golfCourse: string;
+  totalScore: number;
+  userScores: number[];
 }
 
 export default function LeaderboardItemComponent({
-  rank,
-  username,
-  course,
-  total,
-  scores,
+  userRank,
+  userName,
+  golfCourse,
+  totalScore,
+  userScores,
 }: LeaderboardItemComponentProps) {
   const [expand, setExpand] = React.useState<boolean>(false);
 
@@ -28,16 +28,16 @@ export default function LeaderboardItemComponent({
       <section class="my-1 border-1 border-neutral-950">
         <ul class="z-0 flex flex-row flex-auto justify-center items-center">
           <li class="flex flex-col flex-auto justify-self-start min-w-[10%] max-w-[10%] p-3 text-base font-bold text-neutral-950 bg-neutral-300 text-center subpixel-antialiased">
-            {rank}
+            {userRank}
           </li>
           <li class="flex flex-col flex-auto justify-self-start min-w-[26.6666666667%] max-w-[26.6666666667%] p-3 text-base text-neutral-950 bg-neutral-300 text-left border-l-1 border-neutral-950 subpixel-antialiased">
-            {username}
+            {userName}
           </li>
           <li class="flex flex-col flex-auto justify-self-start min-w-[26.6666666667%] max-w-[26.6666666667%] p-3 text-base text-neutral-950 bg-neutral-300 text-left border-l-1 border-neutral-950 subpixel-antialiased">
-            {course}
+            {golfCourse}
           </li>
           <li class="flex flex-col flex-auto justify-self-start min-w-[26.6666666667%] max-w-[26.6666666667%] p-3 text-base text-neutral-950 bg-neutral-300 text-left border-l-1 border-neutral-950 subpixel-antialiased">
-            {total}
+            {totalScore}
           </li>
           <li class="flex flex-col flex-auto justify-self-start min-w-[10%] max-w-[10%]">
             <NavLink
@@ -53,15 +53,13 @@ export default function LeaderboardItemComponent({
         </ul>
       </section>
       {expand ? (
-        <React.Fragment></React.Fragment>
-      ) : (
         <React.Fragment>
           <section class="border-1 border-neutral-950">
             <ul class="z-0 flex flex-row flex-auto justify-center items-center">
               <li class="flex flex-col flex-auto justify-self-start min-w-[10%] max-w-[10%] p-3 text-xl font-bold text-neutral-950 bg-lime-600 text-left border-neutral-950 subpixel-antialiased">
                 Holes
               </li>
-              {scores.map((item, index) => (
+              {userScores?.map((item, index) => (
                 <li
                   key={index}
                   class="flex flex-col flex-auto justify-self-start min-w-[5%] max-w-[5%] p-3 text-xl font-bold text-neutral-950 bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased"
@@ -74,7 +72,7 @@ export default function LeaderboardItemComponent({
               <li class="flex flex-col flex-auto justify-self-start min-w-[10%] max-w-[10%] p-3 text-xl font-bold text-neutral-950 bg-neutral-300 text-left  subpixel-antialiased">
                 Score
               </li>
-              {scores.map((item, index) => (
+              {userScores?.map((item, index) => (
                 <li
                   key={index}
                   class="flex flex-col flex-auto justify-self-start min-w-[5%] max-w-[5%] p-3 text-xl text-neutral-950 bg-neutral-300 text-center border-l-1 border-neutral-950 subpixel-antialiased"
@@ -85,97 +83,9 @@ export default function LeaderboardItemComponent({
             </ul>
           </section>
         </React.Fragment>
+      ) : (
+        <React.Fragment></React.Fragment>
       )}
     </React.Fragment>
   );
 }
-// <React.Fragment>
-//   <ul class="avalinginc-theme-container z-0 flex flex-row flex-auto justify-center items-center mt-3">
-//     <li class="flex flex-col flex-auto justify-self-start min-w-[50%] max-w-[50%] p-3 text-xl font-bold text-neutral-300 bg-lime-600 text-left border-1 border-neutral-950 subpixel-antialiased">
-//       Hole
-//     </li>
-//     <li class="flex flex-col flex-auto justify-self-start min-w-[50%] max-w-[50%] p-3 text-xl font-bold text-neutral-300 bg-lime-600 text-left border-l-1 border-neutral-950 subpixel-antialiased">
-//       Score
-//     </li>
-//   </ul>
-//   <ul class="avalinginc-theme-container z-0 flex flex-row flex-auto justify-center items-center">
-//     <li class="flex flex-col flex-auto justify-self-start min-w-[50%] max-w-[50%] p-3 text-base font-bold text-neutral-950 bg-neutral-300 text-center border-1 border-t-0  border-neutral-950 subpixel-antialiased">
-//       1
-//     </li>
-//     <li class="flex flex-col flex-auto justify-self-start min-w-[50%] max-w-[50%] p-3 text-base text-neutral-950 bg-neutral-300 text-center border-1 border-t-0 border-l-0 border-neutral-950 subpixel-antialiased">
-//       4
-//     </li>
-//   </ul>
-//   <ul class="avalinginc-theme-container z-0 flex flex-row flex-auto justify-center items-center">
-//     <li class="flex flex-col flex-auto justify-self-start min-w-[50%] max-w-[50%] p-3 text-base font-bold text-neutral-950 bg-neutral-300 text-center border-1 border-t-0  border-neutral-950 subpixel-antialiased">
-//       2
-//     </li>
-//     <li class="flex flex-col flex-auto justify-self-start min-w-[50%] max-w-[50%] p-3 text-base text-neutral-950 bg-neutral-300 text-center border-1 border-t-0 border-l-0 border-neutral-950 subpixel-antialiased">
-//       4
-//     </li>
-//   </ul>
-//   <ul class="avalinginc-theme-container z-0 flex flex-row flex-auto justify-center items-center">
-//     <li class="flex flex-col flex-auto justify-self-start min-w-[50%] max-w-[50%] p-3 text-base font-bold text-neutral-950 bg-neutral-300 text-center border-1 border-t-0  border-neutral-950 subpixel-antialiased">
-//       3
-//     </li>
-//     <li class="flex flex-col flex-auto justify-self-start min-w-[50%] max-w-[50%] p-3 text-base text-neutral-950 bg-neutral-300 text-center border-1 border-t-0 border-l-0 border-neutral-950 subpixel-antialiased">
-//       4
-//     </li>
-//   </ul>
-//   <ul class="avalinginc-theme-container z-0 flex flex-row flex-auto justify-center items-center">
-//     <li class="flex flex-col flex-auto justify-self-start min-w-[50%] max-w-[50%] p-3 text-base font-bold text-neutral-950 bg-neutral-300 text-center border-1 border-t-0  border-neutral-950 subpixel-antialiased">
-//       4
-//     </li>
-//     <li class="flex flex-col flex-auto justify-self-start min-w-[50%] max-w-[50%] p-3 text-base text-neutral-950 bg-neutral-300 text-center border-1 border-t-0 border-l-0 border-neutral-950 subpixel-antialiased">
-//       4
-//     </li>
-//   </ul>
-//   <ul class="avalinginc-theme-container z-0 flex flex-row flex-auto justify-center items-center">
-//     <li class="flex flex-col flex-auto justify-self-start min-w-[50%] max-w-[50%] p-3 text-base font-bold text-neutral-950 bg-neutral-300 text-center border-1 border-t-0  border-neutral-950 subpixel-antialiased">
-//       5
-//     </li>
-//     <li class="flex flex-col flex-auto justify-self-start min-w-[50%] max-w-[50%] p-3 text-base text-neutral-950 bg-neutral-300 text-center border-1 border-t-0 border-l-0 border-neutral-950 subpixel-antialiased">
-//       4
-//     </li>
-//   </ul>
-//   <ul class="avalinginc-theme-container z-0 flex flex-row flex-auto justify-center items-center">
-//     <li class="flex flex-col flex-auto justify-self-start min-w-[50%] max-w-[50%] p-3 text-base font-bold text-neutral-950 bg-neutral-300 text-center border-1 border-t-0  border-neutral-950 subpixel-antialiased">
-//       1
-//     </li>
-//     <li class="flex flex-col flex-auto justify-self-start min-w-[50%] max-w-[50%] p-3 text-base text-neutral-950 bg-neutral-300 text-center border-1 border-t-0 border-l-0 border-neutral-950 subpixel-antialiased">
-//       6
-//     </li>
-//   </ul>
-//   <ul class="avalinginc-theme-container z-0 flex flex-row flex-auto justify-center items-center">
-//     <li class="flex flex-col flex-auto justify-self-start min-w-[50%] max-w-[50%] p-3 text-base font-bold text-neutral-950 bg-neutral-300 text-center border-1 border-t-0  border-neutral-950 subpixel-antialiased">
-//       7
-//     </li>
-//     <li class="flex flex-col flex-auto justify-self-start min-w-[50%] max-w-[50%] p-3 text-base text-neutral-950 bg-neutral-300 text-center border-1 border-t-0 border-l-0 border-neutral-950 subpixel-antialiased">
-//       4
-//     </li>
-//   </ul>
-//   <ul class="avalinginc-theme-container z-0 flex flex-row flex-auto justify-center items-center">
-//     <li class="flex flex-col flex-auto justify-self-start min-w-[50%] max-w-[50%] p-3 text-base font-bold text-neutral-950 bg-neutral-300 text-center border-1 border-t-0  border-neutral-950 subpixel-antialiased">
-//       8
-//     </li>
-//     <li class="flex flex-col flex-auto justify-self-start min-w-[50%] max-w-[50%] p-3 text-base text-neutral-950 bg-neutral-300 text-center border-1 border-t-0 border-l-0 border-neutral-950 subpixel-antialiased">
-//       4
-//     </li>
-//   </ul>
-//   <ul class="avalinginc-theme-container z-0 flex flex-row flex-auto justify-center items-center">
-//     <li class="flex flex-col flex-auto justify-self-start min-w-[50%] max-w-[50%] p-3 text-base font-bold text-neutral-950 bg-neutral-300 text-center border-1 border-t-0  border-neutral-950 subpixel-antialiased">
-//       9
-//     </li>
-//     <li class="flex flex-col flex-auto justify-self-start min-w-[50%] max-w-[50%] p-3 text-base text-neutral-950 bg-neutral-300 text-center border-1 border-t-0 border-l-0 border-neutral-950 subpixel-antialiased">
-//       4
-//     </li>
-//   </ul>
-//   <ul class="avalinginc-theme-container z-0 flex flex-row flex-auto justify-center items-center">
-//     <li class="flex flex-col flex-auto justify-self-start min-w-[50%] max-w-[50%] p-3 text-base font-bold text-neutral-950 bg-neutral-300 text-center border-1 border-t-0  border-neutral-950 subpixel-antialiased">
-//       10
-//     </li>
-//     <li class="flex flex-col flex-auto justify-self-start min-w-[50%] max-w-[50%] p-3 text-base text-neutral-950 bg-neutral-300 text-center border-1 border-t-0 border-l-0 border-neutral-950 subpixel-antialiased">
-//       4
-//     </li>
-//   </ul>
-// </React.Fragment>

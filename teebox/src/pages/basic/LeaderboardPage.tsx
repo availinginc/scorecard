@@ -5,99 +5,61 @@ import LeaderboardItemComponent from "../../components/leaderboard/LeaderboardIt
 
 import { getRequest } from "../../functions/request";
 
-type LeaderboardItem = {
-  rank: number;
-  username: string;
-  course: string;
-  total: number;
-  scores: number[];
+type LeaderboardItemAdjusted = {
+  userId: number;
+  submitted: EpochTimeStamp;
+  userName: string;
+  userHandicap: 0;
+  golfCourse: string;
+  holesPlayed: number;
+  totalScore: number;
+  scoreboardScore: number[];
+  userRank: number;
+  userScores: number[];
 };
 
 export default function LeaderboardPage() {
-  const [leaderboard, setLeaderboard] = React.useState<LeaderboardItem[]>([]);
+  const [leaderboard, setLeaderboard] = React.useState<
+    LeaderboardItemAdjusted[]
+  >([]);
 
-  // Handle server-side link
+  // Handle leaderboard
   const handleLeaderboard = async () => {
     try {
-      console.log("Loading leaderboard data...");
+      const obj: { scoreboard?: LeaderboardItemAdjusted[] } = {};
       const base = import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "";
-      const leaderboard = await getRequest(base, `/scoreboard/`);
-      console.log("Leaderboard data loaded successfully.", leaderboard);
-      // if (leaderboard) {
-      //   console.log("Leaderboard data loaded successfully.", leaderboard);
-      //   setLeaderboard(leaderboard);
-      // } else {
-      //   setLeaderboard([
-      //     {
-      //       rank: 1,
-      //       username: "golfer1",
-      //       course: "Pebble Beach",
-      //       total: 70,
-      //       scores: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-      //     },
-      //     {
-      //       rank: 2,
-      //       username: "golfer2",
-      //       course: "Augusta National",
-      //       total: 68,
-      //       scores: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-      //     },
-      //   ]);
-      // }
-      setLeaderboard([
-        {
-          rank: 1,
-          username: "golfer1",
-          course: "Pebble Beach",
-          total: 70,
-          scores: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-        },
-        {
-          rank: 2,
-          username: "golfer2",
-          course: "Augusta National",
-          total: 68,
-          scores: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-        },
-      ]);
+      obj["scoreboard"] = await getRequest(base, `/scoreboard/`);
+      if (obj?.scoreboard) {
+        if (Array?.isArray(obj?.scoreboard)) {
+          obj.scoreboard?.forEach((item, index) => {
+            obj.scoreboard![index]["userRank"] = index + 1;
+            obj.scoreboard![index]["userScores"] = [
+              4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+            ];
+          });
+        }
+        setLeaderboard(obj?.scoreboard);
+      }
     } catch (error) {
-      console.error("Error loading leaderboard data:", error);
-      setLeaderboard([
-        {
-          rank: 1,
-          username: "golfer1",
-          course: "Pebble Beach",
-          total: 70,
-          scores: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-        },
-        {
-          rank: 2,
-          username: "golfer2",
-          course: "Augusta National",
-          total: 68,
-          scores: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-        },
-      ]);
+      console.error("Error loading leaderboard");
       return error;
     }
   };
 
   React.useEffect(() => {
-    const loadHandlers = async () => {
+    const loadLeaderboard = async () => {
       await handleLeaderboard();
     };
-    loadHandlers();
+    loadLeaderboard();
     return () => {};
   }, []);
 
   return (
     <React.Fragment>
       <section>
-        {/* Todo: Make this a component */}
         <h1 className="mx-auto text-3xl md:text-6xl font-bold subpixel-antialiased text-neutral-300">
           Leaderboard
         </h1>
-        {/* Todo: Make this a component */}
         <p className="my-3 md:my-9 mx-auto text-xl md:text-3xl font-extralight subpixel-antialiased">
           You will see your golf game here soon, including your scores, stats,
           and course information.
@@ -106,11 +68,11 @@ export default function LeaderboardPage() {
         {leaderboard?.map((item, index) => (
           <LeaderboardItemComponent
             key={index}
-            rank={item.rank}
-            username={item.username}
-            course={item.course}
-            total={item.total}
-            scores={item.scores}
+            userRank={item?.userRank}
+            userName={item?.userName}
+            golfCourse={item?.golfCourse}
+            totalScore={item?.totalScore}
+            userScores={item?.userScores}
           />
         ))}
       </section>

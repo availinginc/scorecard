@@ -2,13 +2,17 @@ import axios from "axios";
 
 export const get = async (base: string, endpoint: string) => {
   try {
-    const resp = await axios.get(base + endpoint, {
+    const { data } = await axios.get(base + endpoint, {
       headers: {
         "Content-Type": "application/json",
       },
+      auth: {
+        username: process.env.BASIC_AUTH_USERNAME ?? "",
+        password: process.env.BASIC_AUTH_PASSWORD ?? "",
+      },
     });
-    if (resp?.data) {
-      return resp?.data;
+    if (data) {
+      return data;
     }
   } catch (error: any) {
     if (error?.response?.data) {
@@ -19,13 +23,17 @@ export const get = async (base: string, endpoint: string) => {
 
 export const post = async (base: string, endpoint: string, body: any) => {
   try {
-    const resp = await axios.post(base + endpoint, body, {
+    const { data } = await axios.post(base + endpoint, body, {
       headers: {
         "Content-Type": "application/json",
       },
+      auth: {
+        username: process.env.BASIC_AUTH_USERNAME ?? "",
+        password: process.env.BASIC_AUTH_PASSWORD ?? "",
+      },
     });
-    if (resp?.data) {
-      return resp?.data;
+    if (data) {
+      return data;
     }
   } catch (error: any) {
     if (error?.response?.data) {
@@ -36,13 +44,13 @@ export const post = async (base: string, endpoint: string, body: any) => {
 
 export const idp = async (base: string, endpoint: string, body: any) => {
   try {
-    const resp = await axios.post(base + endpoint, body, {
+    const { data } = await axios.post(base + endpoint, body, {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
     });
-    if (resp?.data) {
-      return resp?.data;
+    if (data) {
+      return data;
     }
   } catch (error: any) {
     if (error?.response?.data) {
