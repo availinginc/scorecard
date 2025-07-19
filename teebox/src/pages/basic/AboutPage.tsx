@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export default function About() {
+export default function AboutPage() {
   return (
     <React.Fragment>
       <section>

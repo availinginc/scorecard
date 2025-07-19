@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <React.Fragment>
       <section>

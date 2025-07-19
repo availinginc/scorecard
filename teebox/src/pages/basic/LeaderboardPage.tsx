@@ -3,7 +3,7 @@ import * as React from "react";
 import Leaderboard from "../../components/Leaderboard";
 import LeaderboardItem from "../../components/leaderboard/LeaderboardItem";
 
-export default function Scoreboard() {
+export default function LeaderboardPage() {
   const leaderboard = [
     {
       rank: 1,
@@ -25,7 +25,7 @@ export default function Scoreboard() {
       <section>
         {/* Todo: Make this a component */}
         <h1 className="mx-auto text-3xl md:text-6xl font-bold subpixel-antialiased text-neutral-300">
-          Scoreboard
+          Leaderboard
         </h1>
         {/* Todo: Make this a component */}
         <p className="my-3 md:my-9 mx-auto text-xl md:text-3xl font-extralight subpixel-antialiased">
