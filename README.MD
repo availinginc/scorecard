@@ -51,7 +51,7 @@ https://start.spring.io/#!type=gradle-project&language=java&platformVersion=3.5.
 
 Start the application:
 ```bash
-./gradlew bootRun
+./gradlew bootRun --args='--spring.profiles.active=development'
 ```
 
 Azure CR:

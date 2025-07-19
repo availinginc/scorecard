@@ -18,13 +18,32 @@ export default function LeaderboardPage() {
 
   // Handle server-side link
   const handleLeaderboard = async () => {
-    console.log("Loading leaderboard data...");
-    const base = import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "";
-    const leaderboard = await getRequest(base, `/scoreboard/`);
-    if (leaderboard) {
-      console.log("Leaderboard data loaded successfully.");
-      setLeaderboard(leaderboard);
-    } else {
+    try {
+      console.log("Loading leaderboard data...");
+      const base = import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "";
+      const leaderboard = await getRequest(base, `/scoreboard/`);
+      console.log("Leaderboard data loaded successfully.", leaderboard);
+      // if (leaderboard) {
+      //   console.log("Leaderboard data loaded successfully.", leaderboard);
+      //   setLeaderboard(leaderboard);
+      // } else {
+      //   setLeaderboard([
+      //     {
+      //       rank: 1,
+      //       username: "golfer1",
+      //       course: "Pebble Beach",
+      //       total: 70,
+      //       scores: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+      //     },
+      //     {
+      //       rank: 2,
+      //       username: "golfer2",
+      //       course: "Augusta National",
+      //       total: 68,
+      //       scores: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+      //     },
+      //   ]);
+      // }
       setLeaderboard([
         {
           rank: 1,
@@ -41,6 +60,25 @@ export default function LeaderboardPage() {
           scores: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
         },
       ]);
+    } catch (error) {
+      console.error("Error loading leaderboard data:", error);
+      setLeaderboard([
+        {
+          rank: 1,
+          username: "golfer1",
+          course: "Pebble Beach",
+          total: 70,
+          scores: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+        },
+        {
+          rank: 2,
+          username: "golfer2",
+          course: "Augusta National",
+          total: 68,
+          scores: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+        },
+      ]);
+      return error;
     }
   };
 
@@ -65,7 +103,7 @@ export default function LeaderboardPage() {
           and course information.
         </p>
         <LeaderboardComponent />
-        {leaderboard.map((item, index) => (
+        {leaderboard?.map((item, index) => (
           <LeaderboardItemComponent
             key={index}
             rank={item.rank}
