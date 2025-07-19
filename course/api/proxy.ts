@@ -7,8 +7,8 @@ export const get = async (base: string, endpoint: string) => {
         "Content-Type": "application/json",
       },
       auth: {
-        username: process.env.BASIC_AUTH_USERNAME ?? "",
-        password: process.env.BASIC_AUTH_PASSWORD ?? "",
+        username: process.env.SPRING_SECURITY_USER_NAME ?? "",
+        password: process.env.SPRING_SECURITY_USER_PASSWORD ?? "",
       },
     });
     if (data) {
@@ -28,8 +28,8 @@ export const post = async (base: string, endpoint: string, body: any) => {
         "Content-Type": "application/json",
       },
       auth: {
-        username: process.env.BASIC_AUTH_USERNAME ?? "",
-        password: process.env.BASIC_AUTH_PASSWORD ?? "",
+        username: process.env.SPRING_SECURITY_USER_NAME ?? "",
+        password: process.env.SPRING_SECURITY_USER_PASSWORD ?? "",
       },
     });
     if (data) {
