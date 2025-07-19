@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { NavLink } from "react-router";
 
-interface LeaderboardItemProps {
+interface LeaderboardItemComponentProps {
   rank: number;
   username: string;
   course: string;
@@ -10,13 +10,13 @@ interface LeaderboardItemProps {
   scores: number[];
 }
 
-export default function LeaderboardItem({
+export default function LeaderboardItemComponent({
   rank,
   username,
   course,
   total,
   scores,
-}: LeaderboardItemProps) {
+}: LeaderboardItemComponentProps) {
   const [expand, setExpand] = React.useState<boolean>(false);
 
   const handleExpand = () => {

@@ -1,25 +1,57 @@
 import * as React from "react";
 
-import Leaderboard from "../../components/Leaderboard";
-import LeaderboardItem from "../../components/leaderboard/LeaderboardItem";
+import LeaderboardComponent from "../../components/LeaderboardComponent";
+import LeaderboardItemComponent from "../../components/leaderboard/LeaderboardItemComponent";
+
+import { getRequest } from "../../functions/request";
+
+type LeaderboardItem = {
+  rank: number;
+  username: string;
+  course: string;
+  total: number;
+  scores: number[];
+};
 
 export default function LeaderboardPage() {
-  const leaderboard = [
-    {
-      rank: 1,
-      username: "golfer1",
-      course: "Pebble Beach",
-      total: 70,
-      scores: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-    },
-    {
-      rank: 2,
-      username: "golfer2",
-      course: "Augusta National",
-      total: 68,
-      scores: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-    },
-  ];
+  const [leaderboard, setLeaderboard] = React.useState<LeaderboardItem[]>([]);
+
+  // Handle server-side link
+  const handleLeaderboard = async () => {
+    console.log("Loading leaderboard data...");
+    const base = import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "";
+    const leaderboard = await getRequest(base, `/scoreboard/`);
+    if (leaderboard) {
+      console.log("Leaderboard data loaded successfully.");
+      setLeaderboard(leaderboard);
+    } else {
+      setLeaderboard([
+        {
+          rank: 1,
+          username: "golfer1",
+          course: "Pebble Beach",
+          total: 70,
+          scores: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+        },
+        {
+          rank: 2,
+          username: "golfer2",
+          course: "Augusta National",
+          total: 68,
+          scores: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+        },
+      ]);
+    }
+  };
+
+  React.useEffect(() => {
+    const loadHandlers = async () => {
+      await handleLeaderboard();
+    };
+    loadHandlers();
+    return () => {};
+  }, []);
+
   return (
     <React.Fragment>
       <section>
@@ -32,9 +64,9 @@ export default function LeaderboardPage() {
           You will see your golf game here soon, including your scores, stats,
           and course information.
         </p>
-        <Leaderboard />
+        <LeaderboardComponent />
         {leaderboard.map((item, index) => (
-          <LeaderboardItem
+          <LeaderboardItemComponent
             key={index}
             rank={item.rank}
             username={item.username}

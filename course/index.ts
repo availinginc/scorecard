@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import path from "path";
 
-import { post } from "./api/proxy";
+import { get, post, idp } from "./api/proxy";
 import { decrypt } from "./utils/security";
 
 // ENV Configuration
@@ -69,8 +69,61 @@ app.get("/", (request: Request, response: Response) => {
     .setHeader("Content-Type", "text/html");
 });
 
-// Proxy Endpoint
-app.post("/proxy", async (request: Request<any>, response: Response<any>) => {
+// GET Endpoint
+app.post("/get", async (request: Request<any>, response: Response<any>) => {
+  try {
+    const base64 = Buffer.from(request?.body?.packaged, "base64");
+    const decrypted = await decrypt(
+      base64.buffer.slice(
+        base64.byteOffset,
+        base64.byteOffset + base64.byteLength
+      )
+    );
+    const base = await decrypted?.base;
+    const endpoint = await decrypted?.endpoint;
+    const resp = await get(base, endpoint);
+    if (resp) {
+      response.status(200).send({ ...resp });
+    }
+    response.status(400).send();
+  } catch (error: any) {
+    if (error?.response?.data) {
+      response.status(400).send({ ...error?.response?.data });
+    }
+    response.status(400).send();
+  }
+});
+
+// POST Endpoint
+app.post("/post", async (request: Request<any>, response: Response<any>) => {
+  try {
+    const obj: any = {};
+    const base64 = Buffer.from(request?.body?.packaged, "base64");
+    const decrypted = await decrypt(
+      base64.buffer.slice(
+        base64.byteOffset,
+        base64.byteOffset + base64.byteLength
+      )
+    );
+    const base = await decrypted?.base;
+    const endpoint = await decrypted?.endpoint;
+    const body = await decrypted?.body;
+    const payload = { ...obj, ...body };
+    const resp = await post(base, endpoint, payload);
+    if (resp) {
+      response.status(200).send({ ...resp });
+    }
+    response.status(400).send();
+  } catch (error: any) {
+    if (error?.response?.data) {
+      response.status(400).send({ ...error?.response?.data });
+    }
+    response.status(400).send();
+  }
+});
+
+// IDP Endpoint
+app.post("/idp", async (request: Request<any>, response: Response<any>) => {
   try {
     const obj: any = {};
     if (request?.body?.continuation_token) {
@@ -87,7 +140,7 @@ app.post("/proxy", async (request: Request<any>, response: Response<any>) => {
     const endpoint = await decrypted?.endpoint;
     const body = await decrypted?.body;
     const payload = { ...obj, ...body };
-    const resp = await post(base, endpoint, payload);
+    const resp = await idp(base, endpoint, payload);
     if (resp) {
       response.status(200).send({ ...resp });
     }

@@ -2,15 +2,15 @@ import * as React from "react";
 
 import { NavLink } from "react-router";
 
-interface NavListProps {
+interface NavListComponentProps {
   authenticated: boolean;
   handleOpen: () => void;
 }
 
-export default function NavList({
+export default function NavListComponent({
   authenticated,
   handleOpen,
-}: Readonly<NavListProps>) {
+}: Readonly<NavListComponentProps>) {
   return (
     <React.Fragment>
       <li>
