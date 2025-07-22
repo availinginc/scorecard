@@ -6,6 +6,7 @@ import "./index.css";
 import App from "./App.tsx";
 import HomePage from "./pages/HomePage.tsx";
 import AboutPage from "./pages/AboutPage.tsx";
+import ScorecardPage from "./pages/ScorecardPage.tsx";
 import LeaderboardPage from "./pages/LeaderboardPage.tsx";
 import { SignInPage } from "./pages/SignInPage.tsx";
 import { SignUpPage } from "./pages/SignUpPage.tsx";
@@ -30,6 +31,14 @@ createRoot(document.getElementById("root")!).render(
           element={
             <App>
               <AboutPage />
+            </App>
+          }
+        />
+        <Route
+          path="/scorecard"
+          element={
+            <App>
+              <ScorecardPage />
             </App>
           }
         />
