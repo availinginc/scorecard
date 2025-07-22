@@ -5,9 +5,10 @@ import "./index.css";
 
 import App from "./App.tsx";
 import HomePage from "./pages/HomePage.tsx";
-import AboutPage from "./pages/AboutPage.tsx";
 import ScorecardPage from "./pages/ScorecardPage.tsx";
 import LeaderboardPage from "./pages/LeaderboardPage.tsx";
+import ProshopPage from "./pages/ProshopPage.tsx";
+import AboutPage from "./pages/AboutPage.tsx";
 import { SignInPage } from "./pages/SignInPage.tsx";
 import { SignUpPage } from "./pages/SignUpPage.tsx";
 import { SignUpChallengePage } from "./pages/SignUpChallengePage.tsx";
@@ -27,14 +28,6 @@ createRoot(document.getElementById("root")!).render(
           }
         />
         <Route
-          path="/about"
-          element={
-            <App>
-              <AboutPage />
-            </App>
-          }
-        />
-        <Route
           path="/scorecard"
           element={
             <App>
@@ -47,6 +40,22 @@ createRoot(document.getElementById("root")!).render(
           element={
             <App>
               <LeaderboardPage />
+            </App>
+          }
+        />
+        <Route
+          path="/proshop"
+          element={
+            <App>
+              <ProshopPage />
+            </App>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <App>
+              <AboutPage />
             </App>
           }
         />

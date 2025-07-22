@@ -1,11 +1,11 @@
 import * as React from "react";
 
-import LeaderboardComponent from "../components/LeaderboardComponent";
-import LeaderboardMobileComponent from "../components/LeaderboarMobileComponent";
+import LeaderboardDesktopComponent from "../components/LeaderboardDesktopComponent";
+import LeaderboardMobileComponent from "../components/LeaderboardMobileComponent";
 
 import { getRequest } from "../functions/request";
 
-import initialLeaderboardData from "../data/leaderboard.json";
+import initialLeaderboardData from "../configurations/leaderboard.json";
 import HeadingOneComponent from "../components/HeadingOneComponent";
 import IntroductionComponent from "../components/IntroductionComponent";
 
@@ -92,30 +92,26 @@ export default function LeaderboardPage() {
       <section className="invisible lg:visible hidden lg:block">
         <div className="border-1 border-neutral-950">
           <ul className="z-0 flex flex-row flex-auto justify-center content-evenly items-stretch">
-            <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[10%] max-w-[10%] p-3 text-xl font-bold text-neutral-950 bg-lime-600 text-left subpixel-antialiased">
+            <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/4] max-w-[1/4] p-3 text-xl font-bold text-neutral-950 bg-lime-600 text-left subpixel-antialiased">
               Rank
             </li>
-            <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[26.6666666667%] max-w-[26.6666666667%] p-3 text-xl font-bold text-neutral-950 bg-lime-600 text-left border-l-1 border-neutral-950 subpixel-antialiased">
+            <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/4] max-w-[1/4] p-3 text-xl font-bold text-neutral-950 bg-lime-600 text-left border-l-1 border-neutral-950 subpixel-antialiased">
               Username
             </li>
-            <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[26.6666666667%] max-w-[26.6666666667%] p-3 text-xl font-bold text-neutral-950 bg-lime-600 text-left border-l-1 border-neutral-950 subpixel-antialiased">
+            <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/4] max-w-[1/4] p-3 text-xl font-bold text-neutral-950 bg-lime-600 text-left border-l-1 border-neutral-950 subpixel-antialiased">
               Course
             </li>
-            <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[26.6666666667%] max-w-[26.6666666667%] p-3 text-xl font-bold text-neutral-950 bg-lime-600 text-left border-l-1 border-neutral-950 subpixel-antialiased">
+            <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/4] max-w-[1/4] p-3 text-xl font-bold text-neutral-950 bg-lime-600 text-left border-l-1 border-neutral-950 subpixel-antialiased">
               Total
-            </li>
-            <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[10%] max-w-[10%] p-3 text-xl font-bold text-neutral-950 bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased">
-              +
             </li>
           </ul>
         </div>
         {leaderboard?.length > 0 ? (
           leaderboard.map((item, index) => (
-            <LeaderboardComponent
+            <LeaderboardDesktopComponent
               key={`leaderboard-${item?.userId}-${index}`}
               userName={item?.userName}
               userRank={item?.userRank}
-              userScores={item?.userScores}
               userTotalScore={item?.userTotalScore}
               golfCourse={item?.golfCourse}
               golfCoursePars={item?.golfCoursePars}
@@ -132,7 +128,6 @@ export default function LeaderboardPage() {
               key={`leaderboard-${item?.userId}-${index}`}
               userName={item?.userName}
               userRank={item?.userRank}
-              userScores={item?.userScores}
               userTotalScore={item?.userTotalScore}
               golfCourse={item?.golfCourse}
               golfCoursePars={item?.golfCoursePars}

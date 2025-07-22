@@ -1,17 +1,17 @@
 import * as React from "react";
 
-import LeaderboardComponent from "../components/LeaderboardComponent";
-import LeaderboardMobileComponent from "../components/LeaderboarMobileComponent";
+import ScorecardComponent from "../components/ScorecardDesktopComponent";
+import ScorecardMobileComponent from "../components/ScorecardMobileComponent";
 
 import { getRequest } from "../functions/request";
 
-import initialLeaderboardData from "../data/leaderboard.json";
+import initialScorecardData from "../configurations/scorecard.json";
 import HeadingOneComponent from "../components/HeadingOneComponent";
 import IntroductionComponent from "../components/IntroductionComponent";
 import HeadingTwoComponent from "../components/HeadingTwoComponent";
 import ParagraphComponent from "../components/ParagraphComponent";
 
-type LeaderboardRow = {
+type ScorecardRow = {
   submitted: string;
   updated: string;
   userId: number;
@@ -27,17 +27,17 @@ type LeaderboardRow = {
 };
 
 export default function ScorecardPage() {
-  const [leaderboard, setLeaderboard] = React.useState<LeaderboardRow[]>([]);
+  const [scorecard, setScorecard] = React.useState<ScorecardRow[]>([]);
 
-  // Handle leaderboard
-  const handleLeaderboard = async () => {
+  // Handle scorecard
+  const handleScorecard = async () => {
     try {
       // Request initial
-      const initial = initialLeaderboardData;
+      const initial = initialScorecardData;
 
       // Set initial leaderboard
       if (initial?.length > 0) {
-        setLeaderboard(initial);
+        setScorecard(initial);
       }
 
       // Set base url
@@ -47,9 +47,9 @@ export default function ScorecardPage() {
       const response = await getRequest(base, `/leaderboard/`);
       if (initial?.length > 0 && response?.length > 0) {
         // Create leaderboard rows
-        response.forEach((item: LeaderboardRow, index: number) => {
+        response.forEach((item: ScorecardRow, index: number) => {
           // Create temporary row
-          const row: LeaderboardRow = {
+          const row: ScorecardRow = {
             ...item,
           };
 
@@ -66,10 +66,10 @@ export default function ScorecardPage() {
       const sorted = initial.slice().sort((a, b) => a.userRank - b.userRank);
       if (sorted?.length > 0) {
         // Set the leaderboard
-        setLeaderboard(sorted);
+        setScorecard(sorted);
       } else if (initial?.length > 0) {
         // Set the placeholder leaderboard
-        setLeaderboard(initial);
+        setScorecard(initial);
       }
     } catch (error) {
       console.error("Error loading leaderboard");
@@ -78,10 +78,10 @@ export default function ScorecardPage() {
   };
 
   React.useEffect(() => {
-    const loadLeaderboard = async () => {
-      await handleLeaderboard();
+    const loadScorecard = async () => {
+      await handleScorecard();
     };
-    loadLeaderboard();
+    loadScorecard();
     return () => {};
   }, []);
 
@@ -93,36 +93,36 @@ export default function ScorecardPage() {
       </section>
       <section>
         <HeadingTwoComponent text="Add a scorecard" />
-        <ParagraphComponent text="Fill out the form below to add your scorecard." />
+        <ParagraphComponent text="Fill out the form below to add a scorecard." />
+      </section>
+      <section>
+        <HeadingTwoComponent text="Update a scorecard" />
+        <ParagraphComponent text="Fill out the form below to update a scorecard." />
+      </section>
+      <section>
+        <HeadingTwoComponent text="Delete a scorecard" />
+        <ParagraphComponent text="Fill out the form below to delete a scorecard." />
       </section>
       <section className="invisible lg:visible hidden lg:block">
         <HeadingTwoComponent text="Recent scorecards" />
         <ParagraphComponent text="These are your most recent scorecards." />
         <div className="border-1 border-neutral-950">
           <ul className="z-0 flex flex-row flex-auto justify-center content-evenly items-stretch">
-            <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[10%] max-w-[10%] p-3 text-xl font-bold text-neutral-950 bg-lime-600 text-left subpixel-antialiased">
-              Rank
-            </li>
-            <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[26.6666666667%] max-w-[26.6666666667%] p-3 text-xl font-bold text-neutral-950 bg-lime-600 text-left border-l-1 border-neutral-950 subpixel-antialiased">
-              Username
-            </li>
-            <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[26.6666666667%] max-w-[26.6666666667%] p-3 text-xl font-bold text-neutral-950 bg-lime-600 text-left border-l-1 border-neutral-950 subpixel-antialiased">
+            <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-lime-600 text-left border-l-1 border-neutral-950 subpixel-antialiased">
               Course
             </li>
-            <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[26.6666666667%] max-w-[26.6666666667%] p-3 text-xl font-bold text-neutral-950 bg-lime-600 text-left border-l-1 border-neutral-950 subpixel-antialiased">
+            <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-lime-600 text-left border-l-1 border-neutral-950 subpixel-antialiased">
               Total
             </li>
-            <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[10%] max-w-[10%] p-3 text-xl font-bold text-neutral-950 bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased">
+            <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased">
               +
             </li>
           </ul>
         </div>
-        {leaderboard?.length > 0 ? (
-          leaderboard.map((item, index) => (
-            <LeaderboardComponent
-              key={`leaderboard-${item?.userId}-${index}`}
-              userName={item?.userName}
-              userRank={item?.userRank}
+        {scorecard?.length > 0 ? (
+          scorecard.map((item, index) => (
+            <ScorecardComponent
+              key={`scorecard-${item?.userId}-${index}`}
               userScores={item?.userScores}
               userTotalScore={item?.userTotalScore}
               golfCourse={item?.golfCourse}
@@ -134,10 +134,10 @@ export default function ScorecardPage() {
         )}
       </section>
       <section className="block lg:hidden visible lg:invisible my-1 border-1 border-neutral-950">
-        {leaderboard?.length > 0 ? (
-          leaderboard.map((item, index) => (
-            <LeaderboardMobileComponent
-              key={`leaderboard-${item?.userId}-${index}`}
+        {scorecard?.length > 0 ? (
+          scorecard.map((item, index) => (
+            <ScorecardMobileComponent
+              key={`scorecard-${item?.userId}-${index}`}
               userName={item?.userName}
               userRank={item?.userRank}
               userScores={item?.userScores}

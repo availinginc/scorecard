@@ -16,6 +16,17 @@ export default function CopyrightComponent() {
             <Link
               className="hover:text-neutral-600 transition-all"
               rel="noopener noreferrer"
+              target="_self"
+              to="/about"
+            >
+              About
+            </Link>
+          </span>
+          <span className="mx-3 invisible md:visible">|</span>
+          <span>
+            <Link
+              className="hover:text-neutral-600 transition-all"
+              rel="noopener noreferrer"
               target="_blank"
               to="https://availing.io/privacy"
             >
