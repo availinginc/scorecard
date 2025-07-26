@@ -1,21 +1,42 @@
 import * as React from "react";
 
 import { useFormik } from "formik";
+import type { FormikProps } from "formik";
 import * as yup from "yup";
-import clsx from "clsx";
 
 import { Field, Fieldset, Input, Label, Button } from "@headlessui/react";
 import ParagraphComponent from "./ParagraphComponent";
 
+type ScorecardFormValues = {
+  userScores: number[];
+};
+
+const handleIncrement = (
+  index: number,
+  formik: FormikProps<ScorecardFormValues>
+) => {
+  const userScores = [...formik.values.userScores];
+  userScores[index] = userScores[index] + 1;
+  formik.setFieldValue("userScores", userScores);
+};
+
+const handleDecrement = (
+  index: number,
+  formik: FormikProps<ScorecardFormValues>
+) => {
+  const userScores = [...formik.values.userScores];
+  userScores[index] = userScores[index] - 1;
+  formik.setFieldValue("userScores", userScores);
+};
+
 const validationSchema = yup.object({
   userScores: yup.array().of(yup.number().min(0).required()),
-  golfCoursePars: yup.array().of(yup.number().min(0).required()),
 });
+
 export default function ScorecardActivitiesAddComponent() {
-  const formik = useFormik({
+  const formik = useFormik<ScorecardFormValues>({
     initialValues: {
       userScores: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      golfCoursePars: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -34,175 +55,93 @@ export default function ScorecardActivitiesAddComponent() {
           <Fieldset className="space-y-6">
             <ParagraphComponent text={"Hole One (1)"} />
             <Field>
-              <Label className="mx-auto text-lg font-medium subpixel-antialiased text-neutral-300">
+              <Label className="my-3 text-lg font-medium text-neutral-300 text-left subpixel-antialiased">
                 Score:
               </Label>
-              <Input
-                className={clsx(
-                  "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-base text-white",
-                  "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
-                )}
-                value={formik.values.userScores[0]}
-                onChange={(e) =>
-                  formik.setFieldValue("userScores[0]", e.target.value)
-                }
-                required
-              />
+              <div className="flex flex-row flex-auto justify-center content-evenly items-stretch my-3">
+                <Button
+                  className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-300 hover:bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased cursor-pointer"
+                  onClick={() => handleDecrement(0, formik)}
+                >
+                  -
+                </Button>
+                <Input
+                  className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-300 text-center subpixel-antialiased"
+                  value={formik?.values?.userScores[0]}
+                  onChange={(e) =>
+                    formik.setFieldValue("userScores[0]", e?.target?.value)
+                  }
+                  required
+                />
+                <Button
+                  className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-300 hover:bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased cursor-pointer"
+                  onClick={() => handleIncrement(0, formik)}
+                >
+                  +
+                </Button>
+              </div>
             </Field>
-            <Field>
-              <Label className="mx-auto text-lg font-medium subpixel-antialiased text-neutral-300">
-                Handicap:
-              </Label>
-              <Input
-                className={clsx(
-                  "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-base text-white",
-                  "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
-                )}
-                value={formik.values.golfCoursePars[0]}
-                onChange={(e) =>
-                  formik.setFieldValue("golfCoursePars[0]", e.target.value)
-                }
-                required
-              />
-            </Field>
-            <hr className="my-4 border-t border-neutral-600" />
+            <hr className="my-9 border-t border-neutral-600" />
             <ParagraphComponent text={"Hole Two (2)"} />
             <Field>
-              <Label className="mx-auto text-lg font-medium subpixel-antialiased text-neutral-300">
+              <Label className="my-3 text-lg font-medium text-neutral-300 text-left subpixel-antialiased">
                 Score:
               </Label>
-              <Input
-                className={clsx(
-                  "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-base text-white",
-                  "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
-                )}
-                value={formik.values.userScores[1]}
-                onChange={(e) =>
-                  formik.setFieldValue("userScores[1]", e.target.value)
-                }
-                required
-              />
+              <div className="flex flex-row flex-auto justify-center content-evenly items-stretch my-3">
+                <Button
+                  className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-300 hover:bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased cursor-pointer"
+                  onClick={() => handleDecrement(1, formik)}
+                >
+                  -
+                </Button>
+                <Input
+                  className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-300 text-center subpixel-antialiased"
+                  value={formik?.values?.userScores[1]}
+                  onChange={(e) =>
+                    formik.setFieldValue("userScores[1]", e?.target?.value)
+                  }
+                  required
+                />
+                <Button
+                  className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-300 hover:bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased cursor-pointer"
+                  onClick={() => handleIncrement(1, formik)}
+                >
+                  +
+                </Button>
+              </div>
             </Field>
-            <Field>
-              <Label className="mx-auto text-lg font-medium subpixel-antialiased text-neutral-300">
-                Handicap:
-              </Label>
-              <Input
-                className={clsx(
-                  "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-base text-white",
-                  "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
-                )}
-                value={formik.values.golfCoursePars[1]}
-                onChange={(e) =>
-                  formik.setFieldValue("golfCoursePars[1]", e.target.value)
-                }
-                required
-              />
-            </Field>
-            <hr className="my-4 border-t border-neutral-600" />
+            <hr className="my-9 border-t border-neutral-600" />
             <ParagraphComponent text={"Hole Three (3)"} />
             <Field>
-              <Label className="mx-auto text-lg font-medium subpixel-antialiased text-neutral-300">
+              <Label className="my-3 text-lg font-medium text-neutral-300 text-left subpixel-antialiased">
                 Score:
               </Label>
-              <Input
-                className={clsx(
-                  "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-base text-white",
-                  "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
-                )}
-                value={formik.values.userScores[2]}
-                onChange={(e) =>
-                  formik.setFieldValue("userScores[2]", e.target.value)
-                }
-                required
-              />
+              <div className="flex flex-row flex-auto justify-center content-evenly items-stretch my-3">
+                <Button
+                  className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-300 hover:bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased cursor-pointer"
+                  onClick={() => handleDecrement(2, formik)}
+                >
+                  -
+                </Button>
+                <Input
+                  className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-300 text-center subpixel-antialiased"
+                  value={formik?.values?.userScores[2]}
+                  onChange={(e) =>
+                    formik.setFieldValue("userScores[2]", e?.target?.value)
+                  }
+                  required
+                />
+                <Button
+                  className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-300 hover:bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased cursor-pointer"
+                  onClick={() => handleIncrement(2, formik)}
+                >
+                  +
+                </Button>
+              </div>
             </Field>
-            <Field>
-              <Label className="mx-auto text-lg font-medium subpixel-antialiased text-neutral-300">
-                Handicap:
-              </Label>
-              <Input
-                className={clsx(
-                  "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-base text-white",
-                  "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
-                )}
-                value={formik.values.golfCoursePars[2]}
-                onChange={(e) =>
-                  formik.setFieldValue("golfCoursePars[2]", e.target.value)
-                }
-                required
-              />
-            </Field>
-            <hr className="my-4 border-t border-neutral-600" />
-            <ParagraphComponent text={"Hole Four (4)"} />
-            <Field>
-              <Label className="mx-auto text-lg font-medium subpixel-antialiased text-neutral-300">
-                Score:
-              </Label>
-              <Input
-                className={clsx(
-                  "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-base text-white",
-                  "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
-                )}
-                value={formik.values.userScores[3]}
-                onChange={(e) =>
-                  formik.setFieldValue("userScores[3]", e.target.value)
-                }
-                required
-              />
-            </Field>
-            <Field>
-              <Label className="mx-auto text-lg font-medium subpixel-antialiased text-neutral-300">
-                Handicap:
-              </Label>
-              <Input
-                className={clsx(
-                  "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-base text-white",
-                  "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
-                )}
-                value={formik.values.golfCoursePars[3]}
-                onChange={(e) =>
-                  formik.setFieldValue("golfCoursePars[3]", e.target.value)
-                }
-                required
-              />
-            </Field>
-            <hr className="my-4 border-t border-neutral-600" />
-            <ParagraphComponent text={"Hole Five (5)"} />
-            <Field>
-              <Label className="mx-auto text-lg font-medium subpixel-antialiased text-neutral-400">
-                Score:
-              </Label>
-              <Input
-                className={clsx(
-                  "mt-4 block w-full border-none bg-white/5 px-4 py-1.5 text-base text-white",
-                  "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
-                )}
-                value={formik.values.userScores[4]}
-                onChange={(e) =>
-                  formik.setFieldValue("userScores[4]", e.target.value)
-                }
-                required
-              />
-            </Field>
-            <Field>
-              <Label className="mx-auto text-lg font-medium subpixel-antialiased text-neutral-400">
-                Handicap:
-              </Label>
-              <Input
-                className={clsx(
-                  "mt-4 block w-full border-none bg-white/5 px-4 py-1.5 text-base text-white",
-                  "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
-                )}
-                value={formik.values.golfCoursePars[4]}
-                onChange={(e) =>
-                  formik.setFieldValue("golfCoursePars[4]", e.target.value)
-                }
-                required
-              />
-            </Field>
+            <hr className="my-9 border-t border-neutral-600" />
             <Button
-              className="block w-full mx-auto p-3 text-xl text-center font-bold text-neutral-950 bg-lime-600 hover:text-neutral-950 hover:bg-neutral-300 transition-all cursor-pointer"
+              className="block w-full mx-auto p-3 text-xl text-center font-bold text-neutral-950 hover:text-neutral-950 bg-lime-600 hover:bg-neutral-300 transition-all cursor-pointer"
               type="submit"
             >
               Add scorecard
