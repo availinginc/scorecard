@@ -7,6 +7,7 @@ import App from "./App.tsx";
 import HomePage from "./pages/HomePage.tsx";
 import ScorecardPage from "./pages/ScorecardPage.tsx";
 import LeaderboardPage from "./pages/LeaderboardPage.tsx";
+import HandicapPage from "./pages/HandicapPage.tsx";
 import ProshopPage from "./pages/ProshopPage.tsx";
 import AboutPage from "./pages/AboutPage.tsx";
 import { SignInPage } from "./pages/SignInPage.tsx";
@@ -40,6 +41,14 @@ createRoot(document.getElementById("root")!).render(
           element={
             <App>
               <LeaderboardPage />
+            </App>
+          }
+        />
+        <Route
+          path="/handicap"
+          element={
+            <App>
+              <HandicapPage />
             </App>
           }
         />

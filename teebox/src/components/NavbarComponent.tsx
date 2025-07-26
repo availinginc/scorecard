@@ -120,6 +120,17 @@ export default function NavbarComponent() {
               className="block md:flex md:flex-col md:flex-auto md:justify-self-start w-full mx-auto p-3 text-xl text-neutral-300 hover:text-lime-600 text-center subpixel-antialiased transition-all"
               rel="noopener noreferrer"
               target="_self"
+              to="/handicap"
+              onClick={() => handleOpen()}
+            >
+              Handicap
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className="block md:flex md:flex-col md:flex-auto md:justify-self-start w-full mx-auto p-3 text-xl text-neutral-300 hover:text-lime-600 text-center subpixel-antialiased transition-all"
+              rel="noopener noreferrer"
+              target="_self"
               to="/proshop"
               onClick={() => handleOpen()}
             >
@@ -251,6 +262,17 @@ export default function NavbarComponent() {
                     </li>
                   </React.Fragment>
                 )}
+                <li>
+                  <NavLink
+                    className="block md:flex md:flex-col md:flex-auto md:justify-self-start w-full mx-auto p-3 text-xl text-neutral-300 hover:text-lime-600 text-center subpixel-antialiased transition-all"
+                    rel="noopener noreferrer"
+                    target="_self"
+                    to="/handicap"
+                    onClick={() => handleOpen()}
+                  >
+                    Handicap
+                  </NavLink>
+                </li>
                 <li>
                   <NavLink
                     className="block md:flex md:flex-col md:flex-auto md:justify-self-start w-full mx-auto p-3 text-xl text-neutral-300 hover:text-lime-600 text-center subpixel-antialiased transition-all"

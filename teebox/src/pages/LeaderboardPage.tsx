@@ -9,7 +9,7 @@ import initialLeaderboardData from "../configurations/leaderboard.json";
 import HeadingOneComponent from "../components/HeadingOneComponent";
 import IntroductionComponent from "../components/IntroductionComponent";
 
-type LeaderboardRow = {
+type Rankings = {
   submitted: string;
   updated: string;
   userId: number;
@@ -25,17 +25,17 @@ type LeaderboardRow = {
 };
 
 export default function LeaderboardPage() {
-  const [leaderboard, setLeaderboard] = React.useState<LeaderboardRow[]>([]);
+  const [rankings, setRankings] = React.useState<Rankings[]>([]);
 
   // Handle leaderboard
-  const handleLeaderboard = async () => {
+  const handleRankings = async () => {
     try {
       // Request initial
       const initial = initialLeaderboardData;
 
       // Set initial leaderboard
       if (initial?.length > 0) {
-        setLeaderboard(initial);
+        setRankings(initial);
       }
 
       // Set base url
@@ -44,18 +44,18 @@ export default function LeaderboardPage() {
       // Request response
       const response = await getRequest(base, `/leaderboard/`);
       if (initial?.length > 0 && response?.length > 0) {
-        // Create leaderboard rows
-        response.forEach((item: LeaderboardRow, index: number) => {
-          // Create temporary row
-          const row: LeaderboardRow = {
+        // Create leaderboard rankings
+        response.forEach((item: Rankings, index: number) => {
+          // Create temporary ranking
+          const ranking: Rankings = {
             ...item,
           };
 
-          // Update row if less than or equal to 10 or add a new row if greater than 10 rows
+          // Update ranking if less than or equal to 10 or add a new ranking if greater than 10 rows
           if (initial?.[index]) {
-            initial[index] = row;
+            initial[index] = ranking;
           } else {
-            initial.push(row);
+            initial.push(ranking);
           }
         });
       }
@@ -64,10 +64,10 @@ export default function LeaderboardPage() {
       const sorted = initial.slice().sort((a, b) => a.userRank - b.userRank);
       if (sorted?.length > 0) {
         // Set the leaderboard
-        setLeaderboard(sorted);
+        setRankings(sorted);
       } else if (initial?.length > 0) {
         // Set the placeholder leaderboard
-        setLeaderboard(initial);
+        setRankings(initial);
       }
     } catch (error) {
       console.error("Error loading leaderboard");
@@ -77,7 +77,7 @@ export default function LeaderboardPage() {
 
   React.useEffect(() => {
     const loadLeaderboard = async () => {
-      await handleLeaderboard();
+      await handleRankings();
     };
     loadLeaderboard();
     return () => {};
@@ -106,8 +106,8 @@ export default function LeaderboardPage() {
             </li>
           </ul>
         </div>
-        {leaderboard?.length > 0 ? (
-          leaderboard.map((item, index) => (
+        {rankings?.length > 0 ? (
+          rankings.map((item, index) => (
             <LeaderboardDesktopComponent
               key={`leaderboard-${item?.userId}-${index}`}
               userName={item?.userName}
@@ -122,8 +122,8 @@ export default function LeaderboardPage() {
         )}
       </section>
       <section className="block lg:hidden visible lg:invisible my-1 border-1 border-neutral-950">
-        {leaderboard?.length > 0 ? (
-          leaderboard.map((item, index) => (
+        {rankings?.length > 0 ? (
+          rankings.map((item, index) => (
             <LeaderboardMobileComponent
               key={`leaderboard-${item?.userId}-${index}`}
               userName={item?.userName}

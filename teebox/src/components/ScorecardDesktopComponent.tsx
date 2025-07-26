@@ -21,20 +21,6 @@ export default function ScorecardDesktopComponent({
     setExpand(!expand);
   };
 
-  // <div className="border-1 border-neutral-950">
-  //   <ul className="z-0 flex flex-row flex-auto justify-center content-evenly items-stretch">
-  //     <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-lime-600 text-left border-l-1 border-neutral-950 subpixel-antialiased">
-  //       Course
-  //     </li>
-  //     <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-lime-600 text-left border-l-1 border-neutral-950 subpixel-antialiased">
-  //       Total
-  //     </li>
-  //     <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased">
-  //       +
-  //     </li>
-  //   </ul>
-  // </div>;
-
   return (
     <React.Fragment>
       <div className="border-1 border-neutral-950">
