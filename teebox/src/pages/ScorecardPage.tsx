@@ -12,70 +12,48 @@ import IntroductionComponent from "../components/IntroductionComponent";
 import ParagraphComponent from "../components/ParagraphComponent";
 import ScorecardActivitiesComponent from "../components/ScorecardActivitiesComponent";
 
-type ScorecardRow = {
-  submitted: string;
-  updated: string;
-  userId: number;
-  userName: string;
-  userRank: number;
-  userHandicap: number;
-  userScores: number[];
-  userTotalScore: number;
-  golfCourse: string;
-  golfCoursePars: number[];
-  golfCourseTotalPar: number;
-  golfCourseHolesPlayed: number;
-};
+import type { Scorecard, ScorecardFormValues } from "../types/scorecard";
 
 export default function ScorecardPage() {
-  const [scorecards, setScorecards] = React.useState<ScorecardRow[]>([]);
+  const [scorecards, setScorecards] = React.useState<Scorecard[]>([]);
 
-  // Handle scorecards
   const handleScorecards = async () => {
     try {
-      // Request initial
-      const initial = initialScorecardData;
-
-      // Set initial leaderboard
-      if (initial?.length > 0) {
-        setScorecards(initial);
+      if (initialScorecardData?.length > 0) {
+        setScorecards(initialScorecardData);
       }
-
-      // Set base url
-      const base = import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "";
-
-      // Request response
-      const response = await getRequest(base, `/leaderboard/`);
-      if (initial?.length > 0 && response?.length > 0) {
-        // Create leaderboard rows
-        response.forEach((item: ScorecardRow, index: number) => {
-          // Create temporary row
-          const row: ScorecardRow = {
+      const response = await getRequest(
+        import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "",
+        `/leaderboard/`
+      );
+      if (initialScorecardData?.length > 0 && response?.length > 0) {
+        response.forEach((item: Scorecard, index: number) => {
+          const scorecard: Scorecard = {
             ...item,
           };
-
-          // Update row if less than or equal to 10 or add a new row if greater than 10 rows
-          if (initial?.[index]) {
-            initial[index] = row;
+          if (initialScorecardData?.[index]) {
+            initialScorecardData[index] = scorecard;
           } else {
-            initial.push(row);
+            initialScorecardData.push(scorecard);
           }
         });
       }
-
-      // Sort the leaderboard by userRank
-      const sorted = initial.slice().sort((a, b) => a.userRank - b.userRank);
+      const sorted = initialScorecardData
+        .slice()
+        .sort((a, b) => a.userRank - b.userRank);
       if (sorted?.length > 0) {
-        // Set the leaderboard
         setScorecards(sorted);
-      } else if (initial?.length > 0) {
-        // Set the placeholder leaderboard
-        setScorecards(initial);
+      } else if (initialScorecardData?.length > 0) {
+        setScorecards(initialScorecardData);
       }
     } catch (error) {
       console.error("Error loading leaderboard");
       return error;
     }
+  };
+
+  const handleSubmitScorecard = async (values: ScorecardFormValues) => {
+    console.log("Adding new scorecard with values:", values);
   };
 
   React.useEffect(() => {
@@ -106,8 +84,8 @@ export default function ScorecardPage() {
             </li>
           </ul>
         </div>
-        {scorecards?.length > 0 ? (
-          scorecards.map((item, index) => (
+        {Array?.isArray(scorecards) && scorecards?.length > 0 ? (
+          scorecards?.map((item, index) => (
             <ScorecardComponent
               key={`scorecard-${item?.userId}-${index}`}
               userScores={item?.userScores}
@@ -121,8 +99,8 @@ export default function ScorecardPage() {
         )}
       </section>
       <section className="block lg:hidden visible lg:invisible my-3 border-1 border-neutral-950">
-        {scorecards?.length > 0 ? (
-          scorecards.map((item, index) => (
+        {Array?.isArray(scorecards) && scorecards?.length > 0 ? (
+          scorecards?.map((item, index) => (
             <ScorecardMobileComponent
               key={`scorecard-${item?.userId}-${index}`}
               userName={item?.userName}
@@ -142,7 +120,10 @@ export default function ScorecardPage() {
           <HeadingTwoComponent text="Scorecard activities" />
           <ParagraphComponent text="Manage your scorecards effectively by using the options below." />
         </div>
-        <ScorecardActivitiesComponent />
+        <ScorecardActivitiesComponent
+          scorecards={scorecards}
+          handleSubmitScorecard={handleSubmitScorecard}
+        />
       </section>
     </React.Fragment>
   );

@@ -29,7 +29,7 @@ export const getRequest = async (base: string, endpoint: string) => {
     );
     return data;
   } catch (error) {
-    console.log("Error posting request");
+    console.log("Error with GET request");
     return error;
   }
 };
@@ -66,7 +66,7 @@ export const postRequest = async (
     );
     return data;
   } catch (error) {
-    console.log("Error posting request");
+    console.log("Error with POST request");
     return error;
   }
 };
@@ -108,7 +108,7 @@ export const idpRequest = async (
     );
     return data;
   } catch (error) {
-    console.log("Error posting request");
+    console.log("Error with IDP request");
     return error;
   }
 };

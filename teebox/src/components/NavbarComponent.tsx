@@ -9,7 +9,7 @@ export default function NavbarComponent() {
   const [authenticated, setAuthenticated] = React.useState(false);
   const [open, setOpen] = React.useState<boolean>(false);
 
-  const handleOpen = () => {
+  const handleOpenMenu = () => {
     setOpen(!open);
   };
 
@@ -76,7 +76,7 @@ export default function NavbarComponent() {
               rel="noopener noreferrer"
               target="_self"
               to="/"
-              onClick={() => handleOpen()}
+              onClick={() => handleOpenMenu()}
             >
               Home
             </NavLink>
@@ -91,7 +91,7 @@ export default function NavbarComponent() {
                   rel="noopener noreferrer"
                   target="_self"
                   to="/scorecard"
-                  onClick={() => handleOpen()}
+                  onClick={() => handleOpenMenu()}
                 >
                   Scorecard
                 </NavLink>
@@ -108,7 +108,7 @@ export default function NavbarComponent() {
                   rel="noopener noreferrer"
                   target="_self"
                   to="/leaderboard"
-                  onClick={() => handleOpen()}
+                  onClick={() => handleOpenMenu()}
                 >
                   Leaderboard
                 </NavLink>
@@ -121,7 +121,7 @@ export default function NavbarComponent() {
               rel="noopener noreferrer"
               target="_self"
               to="/handicap"
-              onClick={() => handleOpen()}
+              onClick={() => handleOpenMenu()}
             >
               Handicap
             </NavLink>
@@ -132,7 +132,7 @@ export default function NavbarComponent() {
               rel="noopener noreferrer"
               target="_self"
               to="/proshop"
-              onClick={() => handleOpen()}
+              onClick={() => handleOpenMenu()}
             >
               Proshop
             </NavLink>
@@ -146,7 +146,7 @@ export default function NavbarComponent() {
                   target="_self"
                   to="/"
                   className="block w-full mx-auto py-3 px-9 font-bold text-neutral-950 bg-lime-600 hover:text-neutral-950 hover:bg-neutral-300 text-center subpixel-antialiased transition-all cursor-pointer"
-                  onClick={() => handleOpen()}
+                  onClick={() => handleOpenMenu()}
                 >
                   Sign Out
                 </NavLink>
@@ -160,7 +160,7 @@ export default function NavbarComponent() {
                   rel="noopener noreferrer"
                   target="_self"
                   to="/signup"
-                  onClick={() => handleOpen()}
+                  onClick={() => handleOpenMenu()}
                 >
                   Sign Up
                 </NavLink>
@@ -171,7 +171,7 @@ export default function NavbarComponent() {
                   target="_self"
                   to="/signin"
                   className="block w-full mx-auto py-3 px-9 font-bold text-neutral-950 bg-lime-600 hover:text-neutral-950 hover:bg-neutral-300 text-center subpixel-antialiased transition-all cursor-pointer"
-                  onClick={() => handleOpen()}
+                  onClick={() => handleOpenMenu()}
                 >
                   Sign In
                 </NavLink>
@@ -201,7 +201,7 @@ export default function NavbarComponent() {
               rel="noopener noreferrer"
               target="_self"
               to="#"
-              onClick={() => handleOpen()}
+              onClick={() => handleOpenMenu()}
             >
               <img
                 className="m-1 p-1"
@@ -223,7 +223,7 @@ export default function NavbarComponent() {
                     rel="noopener noreferrer"
                     target="_self"
                     to="/"
-                    onClick={() => handleOpen()}
+                    onClick={() => handleOpenMenu()}
                   >
                     Home
                   </NavLink>
@@ -238,7 +238,7 @@ export default function NavbarComponent() {
                         rel="noopener noreferrer"
                         target="_self"
                         to="/scorecard"
-                        onClick={() => handleOpen()}
+                        onClick={() => handleOpenMenu()}
                       >
                         Scorecard
                       </NavLink>
@@ -255,7 +255,7 @@ export default function NavbarComponent() {
                         rel="noopener noreferrer"
                         target="_self"
                         to="/leaderboard"
-                        onClick={() => handleOpen()}
+                        onClick={() => handleOpenMenu()}
                       >
                         Leaderboard
                       </NavLink>
@@ -268,7 +268,7 @@ export default function NavbarComponent() {
                     rel="noopener noreferrer"
                     target="_self"
                     to="/handicap"
-                    onClick={() => handleOpen()}
+                    onClick={() => handleOpenMenu()}
                   >
                     Handicap
                   </NavLink>
@@ -279,7 +279,7 @@ export default function NavbarComponent() {
                     rel="noopener noreferrer"
                     target="_self"
                     to="/proshop"
-                    onClick={() => handleOpen()}
+                    onClick={() => handleOpenMenu()}
                   >
                     Proshop
                   </NavLink>
@@ -293,7 +293,7 @@ export default function NavbarComponent() {
                         target="_self"
                         to="/"
                         className="block w-full mx-auto py-3 px-9 font-bold text-neutral-950 bg-lime-600 hover:text-neutral-950 hover:bg-neutral-300 text-center subpixel-antialiased transition-all cursor-pointer"
-                        onClick={() => handleOpen()}
+                        onClick={() => handleOpenMenu()}
                       >
                         Sign Out
                       </NavLink>
@@ -307,7 +307,7 @@ export default function NavbarComponent() {
                         rel="noopener noreferrer"
                         target="_self"
                         to="/signup"
-                        onClick={() => handleOpen()}
+                        onClick={() => handleOpenMenu()}
                       >
                         Sign Up
                       </NavLink>
@@ -318,7 +318,7 @@ export default function NavbarComponent() {
                         target="_self"
                         to="/signin"
                         className="block w-full mx-auto py-3 px-9 font-bold text-neutral-950 bg-lime-600 hover:text-neutral-950 hover:bg-neutral-300 text-center subpixel-antialiased transition-all cursor-pointer"
-                        onClick={() => handleOpen()}
+                        onClick={() => handleOpenMenu()}
                       >
                         Sign In
                       </NavLink>

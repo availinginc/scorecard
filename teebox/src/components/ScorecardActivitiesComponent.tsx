@@ -4,9 +4,18 @@ import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 
 import HeadingThreeComponent from "./HeadingThreeComponent";
 import ParagraphComponent from "./ParagraphComponent";
-import ScorecardActivitiesAddComponent from "./ScorecardActivitiesAddComponent";
+import ScorecardActivitiesAddComponent from "./ScorecardEditorComponent";
+import ScorecardActivitiesUpdateComponent from "./ScorecardActivitiesUpdateComponent";
 
-export default function ScorecardActivitiesComponent() {
+import type { Scorecard, ScorecardFormValues } from "../types/scorecard";
+
+export default function ScorecardActivitiesComponent({
+  scorecards,
+  handleSubmitScorecard,
+}: Readonly<{
+  scorecards?: Scorecard[];
+  handleSubmitScorecard?: (values: ScorecardFormValues) => Promise<void>;
+}>) {
   return (
     <React.Fragment>
       <TabGroup>
@@ -22,16 +31,24 @@ export default function ScorecardActivitiesComponent() {
           </Tab>
         </TabList>
         <TabPanels>
-          <TabPanel className="my-3 p-3">
+          <TabPanel className="">
             <HeadingThreeComponent text="Add a scorecard" />
             <ParagraphComponent text="Fill out the form below to add a scorecard." />
-            <ScorecardActivitiesAddComponent />
+            <ScorecardActivitiesAddComponent
+              text={"Add scorecard"}
+              handleSubmitScorecard={handleSubmitScorecard}
+            />
           </TabPanel>
-          <TabPanel className="my-3 p-3">
+          <TabPanel className="">
             <HeadingThreeComponent text="Update a scorecard" />
-            <ParagraphComponent text="Fill out the form below to update a scorecard." />
+            <ParagraphComponent text="Select the scorecard you want to update and fill out the form below." />
+            <ScorecardActivitiesUpdateComponent
+              scorecards={scorecards}
+              title={"Update scorecard"}
+              handleSubmitScorecard={handleSubmitScorecard}
+            />
           </TabPanel>
-          <TabPanel className="my-3 p-3">
+          <TabPanel className="">
             <HeadingThreeComponent text="Delete a scorecard" />
             <ParagraphComponent text="Fill out the form below to delete a scorecard." />
           </TabPanel>
