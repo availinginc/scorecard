@@ -14,7 +14,9 @@ export default function ScorecardActivitiesUpdateComponent({
   userId,
   scorecards,
 }: Readonly<{
-  handleSubmitScorecard?: (submitScorecard: SubmitScorecard) => Promise<void>;
+  handleSubmitScorecard?: (
+    submitScorecard: SubmitScorecard
+  ) => Promise<unknown>;
   activity?: string;
   text?: string;
   userId?: number;

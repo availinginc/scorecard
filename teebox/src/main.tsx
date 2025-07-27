@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router";
 import App from "./App.tsx";
 import HomePage from "./pages/HomePage.tsx";
+import CoursePage from "./pages/CoursePage.tsx";
 import ScorecardPage from "./pages/ScorecardPage.tsx";
 import LeaderboardPage from "./pages/LeaderboardPage.tsx";
 import HandicapPage from "./pages/HandicapPage.tsx";
@@ -28,6 +29,14 @@ createRoot(document.getElementById("root")!).render(
           }
         />
         <Route
+          path="/course"
+          element={
+            <App>
+              <CoursePage />
+            </App>
+          }
+        />
+        <Route
           path="/scorecard"
           element={
             <App>
@@ -35,6 +44,7 @@ createRoot(document.getElementById("root")!).render(
             </App>
           }
         />
+
         <Route
           path="/leaderboard"
           element={

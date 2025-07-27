@@ -8,7 +8,7 @@ import ScorecardComponent from "../components/ScorecardDesktopComponent";
 import ScorecardMobileComponent from "../components/ScorecardMobileComponent";
 import ScorecardActivitiesComponent from "../components/ScorecardActivitiesComponent";
 
-import type { Scorecard } from "../types/ScorecardTypes";
+import type { Scorecard, SubmitScorecard } from "../types/ScorecardTypes";
 import { endpoints } from "../configurations/constants";
 import initialScorecardData from "../configurations/scorecard.json";
 
@@ -22,16 +22,14 @@ import {
 export default function ScorecardPage() {
   const [scorecards, setScorecards] = React.useState<Scorecard[]>([]);
 
-  const handleSubmitScorecard = async (
-    activity: string,
-    userId: number,
-    userScores?: Scorecard,
-    golfCourseId?: number
-  ) => {
+  // Make sure to import the SubmitScorecard type if not already imported
+  // import type { SubmitScorecard } from "../types/ScorecardTypes";
+  const handleSubmitScorecard = async (submitScorecard: SubmitScorecard) => {
+    const { activity, userId, userScores, golfCourseId } = submitScorecard;
     try {
-      console.log("Adding new scorecard with activity:", activity);
-      console.log("Adding new scorecard with userScores:", userScores);
-      console.log("Adding new scorecard with golfCourseId:", golfCourseId);
+      console.log("Activity for scorecard:", activity);
+      console.log("Activity for scorecard with userScores:", userScores);
+      console.log("Activity for scorecard with golfCourseId:", golfCourseId);
       if (activity === "add") {
         // Handle adding a new scorecard
         const response = await postRequest(
@@ -48,7 +46,7 @@ export default function ScorecardPage() {
           console.log("Scorecard added successfully");
         }
       } else if (activity === "update ") {
-        // Handle adding a new scorecard
+        // Handle updating a scorecard
         const response = await patchRequest(
           import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "",
           endpoints.SCORECARD,

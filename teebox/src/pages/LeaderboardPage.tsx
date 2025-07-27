@@ -84,7 +84,7 @@ export default function LeaderboardPage() {
               userName={item?.userName}
               userRank={item?.userRank}
               userTotalScore={item?.userTotalScore}
-              golfCourse={item?.golfCourse}
+              golfCourseName={item?.golfCourseName}
               golfCourseTotalPar={item?.golfCourseTotalPar}
             />
           ))
@@ -100,7 +100,7 @@ export default function LeaderboardPage() {
               userName={item?.userName}
               userRank={item?.userRank}
               userTotalScore={item?.userTotalScore}
-              golfCourse={item?.golfCourse}
+              golfCourseName={item?.golfCourseName}
               golfCourseTotalPar={item?.golfCourseTotalPar}
             />
           ))

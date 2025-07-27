@@ -22,7 +22,9 @@ export default function ScorecardEditorComponent({
   golfCourseId,
 }: Readonly<{
   activity?: string;
-  handleSubmitScorecard?: (submitScorecard: SubmitScorecard) => Promise<void>;
+  handleSubmitScorecard?: (
+    submitScorecard: SubmitScorecard
+  ) => Promise<unknown>;
   text?: string;
   userId?: number;
   userScores?: number[];

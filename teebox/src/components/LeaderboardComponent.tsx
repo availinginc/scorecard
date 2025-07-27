@@ -9,7 +9,7 @@ export default function LeaderboardComponent({
   userRank,
   userScores,
   userTotalScore,
-  golfCourse,
+  golfCourseName,
   golfCoursePars,
 }: Readonly<Leaderboard>) {
   const [expand, setExpand] = React.useState<boolean>(false);
@@ -29,7 +29,7 @@ export default function LeaderboardComponent({
             {userName}
           </li>
           <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[26.6666666667%] max-w-[26.6666666667%] p-3 text-xl text-neutral-950 bg-neutral-300 text-left border-l-1 border-neutral-950 subpixel-antialiased">
-            {golfCourse}
+            {golfCourseName}
           </li>
           <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[26.6666666667%] max-w-[26.6666666667%] p-3 text-xl text-neutral-950 bg-neutral-300 text-left border-l-1 border-neutral-950 subpixel-antialiased">
             {userTotalScore}

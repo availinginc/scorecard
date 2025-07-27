@@ -6,7 +6,7 @@ export default function LeaderboardMobileComponent({
   userName,
   userRank,
   userTotalScore,
-  golfCourse,
+  golfCourseName,
   golfCourseTotalPar,
 }: Readonly<Leaderboard>) {
   return (
@@ -33,7 +33,7 @@ export default function LeaderboardMobileComponent({
             Course
           </li>
           <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[50%] max-w-[50%] p-3 text-base text-neutral-950 bg-neutral-300 text-left border-b-1 border-neutral-950 subpixel-antialiased">
-            {golfCourse}
+            {golfCourseName}
           </li>
         </ul>
         <ul className="flex flex-row flex-auto justify-center content-evenly items-stretch">

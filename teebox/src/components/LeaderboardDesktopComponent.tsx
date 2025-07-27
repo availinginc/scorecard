@@ -6,7 +6,7 @@ export default function LeaderboardDesktopComponent({
   userName,
   userRank,
   userTotalScore,
-  golfCourse,
+  golfCourseName,
   golfCourseTotalPar,
 }: Readonly<Leaderboard>) {
   return (
@@ -20,7 +20,7 @@ export default function LeaderboardDesktopComponent({
             {userName}
           </li>
           <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/4] max-w-[1/4] p-3 text-xl text-neutral-950 bg-neutral-300 text-left border-l-1 border-neutral-950 subpixel-antialiased">
-            {golfCourse}
+            {golfCourseName}
           </li>
           <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/4] max-w-[1/4] p-3 text-xl text-neutral-950 bg-neutral-300 text-left border-l-1 border-neutral-950 subpixel-antialiased">
             {(userTotalScore ?? 0) - (golfCourseTotalPar ?? 0)}
