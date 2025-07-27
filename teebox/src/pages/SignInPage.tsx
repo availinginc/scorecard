@@ -20,7 +20,6 @@ export const SignInPage: React.FC = () => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(String(email).toLowerCase());
   };
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
@@ -59,7 +58,6 @@ export const SignInPage: React.FC = () => {
       return err;
     }
   };
-
   return (
     <>
       <section className="sign-in-form">

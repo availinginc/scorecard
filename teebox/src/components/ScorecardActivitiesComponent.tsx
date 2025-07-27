@@ -1,18 +1,23 @@
 import * as React from "react";
+
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
+
 import HeadingThreeComponent from "./HeadingThreeComponent";
 import ParagraphComponent from "./ParagraphComponent";
 import ScorecardActivitiesAddComponent from "./ScorecardEditorComponent";
 import ScorecardActivitiesUpdateComponent from "./ScorecardActivitiesUpdateComponent";
 import ScorecardActivitiesDeleteComponent from "./ScorecardActivitiesDeleteComponent";
-import type { Scorecard } from "../types/ScorecardTypes";
+
+import type { Scorecard, SubmitScorecard } from "../types/ScorecardTypes";
 
 export default function ScorecardActivitiesComponent({
-  scorecards,
   handleSubmitScorecard,
+  userId,
+  scorecards,
 }: Readonly<{
+  handleSubmitScorecard?: (submitScorecard: SubmitScorecard) => Promise<void>;
+  userId: number;
   scorecards?: Scorecard[];
-  handleSubmitScorecard?: (values: Scorecard) => Promise<void>;
 }>) {
   return (
     <React.Fragment>
@@ -33,29 +38,32 @@ export default function ScorecardActivitiesComponent({
             <HeadingThreeComponent text="Add a scorecard" />
             <ParagraphComponent text="Fill out the form below to add a scorecard." />
             <ScorecardActivitiesAddComponent
+              handleSubmitScorecard={handleSubmitScorecard}
               activity={"add"}
               text={"Add scorecard"}
-              handleSubmitScorecard={handleSubmitScorecard}
+              userId={userId}
             />
           </TabPanel>
           <TabPanel className="">
             <HeadingThreeComponent text="Update a scorecard" />
             <ParagraphComponent text="Select the scorecard you want to update and fill out the form below." />
             <ScorecardActivitiesUpdateComponent
-              activity={"update"}
-              scorecards={scorecards}
-              title={"Update scorecard"}
               handleSubmitScorecard={handleSubmitScorecard}
+              activity={"update"}
+              text={"Update scorecard"}
+              userId={userId}
+              scorecards={scorecards}
             />
           </TabPanel>
           <TabPanel className="">
             <HeadingThreeComponent text="Delete a scorecard" />
             <ParagraphComponent text="Select the scorecard you want to delete and review the form below." />
             <ScorecardActivitiesDeleteComponent
-              activity={"delete"}
-              scorecards={scorecards}
-              title={"Delete scorecard"}
               handleSubmitScorecard={handleSubmitScorecard}
+              activity={"delete"}
+              text={"Delete scorecard"}
+              userId={userId}
+              scorecards={scorecards}
             />
           </TabPanel>
         </TabPanels>

@@ -1,19 +1,23 @@
 import * as React from "react";
-import LeaderboardDesktopComponent from "../components/LeaderboardDesktopComponent";
-import LeaderboardMobileComponent from "../components/LeaderboardMobileComponent";
-import { getRequest } from "../functions/request";
-import initialLeaderboardData from "../configurations/leaderboard.json";
+
 import HeadingOneComponent from "../components/HeadingOneComponent";
 import IntroductionComponent from "../components/IntroductionComponent";
+import LeaderboardDesktopComponent from "../components/LeaderboardDesktopComponent";
+import LeaderboardMobileComponent from "../components/LeaderboardMobileComponent";
+
 import type { Leaderboard } from "../types/LeaderboardTypes";
+import initialLeaderboardData from "../configurations/leaderboard.json";
+
+import { getRequest } from "../functions/request";
 
 export default function LeaderboardPage() {
-  const [rankings, setRankings] = React.useState<Leaderboard[]>([]);
-  const handleRankings = async () => {
+  const [leaderboard, setLeaderboard] = React.useState<Leaderboard[]>([]);
+
+  const handleLoadLeaderboard = async () => {
     try {
       const initial = initialLeaderboardData as Leaderboard[];
       if (initial?.length > 0) {
-        setRankings(initial);
+        setLeaderboard(initial);
       }
       const response = await getRequest(
         import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "",
@@ -32,27 +36,29 @@ export default function LeaderboardPage() {
         .slice()
         .sort((a, b) => (a?.userRank ?? 0) - (b?.userRank ?? 0));
       if (sorted?.length > 0) {
-        setRankings(sorted);
+        setLeaderboard(sorted);
       } else if (initial?.length > 0) {
-        setRankings(initial);
+        setLeaderboard(initial);
       }
     } catch (error) {
       console.error("Error loading leaderboard");
       return error;
     }
   };
+
   React.useEffect(() => {
     const loadLeaderboard = async () => {
-      await handleRankings();
+      await handleLoadLeaderboard();
     };
     loadLeaderboard();
     return () => {};
   }, []);
+
   return (
     <React.Fragment>
       <section>
         <HeadingOneComponent text="Leaderboard" />
-        <IntroductionComponent text="Our leaderboard displays the top users based on their scores. Check out the rankings and see how you stack up against others!" />
+        <IntroductionComponent text="Our leaderboard displays the top users based on their scores. Check out the leaderboard and see how you stack up against others!" />
       </section>
       <section className="invisible lg:visible hidden lg:block">
         <div className="border-1 border-neutral-950">
@@ -71,8 +77,8 @@ export default function LeaderboardPage() {
             </li>
           </ul>
         </div>
-        {rankings?.length > 0 ? (
-          rankings.map((item, index) => (
+        {leaderboard?.length > 0 ? (
+          leaderboard.map((item, index) => (
             <LeaderboardDesktopComponent
               key={`leaderboard-${item?.userName}-${index}`}
               userName={item?.userName}
@@ -87,8 +93,8 @@ export default function LeaderboardPage() {
         )}
       </section>
       <section className="block lg:hidden visible lg:invisible my-1 border-1 border-neutral-950">
-        {rankings?.length > 0 ? (
-          rankings.map((item, index) => (
+        {leaderboard?.length > 0 ? (
+          leaderboard.map((item, index) => (
             <LeaderboardMobileComponent
               key={`leaderboard-${item?.userName}-${index}`}
               userName={item?.userName}

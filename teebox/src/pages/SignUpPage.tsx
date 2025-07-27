@@ -60,7 +60,6 @@ export const SignUpPage: React.FC = () => {
       return err;
     }
   };
-
   return (
     <>
       <section className="sign-up-form">

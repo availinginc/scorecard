@@ -1,26 +1,89 @@
 import * as React from "react";
-import ScorecardComponent from "../components/ScorecardDesktopComponent";
-import ScorecardMobileComponent from "../components/ScorecardMobileComponent";
-import { getRequest } from "../functions/request";
-import initialScorecardData from "../configurations/scorecard.json";
+
 import HeadingOneComponent from "../components/HeadingOneComponent";
 import HeadingTwoComponent from "../components/HeadingTwoComponent";
 import IntroductionComponent from "../components/IntroductionComponent";
 import ParagraphComponent from "../components/ParagraphComponent";
+import ScorecardComponent from "../components/ScorecardDesktopComponent";
+import ScorecardMobileComponent from "../components/ScorecardMobileComponent";
 import ScorecardActivitiesComponent from "../components/ScorecardActivitiesComponent";
+
 import type { Scorecard } from "../types/ScorecardTypes";
+import { endpoints } from "../configurations/constants";
+import initialScorecardData from "../configurations/scorecard.json";
+
+import {
+  getRequest,
+  postRequest,
+  patchRequest,
+  deleteRequest,
+} from "../functions/request";
 
 export default function ScorecardPage() {
   const [scorecards, setScorecards] = React.useState<Scorecard[]>([]);
-  const handleScorecards = async () => {
+
+  const handleSubmitScorecard = async (
+    activity: string,
+    userId: number,
+    userScores?: Scorecard,
+    golfCourseId?: number
+  ) => {
+    try {
+      console.log("Adding new scorecard with activity:", activity);
+      console.log("Adding new scorecard with userScores:", userScores);
+      console.log("Adding new scorecard with golfCourseId:", golfCourseId);
+      if (activity === "add") {
+        // Handle adding a new scorecard
+        const response = await postRequest(
+          import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "",
+          endpoints.SCORECARD,
+          {
+            userId: userId,
+            userScores: userScores,
+            golfCourseId: golfCourseId,
+          }
+        );
+        if (response) {
+          // Handle successful response
+          console.log("Scorecard added successfully");
+        }
+      } else if (activity === "update ") {
+        // Handle adding a new scorecard
+        const response = await patchRequest(
+          import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "",
+          endpoints.SCORECARD,
+          {}
+        );
+        if (response) {
+          console.log("Scorecard updated successfully");
+        }
+      } else if (activity === "delete") {
+        // Handle deleting a scorecard
+        const response = await deleteRequest(
+          import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "",
+          endpoints.SCORECARD + userId,
+          {}
+        );
+        if (response) {
+          console.log("Scorecard deleted successfully");
+        }
+      }
+    } catch (error) {
+      console.error("Error performing activity on scorecard");
+      return error;
+    }
+  };
+
+  const handleLoadScorecards = async () => {
     try {
       const initial = initialScorecardData as Scorecard[];
       if (initial?.length > 0) {
         setScorecards(initial);
       }
+      const userId = 1; // Replace with actual user ID logic
       const response = await getRequest(
         import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "",
-        `/leaderboard/`
+        endpoints.SCORECARD + userId
       );
       if (response?.length > 0) {
         response.forEach((item: Scorecard, index: number) => {
@@ -47,16 +110,15 @@ export default function ScorecardPage() {
       return error;
     }
   };
-  const handleSubmitScorecard = async (values: Scorecard) => {
-    console.log("Adding new scorecard with values:", values);
-  };
+
   React.useEffect(() => {
     const loadScorecard = async () => {
-      await handleScorecards();
+      await handleLoadScorecards();
     };
     loadScorecard();
     return () => {};
   }, []);
+
   return (
     <React.Fragment>
       <section>
@@ -83,10 +145,8 @@ export default function ScorecardPage() {
               key={`scorecard-${item?.userId}-${index}`}
               userScores={item?.userScores}
               userTotalScore={item?.userTotalScore}
-              golfCourse={item?.golfCourse}
+              golfCourseName={item?.golfCourseName}
               golfCoursePars={item?.golfCoursePars}
-              updated={""}
-              userId={0}
             />
           ))
         ) : (
@@ -100,7 +160,7 @@ export default function ScorecardPage() {
               key={`scorecard-${item?.userId}-${index}`}
               userScores={item?.userScores}
               userTotalScore={item?.userTotalScore}
-              golfCourse={item?.golfCourse}
+              golfCourseName={item?.golfCourseName}
               golfCoursePars={item?.golfCoursePars}
             />
           ))
@@ -114,8 +174,9 @@ export default function ScorecardPage() {
           <ParagraphComponent text="Manage your scorecards effectively by using the options below." />
         </div>
         <ScorecardActivitiesComponent
-          scorecards={scorecards}
           handleSubmitScorecard={handleSubmitScorecard}
+          userId={1} // Replace with actual user ID logic
+          scorecards={scorecards}
         />
       </section>
     </React.Fragment>

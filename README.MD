@@ -148,3 +148,5 @@ npx expo start
 ###### Create a course table and input method to add courses
 ###### Create handicap calculator that calculates the handicap based on the scores and the course par
 ###### Replace custom SVGS with Icon Library
+###### Add sitemap Library
+###### Make scorecard editor component look more like scorecard / leaderboard

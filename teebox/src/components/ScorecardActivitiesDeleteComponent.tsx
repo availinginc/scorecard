@@ -1,23 +1,28 @@
 import * as React from "react";
+
 import dayjs from "dayjs";
+
 import { Select } from "@headlessui/react";
 import ScorecardEditorComponent from "./ScorecardEditorComponent";
-import type { Scorecard } from "../types/ScorecardTypes";
+import type { Scorecard, SubmitScorecard } from "../types/ScorecardTypes";
 
 export default function ScorecardActivitiesDeleteComponent({
-  activity,
-  scorecards,
-  title,
   handleSubmitScorecard,
+  activity,
+  text,
+  userId,
+  scorecards,
 }: Readonly<{
+  handleSubmitScorecard?: (submitScorecard: SubmitScorecard) => Promise<void>;
   activity?: string;
+  text?: string;
+  userId?: number;
   scorecards?: Scorecard[];
-  title?: string;
-  handleSubmitScorecard?: (values: Scorecard) => Promise<void>;
 }>) {
   const [userScores, setUserScores] = React.useState<number[]>(
     scorecards?.[0]?.userScores ?? []
   );
+
   const handleSelectScorecard = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -26,12 +31,13 @@ export default function ScorecardActivitiesDeleteComponent({
       setUserScores(selectedScorecard?.userScores ?? []);
     }
   };
+
   return (
     <React.Fragment>
       <Select
         className="h-auto w-full p-3 text-xl font-bold text-neutral-950 bg-neutral-300 text-center subpixel-antialiased"
         name="scorecards"
-        aria-label="User scorecards"
+        aria-label="List of user scorecards"
         onChange={handleSelectScorecard}
       >
         {Array?.isArray(scorecards) && scorecards?.length > 0 ? (
@@ -47,10 +53,11 @@ export default function ScorecardActivitiesDeleteComponent({
         )}
       </Select>
       <ScorecardEditorComponent
-        activity={activity}
-        userScores={userScores}
-        text={title}
         handleSubmitScorecard={handleSubmitScorecard}
+        activity={activity}
+        text={text}
+        userId={userId}
+        userScores={userScores}
       />
     </React.Fragment>
   );

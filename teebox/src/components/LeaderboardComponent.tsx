@@ -1,5 +1,7 @@
 import * as React from "react";
+
 import { NavLink } from "react-router";
+
 import type { Leaderboard } from "../types/LeaderboardTypes";
 
 export default function LeaderboardComponent({
@@ -11,9 +13,11 @@ export default function LeaderboardComponent({
   golfCoursePars,
 }: Readonly<Leaderboard>) {
   const [expand, setExpand] = React.useState<boolean>(false);
+
   const handleExpand = () => {
     setExpand(!expand);
   };
+
   return (
     <React.Fragment>
       <div className="border-1 border-neutral-950">

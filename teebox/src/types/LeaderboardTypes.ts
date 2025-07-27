@@ -7,7 +7,8 @@ export type Leaderboard = {
   userHandicap?: number;
   userScores?: number[];
   userTotalScore?: number;
-  golfCourse?: string;
+  golfCourseId?: number;
+  golfCourseName?: string;
   golfCoursePars?: number[];
   golfCourseTotalPar?: number;
   golfCourseHolesPlayed?: number;

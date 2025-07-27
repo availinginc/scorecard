@@ -1,5 +1,7 @@
 import * as React from "react";
+
 import { NavLink } from "react-router";
+
 import type { Scorecard } from "../types/ScorecardTypes";
 
 export default function ScorecardDesktopComponent({
@@ -9,9 +11,11 @@ export default function ScorecardDesktopComponent({
   golfCoursePars,
 }: Readonly<Scorecard>) {
   const [expand, setExpand] = React.useState<boolean>(false);
+
   const handleExpand = () => {
     setExpand(!expand);
   };
+
   return (
     <React.Fragment>
       <div className="border-1 border-neutral-950">

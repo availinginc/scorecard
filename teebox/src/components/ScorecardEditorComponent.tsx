@@ -1,46 +1,32 @@
 import * as React from "react";
+
 import { useFormik } from "formik";
 import type { FormikProps } from "formik";
 import * as yup from "yup";
+
 import { Field, Fieldset, Input, Label, Button } from "@headlessui/react";
 import HeadingSixComponent from "./HeadingSixComponent";
-import type { Scorecard } from "../types/ScorecardTypes";
 
-const handleIncrementScore = (
-  index: number,
-  formik: FormikProps<Scorecard>
-) => {
-  const userScores = [...(formik.values.userScores ?? [])];
-  const score = userScores?.[index];
-  if (!isNaN(score)) {
-    userScores[index] = Math.abs(score + 1);
-  }
-  formik.setFieldValue("userScores", userScores);
-};
-const handleDecrementScore = (
-  index: number,
-  formik: FormikProps<Scorecard>
-) => {
-  const userScores = [...(formik.values.userScores ?? [])];
-  const score = userScores?.[index];
-  if (!isNaN(score)) {
-    userScores[index] = Math.abs(score - 1);
-  }
-  formik.setFieldValue("userScores", userScores);
-};
+import type { Scorecard, SubmitScorecard } from "../types/ScorecardTypes";
+
 const validationSchema = yup.object({
   userScores: yup.array().of(yup.number().min(0).required()),
 });
+
 export default function ScorecardEditorComponent({
-  activity,
-  userScores,
-  text,
   handleSubmitScorecard,
+  activity,
+  text,
+  userId,
+  userScores,
+  golfCourseId,
 }: Readonly<{
   activity?: string;
-  userScores?: number[];
+  handleSubmitScorecard?: (submitScorecard: SubmitScorecard) => Promise<void>;
   text?: string;
-  handleSubmitScorecard?: (values: Scorecard) => Promise<void>;
+  userId?: number;
+  userScores?: number[];
+  golfCourseId?: number;
 }>) {
   const formik = useFormik<Scorecard>({
     initialValues: {
@@ -51,16 +37,48 @@ export default function ScorecardEditorComponent({
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
-        handleSubmitScorecard?.(values);
+        if (handleSubmitScorecard) {
+          await handleSubmitScorecard({
+            activity: activity ?? "",
+            userId,
+            userScores: values?.userScores,
+            golfCourseId,
+          });
+        }
       } catch (error) {
         console.log("Error adding new scorecard");
         return error;
       }
     },
   });
+
+  const handleIncrementScore = (
+    index: number,
+    formik: FormikProps<Scorecard>
+  ) => {
+    const userScores = [...(formik?.values?.userScores ?? [])];
+    const score = userScores?.[index];
+    if (!isNaN(score)) {
+      userScores[index] = Math.abs(score + 1);
+    }
+    formik.setFieldValue("userScores", userScores);
+  };
+
+  const handleDecrementScore = (
+    index: number,
+    formik: FormikProps<Scorecard>
+  ) => {
+    const userScores = [...(formik?.values?.userScores ?? [])];
+    const score = userScores?.[index];
+    if (!isNaN(score)) {
+      userScores[index] = Math.abs(score - 1);
+    }
+    formik.setFieldValue("userScores", userScores);
+  };
+
   const handleUserScores = async () => {
     try {
-      if (Array.isArray(userScores) && userScores.length > 0) {
+      if (Array.isArray(userScores) && userScores?.length > 0) {
         formik.setFieldValue("userScores", userScores);
       }
     } catch (error) {
@@ -68,6 +86,7 @@ export default function ScorecardEditorComponent({
       return error;
     }
   };
+
   React.useEffect(() => {
     const loadScorecard = async () => {
       await handleUserScores();
@@ -75,6 +94,7 @@ export default function ScorecardEditorComponent({
     loadScorecard();
     return () => {};
   }, [userScores]);
+
   return (
     <React.Fragment>
       <form onSubmit={formik.handleSubmit}>

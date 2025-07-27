@@ -1,4 +1,4 @@
-export type Scorecard = {
+export type GolfCourse = {
   submitted?: string;
   updated?: string;
   userId?: number;
@@ -12,11 +12,4 @@ export type Scorecard = {
   golfCoursePars?: number[];
   golfCourseTotalPar?: number;
   golfCourseHolesPlayed?: number;
-};
-
-export type SubmitScorecard = {
-  activity?: string;
-  userId?: number;
-  userScores?: number[];
-  golfCourseId?: number;
 };
