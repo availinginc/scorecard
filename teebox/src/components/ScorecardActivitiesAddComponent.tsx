@@ -2,18 +2,21 @@ import * as React from "react";
 
 import ScorecardEditorComponent from "./ScorecardEditorComponent";
 
-import type { ScorecardFormValues } from "../types/scorecard";
+import type { ScorecardActivities } from "../types/ScorecardTypes";
 
 export default function ScorecardActivitiesAddComponent({
+  activity,
   text,
   handleSubmitScorecard,
 }: Readonly<{
+  activity?: string;
   text?: string;
-  handleSubmitScorecard?: (values: ScorecardFormValues) => Promise<void>;
+  handleSubmitScorecard?: (values: ScorecardActivities) => Promise<void>;
 }>) {
   return (
     <React.Fragment>
       <ScorecardEditorComponent
+        activity={activity}
         text={text}
         handleSubmitScorecard={handleSubmitScorecard}
       />

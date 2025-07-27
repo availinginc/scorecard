@@ -7,7 +7,7 @@ import ScorecardEditorComponent from "./ScorecardEditorComponent";
 
 import type { Scorecard } from "../types/ScorecardTypes";
 
-export default function ScorecardActivitiesUpdateComponent({
+export default function ScorecardActivitiesDeleteComponent({
   activity,
   scorecards,
   title,

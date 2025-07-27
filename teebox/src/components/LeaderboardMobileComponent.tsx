@@ -1,24 +1,14 @@
 import * as React from "react";
 
-interface LeaderboardComponentProps {
-  userName: string;
-  userRank: number;
-  userTotalScore: number;
-  golfCourse: string;
-  golfCoursePars: number[];
-}
+import type { Leaderboard } from "../types/LeaderboardTypes";
 
 export default function LeaderboardMobileComponent({
   userName,
   userRank,
   userTotalScore,
   golfCourse,
-  golfCoursePars, // Create a golf course total
-}: Readonly<LeaderboardComponentProps>) {
-  // Add up the total par for the golf course
-  const golfCourseTotalPar = golfCoursePars.reduce((a, b) => a + b, 0);
-  // Calculate the distance from par - This is the user's total score minus the total par of the golf course
-  const distanceFromPar = userTotalScore - golfCourseTotalPar;
+  golfCourseTotalPar,
+}: Readonly<Leaderboard>) {
   return (
     <React.Fragment>
       <div className="border-1 border-neutral-950">
@@ -51,7 +41,7 @@ export default function LeaderboardMobileComponent({
             Total
           </li>
           <li className="flex flex-col flex-1 justify-self-center self-stretch min-w-[50%] max-w-[50%] p-3 text-base text-neutral-950 bg-neutral-300 text-left border-b-1 border-neutral-950 subpixel-antialiased">
-            {distanceFromPar}
+            {(userTotalScore ?? 0) - (golfCourseTotalPar ?? 0)}
           </li>
         </ul>
       </div>

@@ -12,50 +12,48 @@ import IntroductionComponent from "../components/IntroductionComponent";
 import ParagraphComponent from "../components/ParagraphComponent";
 import ScorecardActivitiesComponent from "../components/ScorecardActivitiesComponent";
 
-import type { Scorecard, ScorecardFormValues } from "../types/scorecard";
+import type { Scorecard } from "../types/ScorecardTypes";
 
 export default function ScorecardPage() {
   const [scorecards, setScorecards] = React.useState<Scorecard[]>([]);
-
   const handleScorecards = async () => {
     try {
-      if (initialScorecardData?.length > 0) {
-        setScorecards(initialScorecardData);
+      const initial = initialScorecardData as Scorecard[];
+      if (initial?.length > 0) {
+        setScorecards(initial);
       }
       const response = await getRequest(
         import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "",
         `/leaderboard/`
       );
-      if (initialScorecardData?.length > 0 && response?.length > 0) {
+      if (response?.length > 0) {
         response.forEach((item: Scorecard, index: number) => {
           const scorecard: Scorecard = {
             ...item,
           };
-          if (initialScorecardData?.[index]) {
-            initialScorecardData[index] = scorecard;
+          if (initial?.[index]) {
+            initial[index] = scorecard;
           } else {
-            initialScorecardData.push(scorecard);
+            initial.push(scorecard);
           }
         });
       }
-      const sorted = initialScorecardData
+      const sorted = initial
         .slice()
-        .sort((a, b) => a.userRank - b.userRank);
+        .sort((a, b) => (a?.userRank ?? 0) - (b?.userRank ?? 0));
       if (sorted?.length > 0) {
         setScorecards(sorted);
-      } else if (initialScorecardData?.length > 0) {
-        setScorecards(initialScorecardData);
+      } else if (initial?.length > 0) {
+        setScorecards(initial);
       }
     } catch (error) {
       console.error("Error loading leaderboard");
       return error;
     }
   };
-
-  const handleSubmitScorecard = async (values: ScorecardFormValues) => {
+  const handleSubmitScorecard = async (values: Scorecard) => {
     console.log("Adding new scorecard with values:", values);
   };
-
   React.useEffect(() => {
     const loadScorecard = async () => {
       await handleScorecards();
@@ -63,11 +61,10 @@ export default function ScorecardPage() {
     loadScorecard();
     return () => {};
   }, []);
-
   return (
     <React.Fragment>
       <section>
-        <HeadingOneComponent text="Scorecard" />
+        <HeadingOneComponent text=" Scorecard" />
         <IntroductionComponent text="Add your scores and track your season progress by submitting your scorecard!" />
       </section>
       <section className="invisible lg:visible hidden lg:block my-3">
@@ -92,6 +89,8 @@ export default function ScorecardPage() {
               userTotalScore={item?.userTotalScore}
               golfCourse={item?.golfCourse}
               golfCoursePars={item?.golfCoursePars}
+              updated={""}
+              userId={0}
             />
           ))
         ) : (
@@ -103,8 +102,6 @@ export default function ScorecardPage() {
           scorecards?.map((item, index) => (
             <ScorecardMobileComponent
               key={`scorecard-${item?.userId}-${index}`}
-              userName={item?.userName}
-              userRank={item?.userRank}
               userScores={item?.userScores}
               userTotalScore={item?.userTotalScore}
               golfCourse={item?.golfCourse}
@@ -117,7 +114,7 @@ export default function ScorecardPage() {
       </section>
       <section className="active my-3 border-1 border-neutral-950">
         <div className="my-3">
-          <HeadingTwoComponent text="Scorecard activities" />
+          <HeadingTwoComponent text=" Scorecard activities" />
           <ParagraphComponent text="Manage your scorecards effectively by using the options below." />
         </div>
         <ScorecardActivitiesComponent

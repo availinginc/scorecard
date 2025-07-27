@@ -9,64 +9,35 @@ import initialLeaderboardData from "../configurations/leaderboard.json";
 import HeadingOneComponent from "../components/HeadingOneComponent";
 import IntroductionComponent from "../components/IntroductionComponent";
 
-type Rankings = {
-  submitted: string;
-  updated: string;
-  userId: number;
-  userName: string;
-  userRank: number;
-  userHandicap: number;
-  userScores: number[];
-  userTotalScore: number;
-  golfCourse: string;
-  golfCoursePars: number[];
-  golfCourseTotalPar: number;
-  golfCourseHolesPlayed: number;
-};
+import type { Leaderboard } from "../types/LeaderboardTypes";
 
 export default function LeaderboardPage() {
-  const [rankings, setRankings] = React.useState<Rankings[]>([]);
-
-  // Handle leaderboard
+  const [rankings, setRankings] = React.useState<Leaderboard[]>([]);
   const handleRankings = async () => {
     try {
-      // Request initial
-      const initial = initialLeaderboardData;
-
-      // Set initial leaderboard
+      const initial = initialLeaderboardData as Leaderboard[];
       if (initial?.length > 0) {
         setRankings(initial);
       }
-
-      // Set base url
-      const base = import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "";
-
-      // Request response
-      const response = await getRequest(base, `/leaderboard/`);
-      if (initial?.length > 0 && response?.length > 0) {
-        // Create leaderboard rankings
-        response.forEach((item: Rankings, index: number) => {
-          // Create temporary ranking
-          const ranking: Rankings = {
-            ...item,
-          };
-
-          // Update ranking if less than or equal to 10 or add a new ranking if greater than 10 rows
+      const response = await getRequest(
+        import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "",
+        `/leaderboard/`
+      );
+      if (response?.length > 0) {
+        response.forEach((item: Leaderboard, index: number) => {
           if (initial?.[index]) {
-            initial[index] = ranking;
+            initial[index] = item;
           } else {
-            initial.push(ranking);
+            initial.push(item);
           }
         });
       }
-
-      // Sort the leaderboard by userRank
-      const sorted = initial.slice().sort((a, b) => a.userRank - b.userRank);
+      const sorted = initial
+        .slice()
+        .sort((a, b) => (a?.userRank ?? 0) - (b?.userRank ?? 0));
       if (sorted?.length > 0) {
-        // Set the leaderboard
         setRankings(sorted);
       } else if (initial?.length > 0) {
-        // Set the placeholder leaderboard
         setRankings(initial);
       }
     } catch (error) {
@@ -74,7 +45,6 @@ export default function LeaderboardPage() {
       return error;
     }
   };
-
   React.useEffect(() => {
     const loadLeaderboard = async () => {
       await handleRankings();
@@ -82,7 +52,6 @@ export default function LeaderboardPage() {
     loadLeaderboard();
     return () => {};
   }, []);
-
   return (
     <React.Fragment>
       <section>
@@ -109,12 +78,12 @@ export default function LeaderboardPage() {
         {rankings?.length > 0 ? (
           rankings.map((item, index) => (
             <LeaderboardDesktopComponent
-              key={`leaderboard-${item?.userId}-${index}`}
+              key={`leaderboard-${item?.userName}-${index}`}
               userName={item?.userName}
               userRank={item?.userRank}
               userTotalScore={item?.userTotalScore}
               golfCourse={item?.golfCourse}
-              golfCoursePars={item?.golfCoursePars}
+              golfCourseTotalPar={item?.golfCourseTotalPar}
             />
           ))
         ) : (
@@ -125,12 +94,12 @@ export default function LeaderboardPage() {
         {rankings?.length > 0 ? (
           rankings.map((item, index) => (
             <LeaderboardMobileComponent
-              key={`leaderboard-${item?.userId}-${index}`}
+              key={`leaderboard-${item?.userName}-${index}`}
               userName={item?.userName}
               userRank={item?.userRank}
               userTotalScore={item?.userTotalScore}
               golfCourse={item?.golfCourse}
-              golfCoursePars={item?.golfCoursePars}
+              golfCourseTotalPar={item?.golfCourseTotalPar}
             />
           ))
         ) : (

@@ -8,14 +8,11 @@ import PinpointscoreMenu from "../assets/pinpointscore-menu.svg";
 export default function NavbarComponent() {
   const [authenticated, setAuthenticated] = React.useState(false);
   const [open, setOpen] = React.useState<boolean>(false);
-
   const handleOpenMenu = () => {
     setOpen(!open);
   };
-
   React.useEffect(() => {
     const authentication = false;
-
     // Close the menu when clicking or moving the mouse outside of it
     const main = document?.getElementById("main");
     if (main) {
@@ -31,7 +28,6 @@ export default function NavbarComponent() {
         setOpen(false);
       });
     }
-
     // Close the menu when clicking or moving the mouse outside of the menu button
     const menuButton = document?.getElementById("menu-button");
     if (menuButton) {
@@ -47,14 +43,12 @@ export default function NavbarComponent() {
         setOpen(false);
       });
     }
-
     return () => {
       if (authentication) {
         setAuthenticated(true);
       }
     };
   }, []);
-
   return (
     <React.Fragment>
       <nav className="relative my-[9vh] invisible md:visible hidden md:block">

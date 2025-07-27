@@ -7,11 +7,11 @@ import * as yup from "yup";
 import { Field, Fieldset, Input, Label, Button } from "@headlessui/react";
 import HeadingSixComponent from "./HeadingSixComponent";
 
-import type { ScorecardFormValues } from "../types/scorecard";
+import type { ScorecardActivities } from "../types/ScorecardTypes";
 
 const handleIncrementScore = (
   index: number,
-  formik: FormikProps<ScorecardFormValues>
+  formik: FormikProps<ScorecardActivities>
 ) => {
   const userScores = [...formik.values.userScores];
   const score = userScores?.[index];
@@ -22,7 +22,7 @@ const handleIncrementScore = (
 };
 const handleDecrementScore = (
   index: number,
-  formik: FormikProps<ScorecardFormValues>
+  formik: FormikProps<ScorecardActivities>
 ) => {
   const userScores = [...formik.values.userScores];
   const score = userScores?.[index];
@@ -34,17 +34,18 @@ const handleDecrementScore = (
 const validationSchema = yup.object({
   userScores: yup.array().of(yup.number().min(0).required()),
 });
-
 export default function ScorecardEditorComponent({
+  activity,
   userScores,
   text,
   handleSubmitScorecard,
 }: Readonly<{
+  activity?: string;
   userScores?: number[];
   text?: string;
-  handleSubmitScorecard?: (values: ScorecardFormValues) => Promise<void>;
+  handleSubmitScorecard?: (values: ScorecardActivities) => Promise<void>;
 }>) {
-  const formik = useFormik<ScorecardFormValues>({
+  const formik = useFormik<ScorecardActivities>({
     initialValues: {
       userScores: userScores ?? [
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -88,6 +89,7 @@ export default function ScorecardEditorComponent({
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-r-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleDecrementScore(0, formik)}
+                disabled={activity === "delete"}
               >
                 -
               </Button>
@@ -98,11 +100,13 @@ export default function ScorecardEditorComponent({
                   formik.setFieldValue("userScores[0]", e?.target?.value)
                 }
                 type="number"
-                required
+                required={activity !== "delete"}
+                disabled={activity === "delete"}
               />
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleIncrementScore(0, formik)}
+                disabled={activity === "delete"}
               >
                 +
               </Button>
@@ -116,6 +120,7 @@ export default function ScorecardEditorComponent({
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-r-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleDecrementScore(1, formik)}
+                disabled={activity === "delete"}
               >
                 -
               </Button>
@@ -126,11 +131,13 @@ export default function ScorecardEditorComponent({
                   formik.setFieldValue("userScores[1]", e?.target?.value)
                 }
                 type="number"
-                required
+                required={activity !== "delete"}
+                disabled={activity === "delete"}
               />
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleIncrementScore(1, formik)}
+                disabled={activity === "delete"}
               >
                 +
               </Button>
@@ -144,6 +151,7 @@ export default function ScorecardEditorComponent({
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-r-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleDecrementScore(2, formik)}
+                disabled={activity === "delete"}
               >
                 -
               </Button>
@@ -154,11 +162,13 @@ export default function ScorecardEditorComponent({
                   formik.setFieldValue("userScores[2]", e?.target?.value)
                 }
                 type="number"
-                required
+                required={activity !== "delete"}
+                disabled={activity === "delete"}
               />
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleIncrementScore(2, formik)}
+                disabled={activity === "delete"}
               >
                 +
               </Button>
@@ -172,6 +182,7 @@ export default function ScorecardEditorComponent({
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-r-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleDecrementScore(3, formik)}
+                disabled={activity === "delete"}
               >
                 -
               </Button>
@@ -182,11 +193,13 @@ export default function ScorecardEditorComponent({
                   formik.setFieldValue("userScores[3]", e?.target?.value)
                 }
                 type="number"
-                required
+                required={activity !== "delete"}
+                disabled={activity === "delete"}
               />
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleIncrementScore(3, formik)}
+                disabled={activity === "delete"}
               >
                 +
               </Button>
@@ -200,6 +213,7 @@ export default function ScorecardEditorComponent({
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-r-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleDecrementScore(4, formik)}
+                disabled={activity === "delete"}
               >
                 -
               </Button>
@@ -210,11 +224,13 @@ export default function ScorecardEditorComponent({
                   formik.setFieldValue("userScores[4]", e?.target?.value)
                 }
                 type="number"
-                required
+                required={activity !== "delete"}
+                disabled={activity === "delete"}
               />
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleIncrementScore(4, formik)}
+                disabled={activity === "delete"}
               >
                 +
               </Button>
@@ -228,6 +244,7 @@ export default function ScorecardEditorComponent({
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-r-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleDecrementScore(5, formik)}
+                disabled={activity === "delete"}
               >
                 -
               </Button>
@@ -238,11 +255,13 @@ export default function ScorecardEditorComponent({
                   formik.setFieldValue("userScores[5]", e?.target?.value)
                 }
                 type="number"
-                required
+                required={activity !== "delete"}
+                disabled={activity === "delete"}
               />
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleIncrementScore(5, formik)}
+                disabled={activity === "delete"}
               >
                 +
               </Button>
@@ -256,6 +275,7 @@ export default function ScorecardEditorComponent({
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-r-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleDecrementScore(6, formik)}
+                disabled={activity === "delete"}
               >
                 -
               </Button>
@@ -266,11 +286,13 @@ export default function ScorecardEditorComponent({
                   formik.setFieldValue("userScores[6]", e?.target?.value)
                 }
                 type="number"
-                required
+                required={activity !== "delete"}
+                disabled={activity === "delete"}
               />
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleIncrementScore(6, formik)}
+                disabled={activity === "delete"}
               >
                 +
               </Button>
@@ -284,6 +306,7 @@ export default function ScorecardEditorComponent({
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-r-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleDecrementScore(7, formik)}
+                disabled={activity === "delete"}
               >
                 -
               </Button>
@@ -294,11 +317,13 @@ export default function ScorecardEditorComponent({
                   formik.setFieldValue("userScores[7]", e?.target?.value)
                 }
                 type="number"
-                required
+                required={activity !== "delete"}
+                disabled={activity === "delete"}
               />
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleIncrementScore(7, formik)}
+                disabled={activity === "delete"}
               >
                 +
               </Button>
@@ -312,6 +337,7 @@ export default function ScorecardEditorComponent({
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-r-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleDecrementScore(8, formik)}
+                disabled={activity === "delete"}
               >
                 -
               </Button>
@@ -322,11 +348,13 @@ export default function ScorecardEditorComponent({
                   formik.setFieldValue("userScores[8]", e?.target?.value)
                 }
                 type="number"
-                required
+                required={activity !== "delete"}
+                disabled={activity === "delete"}
               />
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleIncrementScore(8, formik)}
+                disabled={activity === "delete"}
               >
                 +
               </Button>
@@ -340,6 +368,7 @@ export default function ScorecardEditorComponent({
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-r-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleDecrementScore(9, formik)}
+                disabled={activity === "delete"}
               >
                 -
               </Button>
@@ -350,11 +379,13 @@ export default function ScorecardEditorComponent({
                   formik.setFieldValue("userScores[9]", e?.target?.value)
                 }
                 type="number"
-                required
+                required={activity !== "delete"}
+                disabled={activity === "delete"}
               />
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleIncrementScore(9, formik)}
+                disabled={activity === "delete"}
               >
                 +
               </Button>
@@ -368,6 +399,7 @@ export default function ScorecardEditorComponent({
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-r-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleDecrementScore(10, formik)}
+                disabled={activity === "delete"}
               >
                 -
               </Button>
@@ -378,11 +410,13 @@ export default function ScorecardEditorComponent({
                   formik.setFieldValue("userScores[10]", e?.target?.value)
                 }
                 type="number"
-                required
+                required={activity !== "delete"}
+                disabled={activity === "delete"}
               />
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleIncrementScore(10, formik)}
+                disabled={activity === "delete"}
               >
                 +
               </Button>
@@ -396,6 +430,7 @@ export default function ScorecardEditorComponent({
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-r-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleDecrementScore(11, formik)}
+                disabled={activity === "delete"}
               >
                 -
               </Button>
@@ -406,11 +441,13 @@ export default function ScorecardEditorComponent({
                   formik.setFieldValue("userScores[11]", e?.target?.value)
                 }
                 type="number"
-                required
+                required={activity !== "delete"}
+                disabled={activity === "delete"}
               />
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleIncrementScore(11, formik)}
+                disabled={activity === "delete"}
               >
                 +
               </Button>
@@ -424,6 +461,7 @@ export default function ScorecardEditorComponent({
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-r-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleDecrementScore(12, formik)}
+                disabled={activity === "delete"}
               >
                 -
               </Button>
@@ -434,11 +472,13 @@ export default function ScorecardEditorComponent({
                   formik.setFieldValue("userScores[12]", e?.target?.value)
                 }
                 type="number"
-                required
+                required={activity !== "delete"}
+                disabled={activity === "delete"}
               />
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleIncrementScore(12, formik)}
+                disabled={activity === "delete"}
               >
                 +
               </Button>
@@ -452,6 +492,7 @@ export default function ScorecardEditorComponent({
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-r-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleDecrementScore(13, formik)}
+                disabled={activity === "delete"}
               >
                 -
               </Button>
@@ -462,11 +503,13 @@ export default function ScorecardEditorComponent({
                   formik.setFieldValue("userScores[13]", e?.target?.value)
                 }
                 type="number"
-                required
+                required={activity !== "delete"}
+                disabled={activity === "delete"}
               />
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleIncrementScore(13, formik)}
+                disabled={activity === "delete"}
               >
                 +
               </Button>
@@ -480,6 +523,7 @@ export default function ScorecardEditorComponent({
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-r-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleDecrementScore(14, formik)}
+                disabled={activity === "delete"}
               >
                 -
               </Button>
@@ -490,11 +534,13 @@ export default function ScorecardEditorComponent({
                   formik.setFieldValue("userScores[14]", e?.target?.value)
                 }
                 type="number"
-                required
+                required={activity !== "delete"}
+                disabled={activity === "delete"}
               />
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleIncrementScore(14, formik)}
+                disabled={activity === "delete"}
               >
                 +
               </Button>
@@ -508,6 +554,7 @@ export default function ScorecardEditorComponent({
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-r-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleDecrementScore(15, formik)}
+                disabled={activity === "delete"}
               >
                 -
               </Button>
@@ -518,11 +565,13 @@ export default function ScorecardEditorComponent({
                   formik.setFieldValue("userScores[15]", e?.target?.value)
                 }
                 type="number"
-                required
+                required={activity !== "delete"}
+                disabled={activity === "delete"}
               />
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleIncrementScore(15, formik)}
+                disabled={activity === "delete"}
               >
                 +
               </Button>
@@ -536,6 +585,7 @@ export default function ScorecardEditorComponent({
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-r-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleDecrementScore(16, formik)}
+                disabled={activity === "delete"}
               >
                 -
               </Button>
@@ -546,11 +596,13 @@ export default function ScorecardEditorComponent({
                   formik.setFieldValue("userScores[16]", e?.target?.value)
                 }
                 type="number"
-                required
+                required={activity !== "delete"}
+                disabled={activity === "delete"}
               />
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleIncrementScore(16, formik)}
+                disabled={activity === "delete"}
               >
                 +
               </Button>
@@ -564,6 +616,7 @@ export default function ScorecardEditorComponent({
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-r-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleDecrementScore(17, formik)}
+                disabled={activity === "delete"}
               >
                 -
               </Button>
@@ -574,11 +627,13 @@ export default function ScorecardEditorComponent({
                   formik.setFieldValue("userScores[17]", e?.target?.value)
                 }
                 type="number"
-                required
+                required={activity !== "delete"}
+                disabled={activity === "delete"}
               />
               <Button
                 className="flex flex-col flex-1 justify-self-center self-stretch min-w-[1/3] max-w-[1/3] p-3 text-xl font-bold text-neutral-950 bg-neutral-400 hover:bg-lime-600 text-center border-l-1 border-neutral-950 subpixel-antialiased cursor-pointer"
                 onClick={() => handleIncrementScore(17, formik)}
+                disabled={activity === "delete"}
               >
                 +
               </Button>
