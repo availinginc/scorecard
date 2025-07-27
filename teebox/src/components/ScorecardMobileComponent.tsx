@@ -1,7 +1,5 @@
 import * as React from "react";
-
 import { NavLink } from "react-router";
-
 import type { Scorecard } from "../types/ScorecardTypes";
 
 export default function ScorecardMobileComponent({

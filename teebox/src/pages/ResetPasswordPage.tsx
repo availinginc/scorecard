@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-
 import { NavLink } from "react-router";
-
+import clsx from "clsx";
+import { Field, Fieldset, Input, Label, Button } from "@headlessui/react";
+import HeadingOneComponent from "../components/HeadingOneComponent";
+import IntroductionComponent from "../components/IntroductionComponent";
 import {
   resetChallenge,
   resetStart,
@@ -13,11 +15,6 @@ import type {
   ChallengeResponse,
   ErrorResponseType,
 } from "../client/ResponseTypes";
-
-import { Field, Fieldset, Input, Label, Button } from "@headlessui/react";
-import clsx from "clsx";
-import HeadingOneComponent from "../components/HeadingOneComponent";
-import IntroductionComponent from "../components/IntroductionComponent";
 
 export const ResetPasswordPage: React.FC = () => {
   const [username, setUsername] = useState<string>("");
@@ -58,7 +55,7 @@ export const ResetPasswordPage: React.FC = () => {
     } catch (err) {
       setError(
         "An error occurred during password reset " +
-          (err as ErrorResponseType).error_description,
+          (err as ErrorResponseType).error_description
       );
     } finally {
       setIsloading(false);
@@ -83,7 +80,7 @@ export const ResetPasswordPage: React.FC = () => {
     } catch (err) {
       setError(
         "An error occurred while submitting the otp code " +
-          (err as ErrorResponseType).error_description,
+          (err as ErrorResponseType).error_description
       );
     } finally {
       setIsloading(false);
@@ -91,7 +88,7 @@ export const ResetPasswordPage: React.FC = () => {
   };
 
   const handleSubmitNewPassword = async (
-    e: React.FormEvent<HTMLFormElement>,
+    e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
     if (!newPassword) {
@@ -134,7 +131,7 @@ export const ResetPasswordPage: React.FC = () => {
                     <Input
                       className={clsx(
                         "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-base text-white",
-                        "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25",
+                        "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
                       )}
                       type="text"
                       value={username}
@@ -174,7 +171,7 @@ export const ResetPasswordPage: React.FC = () => {
                     <Input
                       className={clsx(
                         "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-base text-white",
-                        "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25",
+                        "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
                       )}
                       type="text"
                       maxLength={tokenRes.code_length}
@@ -215,7 +212,7 @@ export const ResetPasswordPage: React.FC = () => {
                     <Input
                       className={clsx(
                         "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-base text-white",
-                        "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25",
+                        "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
                       )}
                       type="password"
                       value={newPassword}

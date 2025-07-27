@@ -1,8 +1,6 @@
 import * as React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router";
-import "./index.css";
-
 import App from "./App.tsx";
 import HomePage from "./pages/HomePage.tsx";
 import ScorecardPage from "./pages/ScorecardPage.tsx";
@@ -15,6 +13,7 @@ import { SignUpPage } from "./pages/SignUpPage.tsx";
 import { SignUpChallengePage } from "./pages/SignUpChallengePage.tsx";
 import { SignUpCompletedPage } from "./pages/SignUpCompletedPage.tsx";
 import { ResetPasswordPage } from "./pages/ResetPasswordPage.tsx";
+import "./index.css";
 
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -118,5 +117,5 @@ createRoot(document.getElementById("root")!).render(
         />
       </Routes>
     </BrowserRouter>
-  </React.StrictMode>,
+  </React.StrictMode>
 );

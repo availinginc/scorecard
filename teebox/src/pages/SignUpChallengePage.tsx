@@ -1,13 +1,10 @@
 import React, { useState } from "react";
-
 import { useLocation, useNavigate } from "react-router";
-
-import { signUpSubmitOTP } from "../client/SignUpService";
-
-import { Field, Fieldset, Input, Label, Button } from "@headlessui/react";
 import clsx from "clsx";
+import { Field, Fieldset, Input, Label, Button } from "@headlessui/react";
 import HeadingOneComponent from "../components/HeadingOneComponent";
 import IntroductionComponent from "../components/IntroductionComponent";
+import { signUpSubmitOTP } from "../client/SignUpService";
 
 export const SignUpChallengePage: React.FC = () => {
   const { state } = useLocation();
@@ -54,7 +51,7 @@ export const SignUpChallengePage: React.FC = () => {
                 <Input
                   className={clsx(
                     "mt-3 block w-full rounded-lg border-none bg-white/5 px-3 py-1.5 text-base text-white",
-                    "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25",
+                    "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
                   )}
                   maxLength={code_length}
                   type="text"

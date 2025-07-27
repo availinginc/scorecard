@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import type { Leaderboard } from "../types/LeaderboardTypes";
 
 export default function LeaderboardMobileComponent({

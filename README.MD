@@ -138,10 +138,13 @@ npx expo start
 
 # TODO:
 
-###### Add loader for leaderboard
+###### Add loader for leaderboard + scorecard pages
 ###### Simplify leaderboard and remove scorecard, their total is their seasonal score over par
-###### For leaderboard move this component to the user profile page
+###### Filter leaderboard by season
 ###### Write algorithm to calculate the leaderboard based on scores overall (par - score)
 ###### Create ranking table that runs as a result of a job to optimize performance
 ###### Create tournament leaderboard using current leaderboard and create a table for tournaments linking players and scorecards to tournament
 ###### Create handicap calculator that calculates the handicap based on the scores and the course par
+###### Create a course table and input method to add courses
+###### Create handicap calculator that calculates the handicap based on the scores and the course par
+###### Replace custom SVGS with Icon Library

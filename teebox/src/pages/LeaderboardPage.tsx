@@ -1,14 +1,10 @@
 import * as React from "react";
-
 import LeaderboardDesktopComponent from "../components/LeaderboardDesktopComponent";
 import LeaderboardMobileComponent from "../components/LeaderboardMobileComponent";
-
 import { getRequest } from "../functions/request";
-
 import initialLeaderboardData from "../configurations/leaderboard.json";
 import HeadingOneComponent from "../components/HeadingOneComponent";
 import IntroductionComponent from "../components/IntroductionComponent";
-
 import type { Leaderboard } from "../types/LeaderboardTypes";
 
 export default function LeaderboardPage() {
@@ -21,7 +17,7 @@ export default function LeaderboardPage() {
       }
       const response = await getRequest(
         import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "",
-        `/leaderboard/`,
+        `/leaderboard/`
       );
       if (response?.length > 0) {
         response.forEach((item: Leaderboard, index: number) => {

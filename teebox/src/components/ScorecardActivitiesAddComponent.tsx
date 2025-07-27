@@ -1,8 +1,6 @@
 import * as React from "react";
-
 import ScorecardEditorComponent from "./ScorecardEditorComponent";
-
-import type { ScorecardActivities } from "../types/ScorecardTypes";
+import type { Scorecard } from "../types/ScorecardTypes";
 
 export default function ScorecardActivitiesAddComponent({
   activity,
@@ -11,7 +9,7 @@ export default function ScorecardActivitiesAddComponent({
 }: Readonly<{
   activity?: string;
   text?: string;
-  handleSubmitScorecard?: (values: ScorecardActivities) => Promise<void>;
+  handleSubmitScorecard?: (values: Scorecard) => Promise<void>;
 }>) {
   return (
     <React.Fragment>

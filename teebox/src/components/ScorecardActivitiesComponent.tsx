@@ -1,21 +1,18 @@
 import * as React from "react";
-
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
-
 import HeadingThreeComponent from "./HeadingThreeComponent";
 import ParagraphComponent from "./ParagraphComponent";
 import ScorecardActivitiesAddComponent from "./ScorecardEditorComponent";
 import ScorecardActivitiesUpdateComponent from "./ScorecardActivitiesUpdateComponent";
 import ScorecardActivitiesDeleteComponent from "./ScorecardActivitiesDeleteComponent";
-
-import type { Scorecard, ScorecardActivities } from "../types/ScorecardTypes";
+import type { Scorecard } from "../types/ScorecardTypes";
 
 export default function ScorecardActivitiesComponent({
   scorecards,
   handleSubmitScorecard,
 }: Readonly<{
   scorecards?: Scorecard[];
-  handleSubmitScorecard?: (values: ScorecardActivities) => Promise<void>;
+  handleSubmitScorecard?: (values: Scorecard) => Promise<void>;
 }>) {
   return (
     <React.Fragment>

@@ -1,7 +1,5 @@
 import * as React from "react";
-
 import { NavLink } from "react-router";
-
 import type { Leaderboard } from "../types/LeaderboardTypes";
 
 export default function LeaderboardComponent({

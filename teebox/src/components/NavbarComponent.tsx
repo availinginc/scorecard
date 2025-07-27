@@ -1,7 +1,5 @@
 import * as React from "react";
-
 import { NavLink } from "react-router";
-
 import Pinpointscore from "../assets/pinpointscore.svg";
 import PinpointscoreMenu from "../assets/pinpointscore-menu.svg";
 

@@ -1,19 +1,16 @@
 import * as React from "react";
-
 import { useFormik } from "formik";
 import type { FormikProps } from "formik";
 import * as yup from "yup";
-
 import { Field, Fieldset, Input, Label, Button } from "@headlessui/react";
 import HeadingSixComponent from "./HeadingSixComponent";
-
-import type { ScorecardActivities } from "../types/ScorecardTypes";
+import type { Scorecard } from "../types/ScorecardTypes";
 
 const handleIncrementScore = (
   index: number,
-  formik: FormikProps<ScorecardActivities>,
+  formik: FormikProps<Scorecard>
 ) => {
-  const userScores = [...formik.values.userScores];
+  const userScores = [...(formik.values.userScores ?? [])];
   const score = userScores?.[index];
   if (!isNaN(score)) {
     userScores[index] = Math.abs(score + 1);
@@ -22,9 +19,9 @@ const handleIncrementScore = (
 };
 const handleDecrementScore = (
   index: number,
-  formik: FormikProps<ScorecardActivities>,
+  formik: FormikProps<Scorecard>
 ) => {
-  const userScores = [...formik.values.userScores];
+  const userScores = [...(formik.values.userScores ?? [])];
   const score = userScores?.[index];
   if (!isNaN(score)) {
     userScores[index] = Math.abs(score - 1);
@@ -43,9 +40,9 @@ export default function ScorecardEditorComponent({
   activity?: string;
   userScores?: number[];
   text?: string;
-  handleSubmitScorecard?: (values: ScorecardActivities) => Promise<void>;
+  handleSubmitScorecard?: (values: Scorecard) => Promise<void>;
 }>) {
-  const formik = useFormik<ScorecardActivities>({
+  const formik = useFormik<Scorecard>({
     initialValues: {
       userScores: userScores ?? [
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,

@@ -1,17 +1,14 @@
 import React, { useState } from "react";
-
 import { useNavigate } from "react-router";
-
+import clsx from "clsx";
+import { Field, Fieldset, Input, Label, Button } from "@headlessui/react";
+import HeadingOneComponent from "../components/HeadingOneComponent";
+import IntroductionComponent from "../components/IntroductionComponent";
 import {
   signInStart,
   signInChallenge,
   signInTokenRequest,
 } from "../client/SignInService";
-
-import { Field, Fieldset, Input, Label, Button } from "@headlessui/react";
-import clsx from "clsx";
-import HeadingOneComponent from "../components/HeadingOneComponent";
-import IntroductionComponent from "../components/IntroductionComponent";
 
 export const SignInPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -36,7 +33,7 @@ export const SignInPage: React.FC = () => {
       const start = await signInStart(email);
       if (start?.continuation_token) {
         const challenge = await signInChallenge(
-          await start?.continuation_token,
+          await start?.continuation_token
         );
         if (challenge?.continuation_token) {
           const token = await signInTokenRequest({
@@ -80,7 +77,7 @@ export const SignInPage: React.FC = () => {
                 <Input
                   className={clsx(
                     "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-base text-white",
-                    "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25",
+                    "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
                   )}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -94,7 +91,7 @@ export const SignInPage: React.FC = () => {
                 <Input
                   className={clsx(
                     "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-base text-white",
-                    "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25",
+                    "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
                   )}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}

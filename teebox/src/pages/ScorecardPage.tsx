@@ -1,17 +1,13 @@
 import * as React from "react";
-
 import ScorecardComponent from "../components/ScorecardDesktopComponent";
 import ScorecardMobileComponent from "../components/ScorecardMobileComponent";
-
 import { getRequest } from "../functions/request";
-
 import initialScorecardData from "../configurations/scorecard.json";
 import HeadingOneComponent from "../components/HeadingOneComponent";
 import HeadingTwoComponent from "../components/HeadingTwoComponent";
 import IntroductionComponent from "../components/IntroductionComponent";
 import ParagraphComponent from "../components/ParagraphComponent";
 import ScorecardActivitiesComponent from "../components/ScorecardActivitiesComponent";
-
 import type { Scorecard } from "../types/ScorecardTypes";
 
 export default function ScorecardPage() {
@@ -24,7 +20,7 @@ export default function ScorecardPage() {
       }
       const response = await getRequest(
         import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "",
-        `/leaderboard/`,
+        `/leaderboard/`
       );
       if (response?.length > 0) {
         response.forEach((item: Scorecard, index: number) => {

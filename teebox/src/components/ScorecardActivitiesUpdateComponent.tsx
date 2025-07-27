@@ -1,10 +1,7 @@
 import * as React from "react";
-
 import dayjs from "dayjs";
-
 import { Select } from "@headlessui/react";
 import ScorecardEditorComponent from "./ScorecardEditorComponent";
-
 import type { Scorecard } from "../types/ScorecardTypes";
 
 export default function ScorecardActivitiesUpdateComponent({
@@ -19,10 +16,10 @@ export default function ScorecardActivitiesUpdateComponent({
   handleSubmitScorecard?: (values: Scorecard) => Promise<void>;
 }>) {
   const [userScores, setUserScores] = React.useState<number[]>(
-    scorecards?.[0]?.userScores ?? [],
+    scorecards?.[0]?.userScores ?? []
   );
   const handleSelectScorecard = (
-    event: React.ChangeEvent<HTMLSelectElement>,
+    event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const selectedScorecard = scorecards?.[parseInt(event?.target?.value)];
     if (selectedScorecard) {
