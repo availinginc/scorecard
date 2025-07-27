@@ -25,7 +25,7 @@ export const getRequest = async (base: string, endpoint: string) => {
         headers: {
           "Content-Type": "application/json",
         },
-      }
+      },
     );
     return data;
   } catch (error) {
@@ -37,7 +37,7 @@ export const getRequest = async (base: string, endpoint: string) => {
 export const postRequest = async (
   base: string,
   endpoint: string,
-  body: object
+  body: object,
 ) => {
   try {
     const obj = {
@@ -62,7 +62,7 @@ export const postRequest = async (
         headers: {
           "Content-Type": "application/json",
         },
-      }
+      },
     );
     return data;
   } catch (error) {
@@ -73,7 +73,7 @@ export const postRequest = async (
 
 export const idpRequest = async (
   endpoint: string,
-  body: { [key: string]: unknown; continuation_token?: string }
+  body: { [key: string]: unknown; continuation_token?: string },
 ) => {
   try {
     const obj = {
@@ -104,7 +104,7 @@ export const idpRequest = async (
         headers: {
           "Content-Type": "application/json",
         },
-      }
+      },
     );
     return data;
   } catch (error) {

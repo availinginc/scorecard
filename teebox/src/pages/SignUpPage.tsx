@@ -79,7 +79,7 @@ export const SignUpPage: React.FC = () => {
                 <Input
                   className={clsx(
                     "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-base text-white",
-                    "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
+                    "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25",
                   )}
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
@@ -93,7 +93,7 @@ export const SignUpPage: React.FC = () => {
                 <Input
                   className={clsx(
                     "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-base text-white",
-                    "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
+                    "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25",
                   )}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -107,7 +107,7 @@ export const SignUpPage: React.FC = () => {
                 <Input
                   className={clsx(
                     "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-base text-white",
-                    "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
+                    "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25",
                   )}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -121,7 +121,7 @@ export const SignUpPage: React.FC = () => {
                 <Input
                   className={clsx(
                     "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-base text-white",
-                    "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
+                    "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25",
                   )}
                   value={surname}
                   onChange={(e) => setSurname(e.target.value)}
@@ -135,7 +135,7 @@ export const SignUpPage: React.FC = () => {
                 <Input
                   className={clsx(
                     "mt-3 block w-full border-none bg-white/5 px-3 py-1.5 text-base text-white",
-                    "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25"
+                    "focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25",
                   )}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}

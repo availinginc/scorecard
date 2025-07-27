@@ -11,7 +11,7 @@ import type { ScorecardActivities } from "../types/ScorecardTypes";
 
 const handleIncrementScore = (
   index: number,
-  formik: FormikProps<ScorecardActivities>
+  formik: FormikProps<ScorecardActivities>,
 ) => {
   const userScores = [...formik.values.userScores];
   const score = userScores?.[index];
@@ -22,7 +22,7 @@ const handleIncrementScore = (
 };
 const handleDecrementScore = (
   index: number,
-  formik: FormikProps<ScorecardActivities>
+  formik: FormikProps<ScorecardActivities>,
 ) => {
   const userScores = [...formik.values.userScores];
   const score = userScores?.[index];

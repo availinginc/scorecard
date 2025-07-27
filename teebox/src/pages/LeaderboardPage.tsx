@@ -21,7 +21,7 @@ export default function LeaderboardPage() {
       }
       const response = await getRequest(
         import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "",
-        `/leaderboard/`
+        `/leaderboard/`,
       );
       if (response?.length > 0) {
         response.forEach((item: Leaderboard, index: number) => {

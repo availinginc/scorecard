@@ -19,10 +19,10 @@ export default function ScorecardActivitiesDeleteComponent({
   handleSubmitScorecard?: (values: Scorecard) => Promise<void>;
 }>) {
   const [userScores, setUserScores] = React.useState<number[]>(
-    scorecards?.[0]?.userScores ?? []
+    scorecards?.[0]?.userScores ?? [],
   );
   const handleSelectScorecard = (
-    event: React.ChangeEvent<HTMLSelectElement>
+    event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     const selectedScorecard = scorecards?.[parseInt(event?.target?.value)];
     if (selectedScorecard) {
