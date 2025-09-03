@@ -33,7 +33,7 @@ export default function ScorecardDesktopComponent({
               to="#"
               onClick={() => handleExpand()}
             >
-              Individual
+              Course Pars
             </NavLink>
           </li>
         </ul>
