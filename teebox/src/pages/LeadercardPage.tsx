@@ -9,7 +9,7 @@ import type { Leaderboard } from "../types/LeaderboardTypes";
 
 import { getRequest } from "../functions/request";
 
-export default function LeaderboardPage() {
+export default function LeadercardPage() {
   const [leaderboard, setLeaderboard] = React.useState<Leaderboard[]>([]);
 
   // Get Leaderboard from API
@@ -79,8 +79,8 @@ export default function LeaderboardPage() {
   return (
     <React.Fragment>
       <section>
-        <HeadingOneComponent text="Leaderboard" />
-        <IntroductionComponent text="Our leaderboard displays the top users based on their scores!" />
+        <HeadingOneComponent text="Leadercard" />
+        <IntroductionComponent text="Our leadercard displays the top users based on their scores!" />
       </section>
       <section className="invisible lg:visible hidden lg:block">
         <div className="border-1 border-neutral-950">

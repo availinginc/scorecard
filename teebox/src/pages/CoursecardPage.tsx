@@ -18,7 +18,7 @@ import {
   deleteRequest,
 } from "../functions/request";
 
-export default function CoursePage() {
+export default function CoursecardPage() {
   const [coursecards, setCoursecards] = React.useState<Coursecard[]>([]);
 
   // Get Coursecards from API
