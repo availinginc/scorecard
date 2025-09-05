@@ -11,11 +11,10 @@ export default function CoursecardActivitiesAddComponent({
   text,
 }: Readonly<{
   handleSubmitCoursecard?: (
-    submitScorecard: SubmitCoursecard
+    submitCoursecard: SubmitCoursecard
   ) => Promise<unknown>;
   activity?: string;
   text?: string;
-  coursecards?: Coursecard[];
 }>) {
   const [golfCourseName, setGolfCourseName] =
     React.useState<Coursecard["golfCourseName"]>("");

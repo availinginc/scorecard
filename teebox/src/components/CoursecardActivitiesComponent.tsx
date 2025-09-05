@@ -5,7 +5,7 @@ import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import HeadingThreeComponent from "./HeadingThreeComponent";
 import ParagraphComponent from "./ParagraphComponent";
 import CoursecardActivitiesAddComponent from "./CoursecardActivitiesAddComponent";
-import ScorecardActivitiesUpdateComponent from "./ScorecardActivitiesUpdateComponent";
+import CoursecardActivitiesUpdateComponent from "./CoursecardActivitiesUpdateComponent";
 import ScorecardActivitiesDeleteComponent from "./ScorecardActivitiesDeleteComponent";
 
 import type { Coursecard, SubmitCoursecard } from "../types/CoursecardTypes";
@@ -46,12 +46,12 @@ export default function CoursecardActivitiesComponent({
           <TabPanel className="">
             <HeadingThreeComponent text="Update a coursecard" />
             <ParagraphComponent text="Select the coursecard you want to update and fill out the form below." />
-            {/* <ScorecardActivitiesUpdateComponent
+            <CoursecardActivitiesUpdateComponent
               handleSubmitCoursecard={handleSubmitCoursecard}
               activity={"update"}
               text={"Update coursecard"}
               coursecards={coursecards}
-            /> */}
+            />
           </TabPanel>
           <TabPanel className="">
             <HeadingThreeComponent text="Delete a coursecard" />

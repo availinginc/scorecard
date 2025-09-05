@@ -92,7 +92,7 @@ export default function NavbarComponent() {
                   to="/coursecard"
                   onClick={() => handleOpenMenu()}
                 >
-                  Course
+                  Coursecard
                 </NavLink>
               </li>
             </React.Fragment>
@@ -256,7 +256,7 @@ export default function NavbarComponent() {
                         to="/coursecard"
                         onClick={() => handleOpenMenu()}
                       >
-                        Course
+                        Coursecard
                       </NavLink>
                     </li>
                   </React.Fragment>
