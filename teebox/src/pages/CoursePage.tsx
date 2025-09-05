@@ -4,36 +4,94 @@ import HeadingOneComponent from "../components/HeadingOneComponent";
 import HeadingTwoComponent from "../components/HeadingTwoComponent";
 import IntroductionComponent from "../components/IntroductionComponent";
 import ParagraphComponent from "../components/ParagraphComponent";
-import CourseDesktopComponent from "../components/CourseDesktopComponent";
-import CourseMobileComponent from "../components/CourseMobileComponent";
+import CoursecardDesktopComponent from "../components/CoursecardDesktopComponent";
+import CoursecardMobileComponent from "../components/CoursecardMobileComponent";
+import CoursecardActivitiesComponent from "../components/CoursecardActivitiesComponent";
 
-import type { GolfCourse } from "../types/GolfCourseTypes";
+import type { Coursecard, SubmitCoursecard } from "../types/CoursecardTypes";
 import { endpoints } from "../configurations/constants";
-import { getRequest } from "../functions/request";
+
+import {
+  getRequest,
+  postRequest,
+  patchRequest,
+  deleteRequest,
+} from "../functions/request";
 
 export default function CoursePage() {
-  const [golfCourses, setGolfCourses] = React.useState<GolfCourse[]>([]);
+  const [coursecards, setCoursecards] = React.useState<Coursecard[]>([]);
 
-  // Get Golf Courses from API
-  const getGolfCourses = async () => {
+  // Get Coursecards from API
+  const getCoursecards = async () => {
     try {
       const response = await getRequest(
         import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "",
-        endpoints.GOLFCOURSE
+        endpoints.COURSECARD
       );
       if (response) return response;
       else return null;
     } catch (error) {
-      console.error("Error getting golf courses");
+      console.error("Error getting coursecards");
       return error;
     }
   };
 
-  // Handle loading ten blank golf courses or results +/- golf courses
-  const handleLoadingGolfCourses = async () => {
+  // Handle submission of coursecards and type of activity
+  const handleSubmitCoursecard = async (submitCoursecard: SubmitCoursecard) => {
+    const { activity, golfCourseId, golfCourseName, golfCoursePars } =
+      submitCoursecard;
     try {
-      while (golfCourses.length < 10) {
-        golfCourses.push({
+      if (activity === "add") {
+        // Handle adding a new coursecard
+        const response = await postRequest(
+          import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "",
+          endpoints.COURSECARD,
+          {
+            golfCourseName: golfCourseName,
+            golfCoursePars: golfCoursePars,
+          }
+        );
+        if (response) {
+          // Handle successful response
+          console.log("Coursecard added successfully");
+        }
+      } else if (activity === "update") {
+        // Handle updating a coursecard
+        const response = await patchRequest(
+          import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "",
+          endpoints.COURSECARD,
+          {
+            golfCourseId: golfCourseId,
+            golfCoursePars: golfCoursePars,
+          }
+        );
+        if (response) {
+          console.log("Coursecard updated successfully");
+        }
+      } else if (activity === "delete") {
+        // Handle deleting a coursecard
+        const response = await deleteRequest(
+          import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "",
+          endpoints.COURSECARD + golfCourseId,
+          {}
+        );
+        if (response) {
+          console.log("Coursecard deleted successfully");
+        }
+      }
+    } catch (error) {
+      console.error("Error performing activity on coursecard");
+      return error;
+    }
+  };
+
+  // Handle loading ten blank coursecards or results +/- coursecards
+  const handleLoadingCoursecards = async () => {
+    try {
+      while (coursecards.length < 10) {
+        coursecards.push({
+          submitted: "",
+          updated: "",
           golfCourseId: 0,
           golfCourseName: "TBD",
           golfCoursePars: [
@@ -42,15 +100,15 @@ export default function CoursePage() {
           golfCourseTotalPar: 0,
         });
       }
-      const response = await getGolfCourses();
+      const response = await getCoursecards();
       if (response?.length > 0) {
-        response.forEach((item: GolfCourse, index: number) => {
-          golfCourses.splice(index, 1, item);
+        response.forEach((item: Coursecard, index: number) => {
+          coursecards.splice(index, 1, item);
         });
       }
-      if (golfCourses?.length > 0) setGolfCourses([...golfCourses]);
+      if (coursecards?.length > 0) setCoursecards([...coursecards]);
     } catch (error) {
-      console.error("Error loading golf courses");
+      console.error("Error loading coursecards");
       return error;
     }
   };
@@ -58,7 +116,7 @@ export default function CoursePage() {
   // Load on refresh / reload
   React.useEffect(() => {
     const load = async () => {
-      await handleLoadingGolfCourses();
+      await handleLoadingCoursecards();
     };
     load();
     return () => {};
@@ -67,9 +125,11 @@ export default function CoursePage() {
   return (
     <React.Fragment>
       <section>
-        <HeadingOneComponent text={"Course"} />
+        <HeadingOneComponent text={"Coursecard"} />
         <IntroductionComponent
-          text={"Add your golf course and track your rounds."}
+          text={
+            "Add your golf course and track your rounds by submitting your coursecard!"
+          }
         />
       </section>
       <section className="invisible lg:visible hidden lg:block my-3">
@@ -86,9 +146,9 @@ export default function CoursePage() {
             </li>
           </ul>
         </div>
-        {Array?.isArray(golfCourses) && golfCourses?.length > 0 ? (
-          golfCourses?.map((item, index) => (
-            <CourseDesktopComponent
+        {Array?.isArray(coursecards) && coursecards?.length > 0 ? (
+          coursecards?.map((item, index) => (
+            <CoursecardDesktopComponent
               key={`golfcourse-${item?.golfCourseId}-${index}`}
               golfCourseName={item?.golfCourseName}
               golfCoursePars={item?.golfCoursePars}
@@ -100,9 +160,9 @@ export default function CoursePage() {
         )}
       </section>
       <section className="block lg:hidden visible lg:invisible my-3 border-1 border-neutral-950">
-        {Array?.isArray(golfCourses) && golfCourses?.length > 0 ? (
-          golfCourses?.map((item, index) => (
-            <CourseMobileComponent
+        {Array?.isArray(coursecards) && coursecards?.length > 0 ? (
+          coursecards?.map((item, index) => (
+            <CoursecardMobileComponent
               key={`golfcourse-${item?.golfCourseId}-${index}`}
               golfCourseName={item?.golfCourseName}
               golfCoursePars={item?.golfCoursePars}
@@ -115,15 +175,13 @@ export default function CoursePage() {
       </section>
       <section className="active my-3 border-1 border-neutral-950">
         <div className="my-3">
-          <HeadingTwoComponent text=" Scorecard activities" />
+          <HeadingTwoComponent text="Coursecard Activities" />
           <ParagraphComponent text="Manage your scorecards effectively by using the options below." />
         </div>
-        {/* <ScorecardActivitiesComponent
-          handleSubmitScorecard={handleSubmitScorecard}
-          userId={1} // Replace with actual user ID logic
-          selectableScorecards={selectableScorecards}
-          selectableGolfCourses={selectableGolfCourses}
-        /> */}
+        <CoursecardActivitiesComponent
+          handleSubmitCoursecard={handleSubmitCoursecard}
+          coursecards={coursecards}
+        />
       </section>
     </React.Fragment>
   );

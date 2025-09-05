@@ -29,7 +29,7 @@ createRoot(document.getElementById("root")!).render(
           }
         />
         <Route
-          path="/course"
+          path="/coursecard"
           element={
             <App>
               <CoursePage />

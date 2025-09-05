@@ -2,13 +2,13 @@ import * as React from "react";
 
 import { NavLink } from "react-router";
 
-import type { Scorecard } from "../types/ScorecardTypes";
+import type { Coursecard } from "../types/CoursecardTypes";
 
-export default function ScorecardDesktopComponent({
+export default function CoursecardDesktopComponent({
   golfCourseName,
   golfCoursePars,
   golfCourseTotalPar,
-}: Readonly<Scorecard>) {
+}: Readonly<Coursecard>) {
   const [expand, setExpand] = React.useState<boolean>(false);
 
   const handleExpand = () => {
@@ -33,7 +33,7 @@ export default function ScorecardDesktopComponent({
               to="#"
               onClick={() => handleExpand()}
             >
-              Parcard
+              Coursecard
             </NavLink>
           </li>
         </ul>

@@ -80,7 +80,7 @@ export default function LeaderboardPage() {
     <React.Fragment>
       <section>
         <HeadingOneComponent text="Leaderboard" />
-        <IntroductionComponent text="Our leaderboard displays the top users based on their scores. Check out the leaderboard and see how you stack up against others!" />
+        <IntroductionComponent text="Our leaderboard displays the top users based on their scores!" />
       </section>
       <section className="invisible lg:visible hidden lg:block">
         <div className="border-1 border-neutral-950">
