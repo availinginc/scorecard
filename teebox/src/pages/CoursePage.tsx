@@ -5,6 +5,7 @@ import HeadingTwoComponent from "../components/HeadingTwoComponent";
 import IntroductionComponent from "../components/IntroductionComponent";
 import ParagraphComponent from "../components/ParagraphComponent";
 import CourseDesktopComponent from "../components/CourseDesktopComponent";
+import CourseMobileComponent from "../components/CourseMobileComponent";
 
 import type { GolfCourse } from "../types/GolfCourseTypes";
 import { endpoints } from "../configurations/constants";
@@ -99,19 +100,18 @@ export default function CoursePage() {
         )}
       </section>
       <section className="block lg:hidden visible lg:invisible my-3 border-1 border-neutral-950">
-        {/* {Array?.isArray(scorecards) && scorecards?.length > 0 ? (
-          scorecards?.map((item, index) => (
-            <ScorecardMobileComponent
-              key={`scorecard-${item?.userId}-${index}`}
-              userScores={item?.userScores}
-              userTotalScore={item?.userTotalScore}
+        {Array?.isArray(golfCourses) && golfCourses?.length > 0 ? (
+          golfCourses?.map((item, index) => (
+            <CourseMobileComponent
+              key={`golfcourse-${item?.golfCourseId}-${index}`}
               golfCourseName={item?.golfCourseName}
               golfCoursePars={item?.golfCoursePars}
+              golfCourseTotalPar={item?.golfCourseTotalPar}
             />
           ))
         ) : (
           <React.Fragment></React.Fragment>
-        )} */}
+        )}
       </section>
       <section className="active my-3 border-1 border-neutral-950">
         <div className="my-3">
