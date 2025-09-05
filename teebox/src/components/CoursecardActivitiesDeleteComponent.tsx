@@ -1,12 +1,14 @@
 import * as React from "react";
 
+import dayjs from "dayjs";
+
 import { Field, Select } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import CoursecardEditorComponent from "./CoursecardEditorComponent";
 
 import type { Coursecard, SubmitCoursecard } from "../types/CoursecardTypes";
 
-export default function CoursecardActivitiesUpdateComponent({
+export default function CoursecardActivitiesDeleteComponent({
   handleSubmitCoursecard,
   activity,
   text,

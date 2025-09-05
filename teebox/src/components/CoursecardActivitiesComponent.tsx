@@ -6,7 +6,7 @@ import HeadingThreeComponent from "./HeadingThreeComponent";
 import ParagraphComponent from "./ParagraphComponent";
 import CoursecardActivitiesAddComponent from "./CoursecardActivitiesAddComponent";
 import CoursecardActivitiesUpdateComponent from "./CoursecardActivitiesUpdateComponent";
-import ScorecardActivitiesDeleteComponent from "./ScorecardActivitiesDeleteComponent";
+import CoursecardActivitiesDeleteComponent from "./CoursecardActivitiesDeleteComponent";
 
 import type { Coursecard, SubmitCoursecard } from "../types/CoursecardTypes";
 
@@ -56,12 +56,12 @@ export default function CoursecardActivitiesComponent({
           <TabPanel className="">
             <HeadingThreeComponent text="Delete a coursecard" />
             <ParagraphComponent text="Select the coursecard you want to delete and review the form below." />
-            {/* <ScorecardActivitiesDeleteComponent
+            <CoursecardActivitiesDeleteComponent
               handleSubmitCoursecard={handleSubmitCoursecard}
               activity={"delete"}
               text={"Delete coursecard"}
               coursecards={coursecards}
-            /> */}
+            />
           </TabPanel>
         </TabPanels>
       </TabGroup>
