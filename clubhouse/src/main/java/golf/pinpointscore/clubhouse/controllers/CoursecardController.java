@@ -14,13 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import golf.pinpointscore.clubhouse.entities.CoursecardEntity;
-import golf.pinpointscore.clubhouse.entities.ScorecardEntity;
 import golf.pinpointscore.clubhouse.models.CoursecardModel;
-import golf.pinpointscore.clubhouse.models.ScorecardModel;
 import golf.pinpointscore.clubhouse.repositories.CoursecardRepository;
-import golf.pinpointscore.clubhouse.repositories.ScorecardRepository;
 import golf.pinpointscore.clubhouse.services.CoursecardService;
-import golf.pinpointscore.clubhouse.services.ScorecardService;
 
 @RestController
 @RequestMapping(path="/coursecard", produces="application/json")
