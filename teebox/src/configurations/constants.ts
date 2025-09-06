@@ -1,5 +1,5 @@
 export const endpoints = {
   COURSECARD: "/coursecard/",
   SCORECARD: "/scorecard/",
-  LEADERBOARD: "/leaderboard/",
+  LEADERCARD: "/leadercard/",
 } as const;

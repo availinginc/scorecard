@@ -2,16 +2,16 @@ import * as React from "react";
 
 import { NavLink } from "react-router";
 
-import type { Leaderboard } from "../types/LeaderboardTypes";
+import type { Leadercard } from "../types/LeadercardTypes";
 
-export default function LeaderboardComponent({
+export default function LeadercardComponent({
   userName,
   userRank,
   userScores,
   userTotalScore,
   golfCourseName,
   golfCoursePars,
-}: Readonly<Leaderboard>) {
+}: Readonly<Leadercard>) {
   const [expand, setExpand] = React.useState<boolean>(false);
 
   const handleExpand = () => {

@@ -7,7 +7,7 @@ import * as yup from "yup";
 import { Field, Fieldset, Input, Label, Button } from "@headlessui/react";
 
 import type { Scorecard, SubmitScorecard } from "../types/ScorecardTypes";
-import type { GolfCourseHole } from "../types/GolfCourseTypes";
+import type { CoursecardHole } from "../types/CoursecardTypes";
 
 const validationSchema = yup.object({
   userScores: yup.array().of(yup.number().min(0).required()),
@@ -30,7 +30,7 @@ export default function ScorecardEditorComponent({
   userScores?: number[];
   golfCourseId?: number;
 }>) {
-  const [holesPlayed, setHolesPlayed] = React.useState<GolfCourseHole[]>();
+  const [holesPlayed, setHolesPlayed] = React.useState<CoursecardHole[]>();
 
   // Form validation and submission
   const formik = useFormik<Scorecard>({
