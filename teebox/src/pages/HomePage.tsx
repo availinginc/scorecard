@@ -3,7 +3,16 @@ import * as React from "react";
 import HeadingOneComponent from "../components/HeadingOneComponent";
 import IntroductionComponent from "../components/IntroductionComponent";
 
+import { AuthenticationContext } from "../context/AuthenticationProvider";
+
 export default function HomePage() {
+  const { user } = React.useContext(AuthenticationContext);
+
+  React.useEffect(() => {
+    console.log("HomePage user after load", user);
+    return () => {};
+  }, []);
+
   return (
     <React.Fragment>
       <section>
