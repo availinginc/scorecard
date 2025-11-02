@@ -262,6 +262,8 @@ npx expo start
 
 ###### Add user id from login by email for scorecardpage through authentication system component
 
+###### Encrypt local storage
+
 # Acknowledgements
 
 ## Authors
