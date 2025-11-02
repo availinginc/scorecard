@@ -1,9 +1,9 @@
 import * as React from "react";
 
+import { AuthenticationContext } from "../context/AuthenticationProvider";
+
 import HeadingOneComponent from "../components/HeadingOneComponent";
 import IntroductionComponent from "../components/IntroductionComponent";
-
-import { AuthenticationContext } from "../context/AuthenticationProvider";
 
 export default function HomePage() {
   const { user } = React.useContext(AuthenticationContext);

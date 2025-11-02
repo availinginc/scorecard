@@ -256,6 +256,12 @@ npx expo start
 
 ###### Clean up selection on courses
 
+###### Add banner on coursecard and scorecard page to sign/up login for activities
+
+###### Work in useMemo for API calls
+
+###### Add user id from login by email for scorecardpage through authentication system component
+
 # Acknowledgements
 
 ## Authors

@@ -35,7 +35,6 @@ export default function HomePage() {
         const decodedToken = parseJwt(state.access_token);
         if (decodedToken) {
           return {
-            oid: decodedToken.oid,
             idtyp: decodedToken.idtyp,
             name: decodedToken.name,
             given_name: decodedToken.given_name,
@@ -76,13 +75,9 @@ export default function HomePage() {
       const authenticatedUser = getAuthenticatedUser();
       const extractedUser = extractAuthenticatedUser();
 
-      if (authenticatedUser) {
-        setAuthenticatedUser(authenticatedUser);
-      } else if (extractedUser) {
-        setAuthenticatedUser(extractedUser);
-      } else if (!authenticatedUser && !extractedUser) {
-        removeAuthenticatedUser();
-      }
+      if (authenticatedUser) setAuthenticatedUser(authenticatedUser);
+      else if (extractedUser) setAuthenticatedUser(extractedUser);
+      else if (!authenticatedUser && !extractedUser) removeAuthenticatedUser();
     };
 
     loadAuthentication();

@@ -1,5 +1,4 @@
 export interface User {
-  oid?: string;
   idtyp?: string;
   name?: string;
   given_name?: string;
