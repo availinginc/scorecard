@@ -37,6 +37,7 @@ export default function ScorecardPage() {
   // Get Scorecards from API
   const getScorecards = async () => {
     try {
+      console.log("---user", user);
       const userId = 1; // TODO: Use UserId from login
       const response = await getRequest(
         import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "",

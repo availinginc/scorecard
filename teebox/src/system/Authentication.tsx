@@ -11,9 +11,10 @@ export default function HomePage() {
   const { setUser } = React.useContext(AuthenticationContext);
   const { state } = useLocation();
 
-  // Get user from local storage
+  // Get user
   const getAuthenticatedUser = (): User | null => {
     try {
+      // Get user from local storage
       const storageUser = localStorage.getItem("user");
       if (storageUser) {
         const decodedToken = JSON.parse(storageUser) as User;
@@ -21,20 +22,12 @@ export default function HomePage() {
           return decodedToken;
         }
       }
-      return null;
-    } catch {
-      console.error("Error getting user from storage");
-      return null;
-    }
-  };
-
-  // Get user from login state
-  const extractAuthenticatedUser = (): User | null => {
-    try {
+      // Get user from login state
+      const decodedToken = parseJwt(state.access_token);
       if (state?.access_token) {
-        const decodedToken = parseJwt(state.access_token);
         if (decodedToken) {
           return {
+            oid: decodedToken.oid,
             idtyp: decodedToken.idtyp,
             name: decodedToken.name,
             given_name: decodedToken.given_name,
@@ -45,7 +38,7 @@ export default function HomePage() {
       }
       return null;
     } catch {
-      console.error("Error extracting user from token");
+      console.error("Error getting user from storage or token");
       return null;
     }
   };
@@ -60,24 +53,20 @@ export default function HomePage() {
     }
   };
 
-  // Remove user from local storage and context
-  const removeAuthenticatedUser = () => {
-    try {
-      localStorage.removeItem("user");
-      setUser(null);
-    } catch {
-      console.error("Error removing user");
-    }
-  };
+  // // Remove user from local storage and context
+  // const removeAuthenticatedUser = () => {
+  //   try {
+  //     localStorage.removeItem("user");
+  //     setUser(null);
+  //   } catch {
+  //     console.error("Error removing user");
+  //   }
+  // };
 
   React.useEffect(() => {
     const loadAuthentication = () => {
-      const authenticatedUser = getAuthenticatedUser();
-      const extractedUser = extractAuthenticatedUser();
-
-      if (authenticatedUser) setAuthenticatedUser(authenticatedUser);
-      else if (extractedUser) setAuthenticatedUser(extractedUser);
-      else if (!authenticatedUser && !extractedUser) removeAuthenticatedUser();
+      const user = getAuthenticatedUser();
+      if (user) setAuthenticatedUser(user);
     };
 
     loadAuthentication();
