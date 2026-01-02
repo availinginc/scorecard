@@ -48,6 +48,7 @@ export const SignInPage: React.FC = () => {
           }
           if (token) {
             navigate("/scoreboard", { state: token });
+            // Add logic here
             setIsloading(false);
           }
         }

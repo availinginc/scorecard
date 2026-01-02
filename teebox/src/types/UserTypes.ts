@@ -5,6 +5,7 @@ export interface User {
   given_name?: string;
   family_name?: string;
   unique_name?: string;
+  userId?: string;
 }
 
 export interface UserState {
