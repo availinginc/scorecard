@@ -8,6 +8,7 @@ import type { User } from "../types/UserTypes";
 import { parseJwt } from "../client/Utils";
 import { getRequest, postRequest } from "../functions/request";
 import { endpoints } from "../configurations/constants";
+import { encrypt, decrypt, envelope, unenvelope } from "../functions/security";
 
 export default function HomePage() {
   const { setUser } = React.useContext(AuthenticationContext);
@@ -45,14 +46,17 @@ export default function HomePage() {
   };
 
   // Get user
-  const getAuthenticatedUser = (): User | null => {
+  const getAuthenticatedUser = async (): Promise<User | null> => {
     try {
-      // Get user from local storage
-      const storageUser = localStorage.getItem("user");
-      if (storageUser) {
-        const decodedToken = JSON.parse(storageUser) as User;
-        if (Object.keys(decodedToken)?.length > 0) {
-          return decodedToken;
+      // Get encrypted user from local storage
+      const encryptedUser = localStorage.getItem("user");
+      if (encryptedUser) {
+        const buffer = unenvelope(encryptedUser);
+        if (buffer) {
+          const decryptedUser = await decrypt(buffer);
+          if (decryptedUser && Object.keys(decryptedUser)?.length > 0) {
+            return decryptedUser as User;
+          }
         }
       }
       if (state?.access_token) {
@@ -76,10 +80,17 @@ export default function HomePage() {
     }
   };
 
-  // Set user to local storage and context (sync)
-  const setAuthenticatedUser = (userToSet: User) => {
+  // Set user to local storage and context
+  const setAuthenticatedUser = async (userToSet: User) => {
     try {
-      localStorage.setItem("user", JSON.stringify(userToSet));
+      // Encrypt user data
+      const encrypted = await encrypt(userToSet);
+      if (encrypted) {
+        const enveloped = await envelope(encrypted);
+        if (enveloped) {
+          localStorage.setItem("user", enveloped);
+        }
+      }
       setUser(userToSet);
     } catch {
       console.error("Error setting user");
@@ -98,7 +109,7 @@ export default function HomePage() {
 
   React.useEffect(() => {
     const loadAuthentication = async () => {
-      const user = getAuthenticatedUser();
+      const user = await getAuthenticatedUser();
       if (user?.oid) {
         // Check for existing user
         const existingUser = await getUser(user.oid);
@@ -116,7 +127,7 @@ export default function HomePage() {
             userRank: 0,
           });
         }
-        setAuthenticatedUser(user);
+        await setAuthenticatedUser(user);
       }
     };
 
