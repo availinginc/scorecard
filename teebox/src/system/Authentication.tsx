@@ -6,10 +6,43 @@ import { AuthenticationContext } from "../context/AuthenticationProvider";
 import type { User } from "../types/UserTypes";
 
 import { parseJwt } from "../client/Utils";
+import { getRequest, postRequest } from "../functions/request";
+import { endpoints } from "../configurations/constants";
 
 export default function HomePage() {
   const { setUser } = React.useContext(AuthenticationContext);
   const { state } = useLocation();
+
+  // Get User from API
+  const getUser = async (userId: string) => {
+    try {
+      const response = await getRequest(
+        import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "",
+        endpoints.USER + userId
+      );
+      if (response) return response;
+      else return null;
+    } catch (error) {
+      console.error("Error getting user");
+      return error;
+    }
+  };
+
+  // Save User with API
+  const saveUser = async (userData: object) => {
+    try {
+      const response = await postRequest(
+        import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "",
+        endpoints.USER,
+        userData
+      );
+      if (response) return response;
+      else return null;
+    } catch (error) {
+      console.error("Error saving user");
+      return error;
+    }
+  };
 
   // Get user
   const getAuthenticatedUser = (): User | null => {
@@ -22,9 +55,9 @@ export default function HomePage() {
           return decodedToken;
         }
       }
-      // Get user from login state
-      const decodedToken = parseJwt(state.access_token);
       if (state?.access_token) {
+        // Get user from login state
+        const decodedToken = parseJwt(state.access_token);
         if (decodedToken) {
           return {
             oid: decodedToken.oid,
@@ -64,9 +97,27 @@ export default function HomePage() {
   // };
 
   React.useEffect(() => {
-    const loadAuthentication = () => {
+    const loadAuthentication = async () => {
       const user = getAuthenticatedUser();
-      if (user) setAuthenticatedUser(user);
+      if (user?.oid) {
+        // Check for existing user
+        const existingUser = await getUser(user.oid);
+        if (!existingUser?.id) {
+          // Create new user
+          await saveUser({
+            userId: user.oid,
+            userName: user.name,
+            userFirstName: user.given_name,
+            userLastName: user.family_name,
+            userEmail: user.unique_name,
+            userCourseId: 0,
+            userCourseName: "",
+            userHandicap: 0,
+            userRank: 0,
+          });
+        }
+        setAuthenticatedUser(user);
+      }
     };
 
     loadAuthentication();
