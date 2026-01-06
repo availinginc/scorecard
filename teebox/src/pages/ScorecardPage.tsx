@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { AuthenticationContext } from "../context/AuthenticationProvider";
+import { useAuth } from "../hooks/useAuth";
 
 import HeadingOneComponent from "../components/HeadingOneComponent";
 import HeadingTwoComponent from "../components/HeadingTwoComponent";
@@ -31,16 +31,15 @@ export default function ScorecardPage() {
   const [selectableGolfCourses, setSelectableGolfCourses] = React.useState<
     Coursecard[]
   >([]);
-  const [userId, setUserId] = React.useState("");
 
-  const { user } = React.useContext(AuthenticationContext);
+  const { user } = useAuth();
 
   // Get Scorecards from API
   const getScorecards = async () => {
     try {
       const response = await getRequest(
         import.meta.env.VITE_CLUBHOUSE_BASE_API_URL ?? "",
-        endpoints.SCORECARD + userId
+        endpoints.SCORECARD + user?.oid
       );
       if (response) return response;
       else return null;
@@ -220,9 +219,6 @@ export default function ScorecardPage() {
       await handleFilteringSelectableScorecards();
       await handleFilteringSelectableGolfCourses();
     };
-    if (user?.oid) {
-      setUserId(user.oid);
-    }
     load();
     return () => {};
   }, []);
@@ -284,7 +280,7 @@ export default function ScorecardPage() {
           </div>
           <ScorecardActivitiesComponent
             handleSubmitScorecard={handleSubmitScorecard}
-            userId={userId}
+            userId={user?.oid ? user?.oid : ""}
             selectableScorecards={selectableScorecards}
             selectableGolfCourses={selectableGolfCourses}
           />

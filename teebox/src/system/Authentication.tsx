@@ -23,9 +23,9 @@ export default function HomePage() {
       );
       if (response) return response;
       else return null;
-    } catch (error) {
+    } catch {
       console.error("Error getting user");
-      return error;
+      return null;
     }
   };
 
@@ -39,9 +39,9 @@ export default function HomePage() {
       );
       if (response) return response;
       else return null;
-    } catch (error) {
+    } catch {
       console.error("Error saving user");
-      return error;
+      return null;
     }
   };
 
@@ -54,7 +54,13 @@ export default function HomePage() {
         const buffer = unenvelope(encryptedUser);
         if (buffer) {
           const decryptedUser = await decrypt(buffer);
-          if (decryptedUser && Object.keys(decryptedUser)?.length > 0) {
+          if (
+            decryptedUser &&
+            typeof decryptedUser === "object" &&
+            !Array.isArray(decryptedUser) &&
+            !(decryptedUser instanceof Error) &&
+            Object.keys(decryptedUser)?.length > 0
+          ) {
             return decryptedUser as User;
           }
         }
@@ -94,6 +100,7 @@ export default function HomePage() {
       setUser(userToSet);
     } catch {
       console.error("Error setting user");
+      return null;
     }
   };
 
